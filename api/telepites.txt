@@ -1,0 +1,23 @@
+Maven letöltése
+https://maven.apache.org/download.cgi
+binary zip archive
+
+Valahova kicsomagolni
+Példa:G:\Maven\apache-maven-3.8.4
+Környezeti rendszer változók PATH hez G:\Maven\apache-maven-3.8.4\bin Hozzáadása
+
+Ha jól van telepítve nyiss egy command linet(cmd) és az mvn -v parancsal megnézheted hogy működik-e
+
+
+Java letöltése
+https://www.java.com/en/download/
+Java jre 8 letöltése
+
+Netbeans letöltése
+https://netbeans.apache.org/
+
+Netbeansben maven beállítása
+Netbeans elindítod -> fenti sorban Tools -> Options
+Options ablakban a fenti sorban -> Java -> Maven -> (Categories)Execution -> Maven Home beállítása ahova kicsomagoltad Pl.: G:\Maven\apache-maven-3.8.4
+
+Compile olni, elinditani a szervert a commands.txt be van
