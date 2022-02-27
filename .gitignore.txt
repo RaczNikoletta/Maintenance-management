@@ -1,1 +1,1 @@
-api/maintenance-manager/target/
+api/maintenance-management/target
