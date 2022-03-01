@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Maintenance manager</string>
+    <string name="workerName">WorkerName</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="LoginTv">Login</string>
+    <string name="UsernameTv">Username</string>
+    <string name="PasswordTv">Password</string>
+    <string name="SendBtn">Send</string>
+</resources>

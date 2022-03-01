@@ -4,15 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".addToolsFragment">
+    tools:context=".addWorkerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/addToolsTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Add tools"
+        android:text="New employee"
         android:textSize="25dp" />
 
     <TextView
@@ -32,7 +31,7 @@
         android:id="@+id/catTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Category" />
+        android:text="Position" />
 
     <EditText
         android:id="@+id/catEt"
@@ -45,7 +44,7 @@
         android:id="@+id/descTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description" />
+        android:text="Date of birth" />
 
     <EditText
         android:id="@+id/descEt"
@@ -54,17 +53,11 @@
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/placeTv"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Place" />
-
-    <EditText
-        android:id="@+id/placeEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_gravity="center"
+        android:text="Button" />
 
 </LinearLayout>

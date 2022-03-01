@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">maintenance_manager_android</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="workerName">WorkerName</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">Karbantartás kezelő</string>
+    <string name="workerName">Munkavállaló neve</string>
+    <string name="navigation_drawer_open">Navigációs fül kinyitása</string>
+    <string name="navigation_drawer_close">Navigációs fül bezárása</string>
+    <string name="LoginTv">Belépés</string>
+    <string name="UsernameTv">Felhasználónév</string>
+    <string name="PasswordTv">Jelszó</string>
+    <string name="SendBtn">Küldés</string>
 
 </resources>
