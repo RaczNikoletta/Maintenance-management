@@ -7,5 +7,11 @@
     <string name="UsernameTv">Felhasználónév</string>
     <string name="PasswordTv">Jelszó</string>
     <string name="SendBtn">Küldés</string>
+    <string name="CheckTools">Eszközök megtekintése</string>
+    <string name="Message">Üzenet</string>
+    <string name="AddTools">Eszközök hozzáadása</string>
+    <string name="Share">Megosztás</string>
+    <string name="Send">Küldés</string>
+    <string name="Communicate">Kommunikáció</string>
 
 </resources>

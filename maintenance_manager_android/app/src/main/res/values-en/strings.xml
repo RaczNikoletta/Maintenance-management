@@ -8,4 +8,10 @@
     <string name="UsernameTv">Username</string>
     <string name="PasswordTv">Password</string>
     <string name="SendBtn">Send</string>
+    <string name="CheckTools">Check tools</string>
+    <string name="Message">Message</string>
+    <string name="AddTools">Add tools</string>
+    <string name="Share">Share</string>
+    <string name="Send">Send</string>
+    <string name="Communicate">Communicate</string>
 </resources>

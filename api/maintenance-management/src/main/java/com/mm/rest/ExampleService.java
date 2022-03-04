@@ -64,8 +64,8 @@ public class ExampleService {
     public Response getJson3() {
         ObjectNode json = mapper.createObjectNode();
         
-        json.put("example key", "example data");
-        json.put("example key2", "123");
+        json.put("example_key", "example_data");
+        json.put("example_key2", "123");
         
         return Response.status(Response.Status.OK).entity(json.toString()).build();
     }

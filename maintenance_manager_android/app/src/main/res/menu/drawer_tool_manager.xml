@@ -6,21 +6,24 @@
         <item
             android:id="@+id/nav_message"
             android:icon="@drawable/ic_message"
-            android:title="Message" />
+            android:title="@string/Message" />
         <item android:id="@+id/nav_manage"
             android:icon="@drawable/ic_baseline_add_24"
-            android:title="Add tools" />
+            android:title="@string/AddTools" />
+        <item android:id="@+id/nav_check"
+            android:icon="@drawable/ic_search_tools"
+            android:title="@string/CheckTools" />
     </group>
-    <item android:title="Communicate">
+    <item android:title="@string/Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_share"
-                android:title="Share" />
+                android:title="@string/Share" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_send"
-                android:title="Send" />
+                android:title="@string/Send" />
         </menu>
     </item>
 </menu>
