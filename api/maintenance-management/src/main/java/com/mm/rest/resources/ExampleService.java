@@ -3,22 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mm.rest;
+package com.mm.rest.resources;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mm.rest.Example;
+import com.mm.rest.UserContent;
+import com.mm.rest.db.DbConnection;
+import com.mm.rest.managers.TestManager;
+import com.mm.rest.models.TestModel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
+import java.util.List;
 
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -30,6 +45,8 @@ import javax.ws.rs.core.Response;
 @Path("/example")
 public class ExampleService {
     private static final ObjectMapper mapper = new ObjectMapper();
+    //private static final Connection con = DbConnection.getConnection();
+    private static final TestManager tm = new TestManager();
     
     // http://localhost:8080/api/example/ex/123
     @GET
@@ -45,6 +62,95 @@ public class ExampleService {
     @Produces(MediaType.TEXT_PLAIN)
     public String getJsonString() {
       return new Example(1,"Example1").toString();
+    }
+    
+    // http://localhost:8080/api/example/mysql
+    /*@GET
+    @Path("/mysql")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getMysql() {
+        if(con == null) return "Error";
+        
+        try {    
+            String resString = "";
+            Statement selectStmt = con.createStatement();
+            ResultSet rs = selectStmt.executeQuery("SELECT * FROM testtable");
+            while(rs.next()){
+                resString += rs.getInt(1) + "|";
+                resString += rs.getString(2) + "|";
+                resString += rs.getString(3) + "|";
+                resString += rs.getString(4) + "\r\n";
+                System.out.print(rs.getInt(1) + "|");  //First Column
+                System.out.print(rs.getString(2) + "|");  //Second Column
+                System.out.print(rs.getString(3) + "|");  //Third Column
+                System.out.print(rs.getString(4));  //Fourth Column
+                System.out.println();
+            }
+            
+            return resString;
+        } catch (SQLException ex) {
+            Logger.getLogger(ExampleService.class.getName()).log(Level.SEVERE, null, ex);
+            return "SQL Exception Error";
+        }
+    }*/
+    
+    // http://localhost:8080/api/example/all
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHibernateAll() {
+        
+        ObjectNode vendor1 = mapper.createObjectNode();
+        
+        ArrayNode arrayNode1 = mapper.createArrayNode();
+        
+        List<TestModel> lt = tm.query();
+        for(TestModel tItem:lt){
+            arrayNode1.add(mapper.valueToTree(tItem));
+        }
+
+        vendor1.set("Array", arrayNode1);
+        
+        return Response.status(Response.Status.OK).entity(vendor1.toString()).build();
+        
+    }
+    
+    // http://localhost:8080/api/example/add-user
+    @POST
+    @Path("/adduser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addUser(UserContent user) {
+        ObjectNode resp = mapper.createObjectNode();
+        //User user = new User("dsadsa","dsadsa","dsadsa");
+        try{
+            System.out.println(user.getName());
+            System.out.println(user.getKepzes());
+            System.out.println(user.getPassword());
+
+            boolean success = tm.create(user);
+            resp.put("success", success);
+
+            return Response.status(Response.Status.OK).entity(resp.toString()).build();
+        }catch(Exception ex){
+            System.out.println(ex);
+            resp.put("success", false);
+            return Response.status(Response.Status.OK).entity(resp.toString()).build();
+        }
+    }
+    
+    @POST
+    @Path("addtest")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addTest(UserContent user) {
+        System.out.println("Do I even get here???");
+        ObjectNode resp = mapper.createObjectNode();
+        try{
+            resp.put("success", mapper.valueToTree(user));
+            return Response.status(Response.Status.OK).entity(resp.toString()).build();
+        }catch(Exception ex){
+            return Response.status(Response.Status.OK).entity(resp.toString()).build();
+        }
+        
     }
     
     // http://localhost:8080/api/example/jsonresponse
@@ -149,4 +255,5 @@ public class ExampleService {
         
         return Response.status(Response.Status.OK).entity(vendor1.toString()).build();
     }
+    
 }
