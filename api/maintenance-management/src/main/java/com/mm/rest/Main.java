@@ -6,6 +6,13 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main class.
@@ -38,6 +45,34 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         final HttpServer server = startServer();
+        
+        //JOIN TO MYSQL SERVER
+        // test is the database we are connecting to
+        /*String url = "jdbc:mysql://localhost:3306/test";
+        String user = "root";
+        String password = "";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection(url,user,password);
+            System.out.println("Connection successfull on url: " + url);
+            
+            Statement selectStmt = connection.createStatement();
+            ResultSet rs = selectStmt.executeQuery("SELECT * FROM testtable");
+            while(rs.next()){
+              System.out.print(rs.getInt(1) + "|");  //First Column
+              System.out.print(rs.getString(2) + "|");  //Second Column
+              System.out.print(rs.getString(3) + "|");  //Third Column
+              System.out.print(rs.getString(4));  //Fourth Column
+              System.out.println();
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
+        
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
         System.in.read();

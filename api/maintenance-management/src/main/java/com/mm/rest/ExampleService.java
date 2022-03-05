@@ -10,10 +10,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mm.rest.db.DbConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,7 +37,7 @@ import javax.ws.rs.core.Response;
 @Path("/example")
 public class ExampleService {
     private static final ObjectMapper mapper = new ObjectMapper();
-    
+    private static final Connection con = DbConnection.getConnection();
     // http://localhost:8080/api/example/ex/123
     @GET
     @Path("/ex/{id}")
@@ -45,6 +52,36 @@ public class ExampleService {
     @Produces(MediaType.TEXT_PLAIN)
     public String getJsonString() {
       return new Example(1,"Example1").toString();
+    }
+    
+    // http://localhost:8080/api/example/mysql
+    @GET
+    @Path("/mysql")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getMysql() {
+        if(con == null) return "Error";
+        
+        try {    
+            String resString = "";
+            Statement selectStmt = con.createStatement();
+            ResultSet rs = selectStmt.executeQuery("SELECT * FROM testtable");
+            while(rs.next()){
+                resString += rs.getInt(1) + "|";
+                resString += rs.getString(2) + "|";
+                resString += rs.getString(3) + "|";
+                resString += rs.getString(4) + "\r\n";
+               /* System.out.print(rs.getInt(1) + "|");  //First Column
+                System.out.print(rs.getString(2) + "|");  //Second Column
+                System.out.print(rs.getString(3) + "|");  //Third Column
+                System.out.print(rs.getString(4));  //Fourth Column
+                System.out.println();*/
+            }
+            
+            return resString;
+        } catch (SQLException ex) {
+            Logger.getLogger(ExampleService.class.getName()).log(Level.SEVERE, null, ex);
+            return "SQL Exception Error";
+        }
     }
     
     // http://localhost:8080/api/example/jsonresponse
