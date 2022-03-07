@@ -5,6 +5,9 @@
  */
 package com.mm.rest.resources;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -13,13 +16,18 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mm.rest.Example;
 import com.mm.rest.UserContent;
 import com.mm.rest.db.DbConnection;
-import com.mm.rest.managers.TestManager;
+import com.mm.rest.filter.JwtTokenNeeded;
+import com.mm.rest.helper.JwtProperties;
+import com.mm.rest.service.TestService;
 import com.mm.rest.models.TestModel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import java.util.Optional;
@@ -34,8 +42,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.mindrot.jbcrypt.BCrypt;
+import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 /**
  *
@@ -43,10 +55,10 @@ import javax.ws.rs.core.Response;
  */
 // http://localhost:8080/api/example
 @Path("/example")
-public class ExampleService {
+public class ExampleResource {
     private static final ObjectMapper mapper = new ObjectMapper();
     //private static final Connection con = DbConnection.getConnection();
-    private static final TestManager tm = new TestManager();
+    private static final TestService tm = new TestService();
     
     // http://localhost:8080/api/example/ex/123
     @GET
@@ -89,7 +101,7 @@ public class ExampleService {
             
             return resString;
         } catch (SQLException ex) {
-            Logger.getLogger(ExampleService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ExampleResource.class.getName()).log(Level.SEVERE, null, ex);
             return "SQL Exception Error";
         }
     }*/
@@ -141,6 +153,7 @@ public class ExampleService {
     @POST
     @Path("addtest")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response addTest(UserContent user) {
         System.out.println("Do I even get here???");
         ObjectNode resp = mapper.createObjectNode();
@@ -151,6 +164,86 @@ public class ExampleService {
             return Response.status(Response.Status.OK).entity(resp.toString()).build();
         }
         
+    }
+    
+    @GET
+    @Path("bcrypt/{password}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBcrypt(@PathParam("password") String password) {
+        System.out.println("Do I even get here???");
+        ObjectNode resp = mapper.createObjectNode();
+        //mapper.valueToTree(password)
+        resp.put("plain password", password);
+        
+        String hashedPw = BCrypt.hashpw(password, BCrypt.gensalt());
+        resp.put("hashed password", hashedPw);
+        
+        resp.put("hashed password is password just hashed(True)", BCrypt.checkpw(password, hashedPw));
+        resp.put("hashed password is password just hashed(False)", BCrypt.checkpw("This should fail tho", hashedPw));
+        
+        return Response.status(Response.Status.OK).entity(resp.toString()).build();
+        
+    }
+    
+    @GET
+    @Path("jwt")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getJwt() {
+        System.out.println("Do I even get here???");
+        ObjectNode resp = mapper.createObjectNode();
+        //mapper.valueToTree(password)
+        //resp.put("plain password", password);
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            String token = JWT.create()
+                .withIssuer("auth0")
+                .withExpiresAt(toDate(LocalDateTime.now().plusMinutes(5)))
+                .withClaim("id", 1)
+                .withClaim("role","admin")
+                .sign(algorithm);
+            resp.put("JWT", token);
+            return Response.status(Response.Status.OK).header(AUTHORIZATION, "Bearer " + token).entity(resp.toString()).build();
+        } catch (JWTCreationException exception){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
+    
+    @GET
+    @Path("jwtquick")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getJwtQuick() {
+        System.out.println("Do I even get here???");
+        ObjectNode resp = mapper.createObjectNode();
+        //mapper.valueToTree(password)
+        //resp.put("plain password", password);
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            String token = JWT.create()
+                .withIssuer("auth0")
+                .withExpiresAt(toDate(LocalDateTime.now().plusMinutes(1)))
+                .withClaim("id", 1)
+                .withClaim("role","admin")
+                .sign(algorithm);
+            resp.put("JWT", token);
+            return Response.status(Response.Status.OK).header(AUTHORIZATION, "Bearer " + token).entity(resp.toString()).build();
+        } catch (JWTCreationException exception){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
+    
+    @GET
+    @Path("jwtneeded")
+    @JwtTokenNeeded
+    public Response getJwtNeeded(@Context HttpHeaders httpheaders) {
+        ObjectNode resp = mapper.createObjectNode();
+        JwtProperties jwt = new JwtProperties(httpheaders.getHeaderString("id"),httpheaders.getHeaderString("role"));
+        
+        resp.put("role",jwt.getRole());
+        resp.put("id",jwt.getId());
+        
+        return Response.status(Response.Status.OK).entity(resp.toString()).build();
     }
     
     // http://localhost:8080/api/example/jsonresponse
@@ -256,4 +349,7 @@ public class ExampleService {
         return Response.status(Response.Status.OK).entity(vendor1.toString()).build();
     }
     
+    private Date toDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
 }
