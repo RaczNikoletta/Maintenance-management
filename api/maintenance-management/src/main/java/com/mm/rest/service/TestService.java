@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mm.rest.managers;
+package com.mm.rest.service;
 
 import com.mm.rest.UserContent;
 import com.mm.rest.db.DbConnection;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author david
  */
-public class TestManager {
+public class TestService {
     static EntityManagerFactory factory;
     static EntityManager entityManager;
     
@@ -74,6 +74,9 @@ public class TestManager {
         
         Query query = entityManager.createQuery(jquery);
         List<TestModel> listTM = query.getResultList();
+        
+        
+        
         close();
         
         return listTM;

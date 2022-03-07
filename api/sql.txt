@@ -1,0 +1,56 @@
+CREATE TABLE IF NOT EXISTS `kepesites` (
+    `kepesites_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `kepesites_nev` VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS `kategoria` (
+    `kategoria_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `kateg_nev` VARCHAR(255),
+    `javitas_intervallum` DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS `alkategoria` (
+    `alkategoria_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `kategoria_id` INT,
+    `alkatnev` VARCHAR(255),
+    `kepesites_id` INT,
+    `norma_ido` INT,
+    `utasitas` VARCHAR(9048),
+    FOREIGN KEY (kategoria_id) REFERENCES kategoria(kategoria_id),
+    FOREIGN KEY (kepesites_id) REFERENCES kepesites(kepesites_id)
+);
+
+CREATE TABLE IF NOT EXISTS `eszkozok` (
+    `eszkoz_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `alkategoria_id` INT,
+    `eszkoznev` VARCHAR(255),
+    `helyszin` VARCHAR(255),
+    `leiras` VARCHAR(255),
+    `hibas` BOOLEAN,
+    `utasitas` VARCHAR(9048),
+    `kov_javitas` DATETIME,
+    FOREIGN KEY (alkategoria_id) REFERENCES alkategoria(alkategoria_id)
+);
+
+CREATE TABLE IF NOT EXISTS `szakember`(
+    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `felhasznalonev` VARCHAR(255),
+    `nev` VARCHAR(255),
+	`szerep` ENUM('admin', 'karbantarto', 'eszkozfelelos', 'operator'),
+    `jelszo` VARCHAR(255),
+    `munkaido` INT,
+    `kepesites_id` INT,
+    FOREIGN KEY (kepesites_id) REFERENCES kepesites(kepesites_id)
+);
+
+CREATE TABLE IF NOT EXISTS `feladatok` (
+    `feladat_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `eszkoz_id` INT,
+    `szakember_id` INT,
+    `allapot` ENUM('kiosztva', 'elfogadott', 'elutasitott', 'elkezdve', 'befejezve'),
+    `indok` VARCHAR(255),
+    `elkezdve` DATETIME,
+    `befejezve` DATETIME,
+    FOREIGN KEY (eszkoz_id) REFERENCES eszkozok(eszkoz_id),
+    FOREIGN KEY (szakember_id) REFERENCES szakember(id)
+);

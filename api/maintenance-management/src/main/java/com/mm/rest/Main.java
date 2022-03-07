@@ -1,24 +1,14 @@
 package com.mm.rest;
 
-import com.mm.rest.models.TestModel;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
+import com.mm.rest.resources.ExampleResource;
+import com.mm.rest.resources.JsonResource;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 /**
  * Main class.
@@ -37,7 +27,14 @@ public class Main {
         // in com.mm.rest.resources package
         // cmd-be: mvn clean compile
         // cmd-be: mvn exec:java
-        final ResourceConfig rc = new ResourceConfig().packages("com.mm.rest.resources");
+        final ResourceConfig rc = new ResourceConfig();
+        rc.packages("com.mm.rest");
+        //rc.packages("com.mm.rest.filter");
+        /*rc.register(ExampleResource.class);
+        rc.register(JsonResource.class);*/
+        rc.register(JacksonFeature.class);
+        //rc.property("TRACING", "ALL");
+                                                      
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
