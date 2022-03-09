@@ -6,7 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,41 +23,28 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private TextView textViewResult;
+    private Boolean isLogged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        //drawer = findViewById(R.id.drawer_layout);
-        textViewResult = findViewById(R.id.textViewResult);
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-        //drawer.addDrawerListener(toggle);
-        //toggle.syncState();
+        isLogged = false;
+        drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        //for java server
-        try {
-
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.0.2.2:8080/api/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-
-        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-
-        }catch (Throwable e){
-            textViewResult.setText(e.toString());
+        if(isLogged!= true){
+            Intent i = new Intent(this,loginActivity.class);
+            startActivity(i);
         }
-
-        getPosts();
-
     }
 
-    private void getPosts(){
+    /*private void getPosts(){
         Call<Post> call = jsonPlaceHolderApi.getPosts();
 
 
@@ -86,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
