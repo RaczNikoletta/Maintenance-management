@@ -1,20 +1,18 @@
 package com.example.maintenance_manager_android;
 
-import android.os.Bundle;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class addWorkerFragment extends Fragment {
+public class addUsersFragment extends Fragment {
 
-
-    public addWorkerFragment() {
+    public addUsersFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +23,11 @@ public class addWorkerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_worker, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_worker, container,false);
+        setRetainInstance(true); // to enable changing orientation of the mobile
+
+
+
+        return view;
     }
 }

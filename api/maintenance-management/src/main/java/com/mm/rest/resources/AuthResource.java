@@ -55,14 +55,14 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
  *
  * @author david
  */
-// http://localhost:8080/api/example
+// http://localhost:8080/api/
 @Path("/auth")
 public class AuthResource {
     private static final ObjectMapper mapper = new ObjectMapper();
     //private static final Connection con = DbConnection.getConnection();
     private static final AuthService as = new AuthService();
     
-    // http://localhost:8080/api/example/add-user
+    // http://localhost:8080/api/auth/login
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
@@ -80,11 +80,12 @@ public class AuthResource {
         }
     }
     
-    // http://localhost:8080/api/example/add-user
+    // http://localhost:8080/api/auth/create
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createAdmin(@QueryParam("fnev") String fnev,@QueryParam("nev") String nev,@QueryParam("password") String password,@QueryParam("szerep") String szerep) {
+    public Response createAdmin(@QueryParam("fnev") String fnev,@QueryParam("nev") String nev,
+@QueryParam("password") String password,@QueryParam("szerep") String szerep) {
         ObjectNode resp = mapper.createObjectNode();
         //User user = new User("dsadsa","dsadsa","dsadsa");
         try{

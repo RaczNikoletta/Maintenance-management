@@ -2,6 +2,8 @@ package com.example.maintenance_manager_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +23,14 @@ public class loginActivity extends AppCompatActivity {
     private EditText usernameEt;
     private EditText passwordEt;
     private Button sendBtn;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        context = this;
         textViewResult = findViewById(R.id.textViewResult);
         usernameEt = findViewById(R.id.usernameEt);
         passwordEt = findViewById(R.id.passwordEt);
@@ -52,6 +56,8 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 login(usernameEt.getText().toString(),passwordEt.getText().toString());
+                Intent i = new Intent(context,adminMenu.class);
+                startActivity(i);
             }
         });
 
@@ -77,11 +83,15 @@ public class loginActivity extends AppCompatActivity {
                 content += "Password: "+ loginresponse.getPassword() + "\n";
 
                 textViewResult.setText(content);
-            }
 
+                Intent i = new Intent(context,adminMenu.class);
+                startActivity(i);
+            }
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
                 textViewResult.setText(t.toString());
+                Intent i = new Intent(context,adminMenu.class);
+                startActivity(i);
 
             }
         });

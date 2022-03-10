@@ -1,5 +1,7 @@
 package com.example.maintenance_manager_android;
 
+import android.util.Log;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +23,7 @@ public interface JsonPlaceHolderApi {
     @POST("auth/login")
     Call<LoginModel>loginuser(@Body LoginModel login);
 
-    @POST("auth/")
+    //@POST("auth/")
 
     //@POST("auth/create")
     //Call<createUser

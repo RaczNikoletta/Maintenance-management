@@ -13,5 +13,8 @@
     <string name="AddTools">Add tools</string>
     <string name="Share">Share</string>
     <string name="Send">Send</string>
+    <string name="Position">Position</string>
     <string name="Communicate">Communicate</string>
+    <string name="Date_of_birth">Date of birth</string>
+    <string name="New_employee">New employee</string>
 </resources>

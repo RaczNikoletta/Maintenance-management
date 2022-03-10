@@ -36,4 +36,5 @@ public class addToolsFragment extends Fragment {
 
         return view;
     }
+
 }

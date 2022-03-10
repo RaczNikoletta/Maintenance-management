@@ -13,5 +13,8 @@
     <string name="Share">Megosztás</string>
     <string name="Send">Küldés</string>
     <string name="Communicate">Kommunikáció</string>
+    <string name="Position">Pozíció</string>
+    <string name="Date_of_birth">Születési idő</string>
+    <string name="New_employee">Új munkavállaló</string>
 
 </resources>

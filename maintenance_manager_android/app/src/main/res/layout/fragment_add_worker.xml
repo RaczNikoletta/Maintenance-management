@@ -10,15 +10,29 @@
         android:id="@+id/addToolsTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:gravity="center_horizontal"
-        android:text="New employee"
+        android:text="@string/New_employee"
         android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/UsernameTv" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Name" />
+        android:text="Név" />
 
     <EditText
         android:id="@+id/nameEt"
@@ -28,10 +42,23 @@
         android:inputType="textPersonName" />
 
     <TextView
+        android:id="@+id/passwordTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/PasswordTv" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
         android:id="@+id/catTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Position" />
+        android:text="@string/Position" />
 
     <EditText
         android:id="@+id/catEt"
@@ -44,7 +71,7 @@
         android:id="@+id/descTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Date of birth" />
+        android:text="@string/Date_of_birth" />
 
     <EditText
         android:id="@+id/descEt"
@@ -54,10 +81,10 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/sendWorkerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Button" />
+        android:text="@string/SendBtn" />
 
 </LinearLayout>
