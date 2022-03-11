@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,8 +60,8 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 login(usernameEt.getText().toString(),passwordEt.getText().toString());
-                Intent i = new Intent(context,adminMenu.class);
-                startActivity(i);
+                //Intent i = new Intent(context,adminMenu.class);
+                //startActivity(i);
             }
         });
 
@@ -66,7 +70,11 @@ public class loginActivity extends AppCompatActivity {
     private void login(String username,String password){
         LoginModel login = new LoginModel(username,password);
 
-        Call<LoginModel> call = jsonPlaceHolderApi.loginuser(login);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("username",username );
+        jsonObject.addProperty("password", password);
+
+        Call<LoginModel> call = jsonPlaceHolderApi.loginuser(jsonObject);
 
         call.enqueue(new Callback<LoginModel>() {
             @Override
@@ -76,22 +84,20 @@ public class loginActivity extends AppCompatActivity {
                     return;
                 }
 
-                LoginModel loginresponse = response.body();
+                String jsonString = response.message();
+                if(jsonString.equals("OK")){
+                    Intent i = new Intent(context,MainActivity.class);
+                    startActivity(i);
+                }
 
-                String content = "";
-                content += "Username: "+ loginresponse.getUsername() + "\n";
-                content += "Password: "+ loginresponse.getPassword() + "\n";
+                textViewResult.setText(jsonString);
 
-                textViewResult.setText(content);
-
-                Intent i = new Intent(context,adminMenu.class);
-                startActivity(i);
             }
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
                 textViewResult.setText(t.toString());
-                Intent i = new Intent(context,adminMenu.class);
-                startActivity(i);
+                //Intent i = new Intent(context,adminMenu.class);
+                //startActivity(i);
 
             }
         });

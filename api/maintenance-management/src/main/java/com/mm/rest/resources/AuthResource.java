@@ -99,6 +99,7 @@ public class AuthResource {
             return Response.status(Response.Status.OK).entity(resp.toString()).build();
         }catch(Exception ex){
             System.out.println(ex);
+            System.out.println("valami");
             resp.put("success", false);
             return Response.status(Response.Status.OK).entity(resp.toString()).build();
         }

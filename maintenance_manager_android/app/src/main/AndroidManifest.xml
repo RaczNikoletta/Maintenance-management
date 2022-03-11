@@ -17,10 +17,10 @@
             android:name=".adminMenu"
             android:exported="false" />
         <activity
-            android:name=".loginActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".loginActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>

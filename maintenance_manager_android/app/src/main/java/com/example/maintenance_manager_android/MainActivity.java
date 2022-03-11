@@ -38,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        if(isLogged!= true){
-            Intent i = new Intent(this,loginActivity.class);
-            startActivity(i);
-        }
     }
 
     /*private void getPosts(){

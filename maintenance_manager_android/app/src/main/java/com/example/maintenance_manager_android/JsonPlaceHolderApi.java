@@ -2,6 +2,8 @@ package com.example.maintenance_manager_android;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,7 +23,7 @@ public interface JsonPlaceHolderApi {
     //Call<List<Comment>> getComments(@Path("id") int postId);
 
     @POST("auth/login")
-    Call<LoginModel>loginuser(@Body LoginModel login);
+    Call<LoginModel>loginuser(@Body JsonObject jsonObject);
 
     //@POST("auth/")
 
