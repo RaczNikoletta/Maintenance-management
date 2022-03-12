@@ -27,8 +27,8 @@ import javax.ws.rs.container.PreMatching;
  * @author david
  */
 @Provider
-@JwtTokenNeeded
-public class JwtTokenNeededFilter implements ContainerRequestFilter{
+@JwtAdmin
+public class JwtAdminFilter implements ContainerRequestFilter{
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
@@ -52,8 +52,12 @@ public class JwtTokenNeededFilter implements ContainerRequestFilter{
                 .build();
             DecodedJWT jwt = verifier.verify(token);
             
-            requestContext.getHeaders().add("id", jwt.getClaim("id").asInt().toString());
-            requestContext.getHeaders().add("role", jwt.getClaim("role").asString());
+            if(jwt.getClaim("role").asString().equals(Constants.UserRoles.ADMIN)){
+                requestContext.getHeaders().add("id", jwt.getClaim("id").asInt().toString());
+                requestContext.getHeaders().add("role", jwt.getClaim("role").asString());
+            }else{
+                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("You are not authorized to reach this endpoint").build());
+            }
         } catch (JWTVerificationException exception) {
             //System.out.println("#### invalid token : " + token);
             requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity("Invalid Json Web Token(JWT) in Authorization header").build());

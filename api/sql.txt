@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `kepesites` (
 CREATE TABLE IF NOT EXISTS `kategoria` (
     `kategoria_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `kateg_nev` VARCHAR(255),
-    `javitas_intervallum` DATETIME
+    `javitas_intervallum` INT
 );
 
 CREATE TABLE IF NOT EXISTS `alkategoria` (

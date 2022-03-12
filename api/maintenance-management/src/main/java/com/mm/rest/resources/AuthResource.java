@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mm.rest.Example;
 import com.mm.rest.UserContent;
 import com.mm.rest.db.DbConnection;
+import com.mm.rest.exceptions.ServiceException;
 import com.mm.rest.filter.JwtTokenNeeded;
 import com.mm.rest.helper.JwtProperties;
 import com.mm.rest.service.TestService;
@@ -55,7 +56,7 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
  *
  * @author david
  */
-// http://localhost:8080/api/
+// http://localhost:8080/api/auth
 @Path("/auth")
 public class AuthResource {
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -66,46 +67,44 @@ public class AuthResource {
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(LoginModel login) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response loginUser(LoginModel login) {
         try{
-            /*System.out.println(login.getUsername());
-            System.out.println(login.getPassword());*/
-
             Response success = as.login(login.getUsername(),login.getPassword());
 
             return success;
-        }catch(Exception ex){
+            
+        }catch(ServiceException ex){
             System.out.println(ex);
-            return Response.status(Response.Status.OK).entity("Error").build();
+            switch(ex.getCode()){
+                case "jwt":return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getMessage()).build();
+                case "password":return Response.status(Response.Status.FORBIDDEN).entity(ex.getMessage()).build();
+                case "database":return Response.status(Response.Status.FORBIDDEN).entity(ex.getMessage()).build();
+                default:return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(ex.getCode()).build();
+            }
         }
     }
     
+    //Átmenetileg még jó, teszt adatok feltöltéséhez
     // http://localhost:8080/api/auth/create
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createAdmin(@QueryParam("fnev") String fnev,@QueryParam("nev") String nev,
+    public Response createUser(@QueryParam("fnev") String fnev,@QueryParam("nev") String nev,
 @QueryParam("password") String password,@QueryParam("szerep") String szerep) {
-        ObjectNode resp = mapper.createObjectNode();
-        //User user = new User("dsadsa","dsadsa","dsadsa");
+        //ObjectNode resp = mapper.createObjectNode();
         try{
-            boolean success = as.createAdmin(fnev, nev, password, szerep);
-            resp.put("success", success);
-            resp.put("fnev", fnev);
-            resp.put("nev", nev);
-            resp.put("password", password);
-            resp.put("szerep", szerep);
+            Response success = as.createUser(fnev, nev, password, szerep);
 
-            return Response.status(Response.Status.OK).entity(resp.toString()).build();
-        }catch(Exception ex){
+            return success;
+        }catch(ServiceException ex){
             System.out.println(ex);
             System.out.println("valami");
-            resp.put("success", false);
-            return Response.status(Response.Status.OK).entity(resp.toString()).build();
+            switch(ex.getCode()){
+                case "database":return Response.status(Response.Status.EXPECTATION_FAILED).entity(ex.getMessage()).build();
+                default:return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(ex.getCode()).build();
+            }
         }
     }
     
-    private Date toDate(LocalDateTime localDateTime) {
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-    }
 }
