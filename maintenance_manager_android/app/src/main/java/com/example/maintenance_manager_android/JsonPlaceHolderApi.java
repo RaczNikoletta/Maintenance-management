@@ -23,7 +23,7 @@ public interface JsonPlaceHolderApi {
     //Call<List<Comment>> getComments(@Path("id") int postId);
 
     @POST("auth/login")
-    Call<LoginModel>loginuser(@Body JsonObject jsonObject);
+    Call<LoginResponse>loginuser(@Body JsonObject jsonObject);
 
     //@POST("auth/")
 

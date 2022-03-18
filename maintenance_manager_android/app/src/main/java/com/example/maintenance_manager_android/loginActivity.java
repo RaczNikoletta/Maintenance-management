@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,12 +29,15 @@ public class loginActivity extends AppCompatActivity {
     private EditText passwordEt;
     private Button sendBtn;
     private Context context;
+    private SessionManager sessionManager;
+    private LoginResponse loginResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        sessionManager = new SessionManager();
         context = this;
         textViewResult = findViewById(R.id.textViewResult);
         usernameEt = findViewById(R.id.usernameEt);
@@ -68,33 +72,36 @@ public class loginActivity extends AppCompatActivity {
     }
 
     private void login(String username,String password){
-        LoginModel login = new LoginModel(username,password);
+        sessionManager.setShared(this);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("username",username );
         jsonObject.addProperty("password", password);
 
-        Call<LoginModel> call = jsonPlaceHolderApi.loginuser(jsonObject);
+        Call<LoginResponse> call = jsonPlaceHolderApi.loginuser(jsonObject);
 
-        call.enqueue(new Callback<LoginModel>() {
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(!response.isSuccessful()){
                     textViewResult.setText("Code: " + response.code());
                     return;
                 }
-
+                loginResponse = response.body();
                 String jsonString = response.message();
                 if(jsonString.equals("OK")){
+                    sessionManager.saveAuthToken(loginResponse.aut_token);
                     Intent i = new Intent(context,MainActivity.class);
                     startActivity(i);
                 }
+                else {
 
-                textViewResult.setText(jsonString);
+                    textViewResult.setText(jsonString);
+                }
 
             }
             @Override
-            public void onFailure(Call<LoginModel> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 textViewResult.setText(t.toString());
                 //Intent i = new Intent(context,adminMenu.class);
                 //startActivity(i);

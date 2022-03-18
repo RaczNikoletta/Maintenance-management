@@ -14,9 +14,6 @@
         android:theme="@style/Theme.Maintenance_manager_android"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name=".adminMenu"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

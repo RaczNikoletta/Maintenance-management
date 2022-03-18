@@ -17,4 +17,6 @@
     <string name="Communicate">Communicate</string>
     <string name="Date_of_birth">Date of birth</string>
     <string name="New_employee">New employee</string>
+    <string name="Manage_accounts">Manage accounts</string>
+    <string name="Manage_professions">Manage professions</string>
 </resources>

@@ -16,5 +16,7 @@
     <string name="Position">Pozíció</string>
     <string name="Date_of_birth">Születési idő</string>
     <string name="New_employee">Új munkavállaló</string>
+    <string name="Manage_accounts">Felhasználók kezelése</string>
+    <string name="Manage_professions">Képzettségek kezelése</string>
 
 </resources>
