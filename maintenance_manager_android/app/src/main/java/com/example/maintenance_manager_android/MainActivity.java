@@ -35,8 +35,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private JsonPlaceHolderApi jsonPlaceHolderApi;
-    private TextView textViewResult;
     private Boolean isLogged;
     private String role;
     private Context context;
@@ -97,63 +95,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("adduse", "I am here");
-        switch (item.getItemId()) {
-            case R.id.nav_manage:
-                try {
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragment_container, new addUsersFragment(), "");
-                    Log.d("adduse", "I am here");
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                } catch (Throwable e) {
-                    Log.d("Fragment change error ", e.toString());
-                }
-                break;
-            case R.id.nav_manage_professions:
-                break;
-            default:
-                Log.d("adduse", "I am here");
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /*private void getPosts(){
-        Call<Post> call = jsonPlaceHolderApi.getPosts();
-
-
-        call.enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-
-                if(!response.isSuccessful()){
-                    textViewResult.setText("Code: " + response.code());
-                    return;
-                }
-
-
-                String key = response.body().getKey();
-                String key2 = response.body().getKey2();
-
-                String content = "";
-                content += key;
-                content += " ";
-                content += key2;
-                textViewResult.append(content);
-                }
-
-
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
-            }
-        });
-
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -175,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     FragmentManager manager = getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragment_container, new addUsersFragment(), "");
-                    Log.d("adduse", "I am here");
                     transaction.addToBackStack(null);
                     transaction.commit();
                 } catch (Throwable e) {
@@ -185,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_manage_professions:
                 break;
             default:
-                Log.d("adduse", "I am here");
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

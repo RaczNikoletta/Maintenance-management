@@ -18,5 +18,13 @@
     <string name="New_employee">Új munkavállaló</string>
     <string name="Manage_accounts">Felhasználók kezelése</string>
     <string name="Manage_professions">Képzettségek kezelése</string>
+    <string name="First_name">Keresztnév</string>
+    <string name="Last_name">Vezetéknév</string>
+    <string name="Logout">Kilépés</string>
+    <string name="databaseUpdated">Adatbázis frissült</string>
+    <string name="databaseUpdated2">Adatbázis sikeresen frissült!</string>
+    <string name="databaseError">Hiba!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -19,4 +19,10 @@
     <string name="New_employee">New employee</string>
     <string name="Manage_accounts">Manage accounts</string>
     <string name="Manage_professions">Manage professions</string>
+    <string name="First_name">First name</string>
+    <string name="Last_name">Last name</string>
+    <string name="Logout">Logout</string>
+    <string name="databaseUpdated">Database updated</string>
+    <string name="databaseUpdated2">Database updated successfully!</string>
+    <string name="databaseError">Error!</string>
 </resources>

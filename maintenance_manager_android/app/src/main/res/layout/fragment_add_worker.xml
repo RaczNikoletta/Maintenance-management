@@ -7,7 +7,7 @@
     tools:context=".addWorkerFragment">
 
     <TextView
-        android:id="@+id/addToolsTv"
+        android:id="@+id/addWorkerTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
@@ -22,7 +22,7 @@
         android:text="@string/UsernameTv" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/addNewWorkerusernameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -32,10 +32,22 @@
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Név" />
+        android:text="@string/Last_name" />
 
     <EditText
-        android:id="@+id/nameEt"
+        android:id="@+id/firstNameEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/First_name" />
+
+    <EditText
+        android:id="@+id/lastnameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -48,11 +60,12 @@
         android:text="@string/PasswordTv" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/newWorkerPasswordEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:password="true" />
 
     <TextView
         android:id="@+id/catTv"
@@ -61,20 +74,7 @@
         android:text="@string/Position" />
 
     <EditText
-        android:id="@+id/catEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/descTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Date_of_birth" />
-
-    <EditText
-        android:id="@+id/descEt"
+        android:id="@+id/positionEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

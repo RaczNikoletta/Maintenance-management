@@ -99,7 +99,6 @@ public class AuthResource {
             return success;
         }catch(ServiceException ex){
             System.out.println(ex);
-            System.out.println("valami");
             switch(ex.getCode()){
                 case "database":return Response.status(Response.Status.EXPECTATION_FAILED).entity(ex.getMessage()).build();
                 default:return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity(ex.getCode()).build();

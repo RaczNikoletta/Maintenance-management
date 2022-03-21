@@ -16,17 +16,15 @@ import retrofit2.http.Query;
 
 public interface JsonPlaceHolderApi {
 
-    @GET("example/jsonresponse2/") /*url is jsonplacholder.typicode.com/posts */
-    Call<Post> getPosts();
-
-    //@GET("posts/{id}/comments")
-    //Call<List<Comment>> getComments(@Path("id") int postId);
 
     @POST("auth/login")
     Call<LoginResponse>loginuser(@Body JsonObject jsonObject);
 
     //@POST("auth/")
 
-    //@POST("auth/create")
-    //Call<createUser
+    @POST("auth/create")
+    Call<createResponse> createUser(@Query("fnev")String username,
+                                    @Query("nev") String name,
+                                    @Query("password") String password,
+                                    @Query("szerep")String role);
 }
