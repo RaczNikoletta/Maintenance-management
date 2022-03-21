@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mm.rest.UserContent;
 import com.mm.rest.db.DbConnection;
 import com.mm.rest.db.auth.AuthDatabase;
-import com.mm.rest.db.equipment.EquipmentDatabase;
+import com.mm.rest.db.category.CategoryDatabase;
 import com.mm.rest.exceptions.DatabaseException;
 import com.mm.rest.exceptions.ServiceException;
 import com.mm.rest.helper.Constants;
