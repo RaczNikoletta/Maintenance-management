@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mm.rest.db.equipment;
+package com.mm.rest.db.category;
 
 import com.mm.rest.db.DbConnection;
 import com.mm.rest.models.equipment.CategoryModel;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author burkus
  */
-public class EquipmentDatabase {
+public class CategoryDatabase {
     public int addCategoryToDB(CategoryModel category) {
         Connection con = DbConnection.getConnection();
         if(con==null) return -1;
@@ -29,7 +29,7 @@ public class EquipmentDatabase {
             con.close();
             return temp;
         } catch (SQLException ex) {
-            Logger.getLogger(EquipmentDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryDatabase.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
     }
