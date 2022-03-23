@@ -16,13 +16,17 @@
     <string name="Position">Position</string>
     <string name="Communicate">Communicate</string>
     <string name="Date_of_birth">Date of birth</string>
-    <string name="New_employee">New employee</string>
-    <string name="Manage_accounts">Manage accounts</string>
-    <string name="Manage_professions">Manage professions</string>
+    <string name="Add_user">Add user</string>
+    <string name="Manage_accounts">Accounts</string>
+    <string name="Manage_professions">Professions</string>
     <string name="First_name">First name</string>
     <string name="Last_name">Last name</string>
     <string name="Logout">Logout</string>
     <string name="databaseUpdated">Database updated</string>
     <string name="databaseUpdated2">Database updated successfully!</string>
     <string name="databaseError">Error!</string>
+
+    <!--Fragment manage users -->
+    <string name="users">Users</string>
+    <string name="manage_users">Manage users</string>
 </resources>

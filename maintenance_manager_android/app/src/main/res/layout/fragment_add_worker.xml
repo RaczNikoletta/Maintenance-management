@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/adminbackground"
     android:orientation="vertical"
     tools:context=".addWorkerFragment">
 
@@ -10,81 +11,121 @@
         android:id="@+id/addWorkerTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center_horizontal"
-        android:text="@string/New_employee"
-        android:textSize="25dp" />
+        android:text="@string/Add_user"
+        android:textColor="@color/white"
+        android:textSize="28dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/UsernameTv" />
+        android:foregroundTint="@color/white"
+        android:text="@string/UsernameTv"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/addNewWorkerusernameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Last_name" />
+        android:text="@string/Last_name"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/firstNameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/First_name" />
+        android:text="@string/First_name"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/lastnameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/passwordTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/PasswordTv" />
+        android:text="@string/PasswordTv"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/newWorkerPasswordEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:password="true" />
+        android:password="true"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/catTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Position" />
+        android:text="@string/Position"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/positionEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/sendWorkerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/SendBtn" />
+        android:backgroundTint="@color/adminbackgrounddark"
+        android:text="@string/SendBtn"
+        android:textColor="@color/white" />
 
 </LinearLayout>

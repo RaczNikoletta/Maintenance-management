@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             Log.d("token", token);
             JWT jwt = new JWT(token);
             //TODO: add all roles when they are ready
-            switch (jwt.getClaim("role").asString()) {
+            role = jwt.getClaim("role").asString();
+            switch (role) {
                 case "admin":
                     Log.d("role", jwt.getClaim("role").asString());
                     //MenuInflater inflater = getMenuInflater();
@@ -83,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     Log.d("role", jwt.getClaim("role").asString());
                     navigationView.getMenu().clear();
                     navigationView.inflateMenu(R.menu.drawer_admin);
+                    FragmentManager manager = getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragment_container, new manageEmployees(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
 
 
@@ -110,22 +116,29 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_manage:
-                try {
+        if(role.equals("admin")) {
+            switch (item.getItemId()) {
+                case R.id.nav_manage:
+                    try {
+                        FragmentManager manager = getSupportFragmentManager();
+                        FragmentTransaction transaction = manager.beginTransaction();
+                        transaction.replace(R.id.fragment_container, new manageEmployees(), "");
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    } catch (Throwable e) {
+                        Log.d("Fragment change error ", e.toString());
+                    }
+                    break;
+                case R.id.nav_manage_professions:
+                    break;
+                default:
                     FragmentManager manager = getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.fragment_container, new addUsersFragment(), "");
+                    transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                     transaction.addToBackStack(null);
                     transaction.commit();
-                } catch (Throwable e) {
-                    Log.d("Fragment change error ", e.toString());
-                }
-                break;
-            case R.id.nav_manage_professions:
-                break;
-            default:
-                break;
+                    break;
+            }
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

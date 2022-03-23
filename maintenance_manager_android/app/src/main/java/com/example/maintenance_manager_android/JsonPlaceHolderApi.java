@@ -23,8 +23,5 @@ public interface JsonPlaceHolderApi {
     //@POST("auth/")
 
     @POST("auth/create")
-    Call<createResponse> createUser(@Query("fnev")String username,
-                                    @Query("nev") String name,
-                                    @Query("password") String password,
-                                    @Query("szerep")String role);
+    Call<createResponse> createUser(@Body JsonObject jsonObject);
 }
