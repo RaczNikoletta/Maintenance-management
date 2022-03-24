@@ -86,34 +86,25 @@ public class addUsersFragment extends Fragment {
 
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("http://10.0.2.2:8080/api/")
-                            .addConverterFactory(GsonConverterFactory.create(gson))
                             .addConverterFactory(ScalarsConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
 
                     jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
                     String namestring = firstNameEt.getText().toString() + " " + lastnameEt.getText().toString().toUpperCase();
-
                     String username = addNewWorkerusername.getText().toString();
                     String pass = newWorkerPassword.getText().toString();
                     String pos = positionEt.getText().toString();
-                    JsonObject paramObject = new JsonObject();
-                    paramObject.addProperty("fnev",username);
-                    paramObject.addProperty("nev",namestring);
-                    paramObject.addProperty("password",pass);
-                    paramObject.addProperty("szerep",pos);
-                    Call<createResponse> call = jsonPlaceHolderApi.createUser(paramObject);
+                    Call<String> call = jsonPlaceHolderApi.createUser(username,namestring,pass,pos);
 
                     try {
-                        call.enqueue(new Callback<createResponse>() {
+                        call.enqueue(new Callback<String>() {
                             @Override
-                            public void onResponse(Call<createResponse> call, Response<createResponse> response) {
+                            public void onResponse(Call<String> call, Response<String> response) {
 
-                                if (!response.isSuccessful()) {
-                                    Log.d("addeduser", String.valueOf(response.code()));
-                                    return;
-
-                                }
-                                else {
+                                Log.d("response",response.message());
+                                if (response.code() == 200) {
+                                    Log.v("create","Success"+ response.body());
 
                                     Log.d("addeduser", "ok");
                                     new AlertDialog.Builder(getContext())
@@ -132,12 +123,11 @@ public class addUsersFragment extends Fragment {
                                                 }
                                             })
                                             .show();
-
                                 }
                             }
 
                             @Override
-                            public void onFailure(Call<createResponse> call, Throwable t) {
+                            public void onFailure(Call<String> call, Throwable t) {
                                 Log.d("addeduser", t.toString());
 
 
