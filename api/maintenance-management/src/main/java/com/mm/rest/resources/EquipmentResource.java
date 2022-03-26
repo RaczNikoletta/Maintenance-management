@@ -22,8 +22,10 @@ import com.mm.rest.service.TestService;
 import com.mm.rest.models.TestModel;
 import com.mm.rest.models.authentication.LoginModel;
 import com.mm.rest.models.equipment.CategoryModel;
+import com.mm.rest.models.equipment.EquipmentModel;
 import com.mm.rest.service.AuthService;
 import com.mm.rest.service.CategoryService;
+import com.mm.rest.service.EquipmentService;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,19 +59,19 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
  *
  * @author burkus
  */
-// http://localhost:8080/api/category
-@Path("/category")
-public class CategoryResource {
+// http://localhost:8080/api/equipment
+@Path("/equipment")
+public class EquipmentResource {
     private static final ObjectMapper mapper = new ObjectMapper();
     //private static final Connection con = DbConnection.getConnection();
-    private static final CategoryService cs = new CategoryService();
+    private static final EquipmentService es = new EquipmentService();
     
     // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCategory(CategoryModel category) {
+    public Response addEquipment(EquipmentModel equipment) {
         try{
-            return cs.addCategory(category);
+            return es.addEquipment(equipment);
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();

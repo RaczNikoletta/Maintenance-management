@@ -8,7 +8,7 @@ package com.mm.rest.db.auth;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mm.rest.db.DbConnection;
 import com.mm.rest.db.category.CategoryDatabase;
-import com.mm.rest.db.equipment.SubCategoryDatabase;
+import com.mm.rest.db.subcategory.SubCategoryDatabase;
 import com.mm.rest.exceptions.DatabaseException;
 import com.mm.rest.models.database.Szakember;
 import com.mm.rest.models.equipment.CategoryModel;

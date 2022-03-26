@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mm.rest.db.equipment;
+package com.mm.rest.db.subcategory;
 
 import com.mm.rest.db.category.CategoryDatabase;
 import com.mm.rest.db.DbConnection;

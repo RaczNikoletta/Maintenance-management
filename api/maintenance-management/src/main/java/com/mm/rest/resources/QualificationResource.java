@@ -21,9 +21,9 @@ import com.mm.rest.helper.JwtProperties;
 import com.mm.rest.service.TestService;
 import com.mm.rest.models.TestModel;
 import com.mm.rest.models.authentication.LoginModel;
-import com.mm.rest.models.equipment.CategoryModel;
+import com.mm.rest.models.equipment.QualificationModel;
 import com.mm.rest.service.AuthService;
-import com.mm.rest.service.CategoryService;
+import com.mm.rest.service.QualificationService;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,19 +57,20 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
  *
  * @author burkus
  */
-// http://localhost:8080/api/category
-@Path("/category")
-public class CategoryResource {
+
+// http://localhost:8080/api/qualification
+@Path("/qualification")
+public class QualificationResource {
     private static final ObjectMapper mapper = new ObjectMapper();
     //private static final Connection con = DbConnection.getConnection();
-    private static final CategoryService cs = new CategoryService();
+    private static final QualificationService qs = new QualificationService();
     
     // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCategory(CategoryModel category) {
+    public Response addCategory(QualificationModel qualification) {
         try{
-            return cs.addCategory(category);
+            return qs.addQualification(qualification);
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();

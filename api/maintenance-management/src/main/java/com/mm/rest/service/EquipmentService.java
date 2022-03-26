@@ -5,26 +5,26 @@
  */
 package com.mm.rest.service;
 
-import com.mm.rest.db.subcategory.SubCategoryDatabase;
-import com.mm.rest.models.equipment.SubCategoryModel;
+import com.mm.rest.db.equipment.EquipmentDatabase;
+import com.mm.rest.models.equipment.EquipmentModel;
 import javax.ws.rs.core.Response;
 
 /**
  *
  * @author burkus
  */
-public class SubCategoryService {
+public class EquipmentService {
     
-    private SubCategoryDatabase SCDB = new SubCategoryDatabase();
+    private EquipmentDatabase EDB = new EquipmentDatabase();
     
-    public Response addSubCategory(SubCategoryModel subCategory) {
+    public Response addEquipment(EquipmentModel equipment) {
         
-        int temp = SCDB.addSubCategoryToDB(subCategory);
+        int temp = EDB.addEquipmentToDB(equipment);
         
         if(temp!=-1){
-            return Response.status(Response.Status.OK).entity("Subcategory added!").build();
+            return Response.status(Response.Status.OK).entity("Equipment added!").build();
         } else {
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
-    }  
+    }
 }
