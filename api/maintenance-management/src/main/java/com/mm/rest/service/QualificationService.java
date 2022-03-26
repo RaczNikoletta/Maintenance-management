@@ -36,7 +36,7 @@ public class QualificationService {
             ArrayNode qualifications = QDB.getQualifications();
             return Response.status(Response.Status.OK).entity(qualifications.toString()).build();
         } catch (DatabaseException ex) {
-            Logger.getLogger(SubCategoryService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QualificationService.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
     }

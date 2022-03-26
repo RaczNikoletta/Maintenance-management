@@ -60,7 +60,7 @@ public class QualificationDatabase {
             con.close();
             return arrayNode;
         } catch (SQLException ex) {
-            Logger.getLogger(CategoryDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QualificationDatabase.class.getName()).log(Level.SEVERE, null, ex);
             throw new DatabaseException("Not connected to db");
         }
     }
