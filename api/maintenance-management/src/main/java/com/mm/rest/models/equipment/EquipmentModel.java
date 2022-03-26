@@ -5,6 +5,8 @@
  */
 package com.mm.rest.models.equipment;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author burkus
@@ -17,13 +19,13 @@ public class EquipmentModel {
     private String description;
     private boolean error;
     private String order;
-    private int nextRepair;
+    private String nextRepair;
     
     public EquipmentModel() {
     }
 
     public EquipmentModel(int equipmentId, int subCategoryId, String equipmentName,
-            String site, String description, boolean error, String order, int nextRepair) {
+            String site, String description, boolean error, String order, String nextRepair) {
         this.equipmentId = equipmentId;
         this.subCategoryId = subCategoryId;
         this.equipmentName = equipmentName;
@@ -90,11 +92,11 @@ public class EquipmentModel {
         this.order = order;
     }
 
-    public int getNextRepair() {
+    public String getNextRepair() {
         return nextRepair;
     }
 
-    public void setNextRepair(int nextRepair) {
+    public void setNextRepair(String nextRepair) {
         this.nextRepair = nextRepair;
     }
     

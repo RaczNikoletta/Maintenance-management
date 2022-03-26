@@ -75,4 +75,15 @@ public class CategoryResource {
             return Response.status(Response.Status.OK).entity("Error").build();
         }
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCategories() {
+        try{
+            return cs.getCategories();
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
 }

@@ -5,8 +5,12 @@
  */
 package com.mm.rest.service;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.mm.rest.db.subcategory.SubCategoryDatabase;
+import com.mm.rest.exceptions.DatabaseException;
 import com.mm.rest.models.equipment.SubCategoryModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
 
 /**
@@ -26,5 +30,15 @@ public class SubCategoryService {
         } else {
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
-    }  
+    }
+    
+    public Response getSubCategories() {
+        try {
+            ArrayNode subCategories = SCDB.getSubCategories();
+            return Response.status(Response.Status.OK).entity(subCategories.toString()).build();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(SubCategoryService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+        }
+    }
 }

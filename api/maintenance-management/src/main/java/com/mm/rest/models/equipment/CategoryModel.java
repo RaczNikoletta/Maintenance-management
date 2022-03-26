@@ -10,6 +10,7 @@ package com.mm.rest.models.equipment;
  * @author burkus
  */
 public class CategoryModel {
+    private int categoryID;
     private String categoryName;
     private int repairInterval;
     

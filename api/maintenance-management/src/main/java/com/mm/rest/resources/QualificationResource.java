@@ -68,9 +68,20 @@ public class QualificationResource {
     // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCategory(QualificationModel qualification) {
+    public Response addQualification(QualificationModel qualification) {
         try{
             return qs.addQualification(qualification);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getQualifications() {
+        try{
+            return qs.getQualifications();
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();

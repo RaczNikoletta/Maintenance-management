@@ -5,8 +5,12 @@
  */
 package com.mm.rest.service;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.mm.rest.db.category.CategoryDatabase;
+import com.mm.rest.exceptions.DatabaseException;
 import com.mm.rest.models.equipment.CategoryModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
 
 /**
@@ -26,5 +30,15 @@ public class CategoryService {
         } else {
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
-    }  
+    }
+    
+    public Response getCategories() {
+        try {
+            ArrayNode categories = CDB.getCategories();
+            return Response.status(Response.Status.OK).entity(categories.toString()).build();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+        }
+    }
 }

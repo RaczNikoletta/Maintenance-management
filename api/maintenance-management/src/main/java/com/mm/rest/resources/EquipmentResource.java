@@ -77,4 +77,15 @@ public class EquipmentResource {
             return Response.status(Response.Status.OK).entity("Error").build();
         }
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEquipments() {
+        try{
+            return es.getEquipments();
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
 }

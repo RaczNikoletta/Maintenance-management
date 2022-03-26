@@ -64,12 +64,22 @@ public class SubCategoryResource {
     //private static final Connection con = DbConnection.getConnection();
     private static final SubCategoryService scs = new SubCategoryService();
     
-    // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response addSubCategory(SubCategoryModel subCategory) {
         try{
             return scs.addSubCategory(subCategory);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getSubCategories() {
+        try{
+            return scs.getSubCategories();
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();

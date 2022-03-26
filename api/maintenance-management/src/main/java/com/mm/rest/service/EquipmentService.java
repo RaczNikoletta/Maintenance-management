@@ -5,8 +5,12 @@
  */
 package com.mm.rest.service;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.mm.rest.db.equipment.EquipmentDatabase;
+import com.mm.rest.exceptions.DatabaseException;
 import com.mm.rest.models.equipment.EquipmentModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Response;
 
 /**
@@ -24,6 +28,16 @@ public class EquipmentService {
         if(temp!=-1){
             return Response.status(Response.Status.OK).entity("Equipment added!").build();
         } else {
+            return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+        }
+    }
+    
+    public Response getEquipments() {
+        try {
+            ArrayNode equipments = EDB.getEquipments();
+            return Response.status(Response.Status.OK).entity(equipments.toString()).build();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(EquipmentService.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
     }

@@ -11,8 +11,9 @@ package com.mm.rest.models.equipment;
  */
 public class SubCategoryModel {
     private int subCategoryId;
+    private int categoryId;
     private String subCategoryName;
-    //private int qualificationId;
+    private int qualificationId;
     private int standardTime;
     private String order;
     
