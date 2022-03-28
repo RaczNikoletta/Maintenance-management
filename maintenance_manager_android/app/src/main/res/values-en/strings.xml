@@ -25,6 +25,8 @@
     <string name="databaseUpdated">Database updated</string>
     <string name="databaseUpdated2">Database updated successfully!</string>
     <string name="databaseError">Error!</string>
+    <string name="addProfession">Add profession</string>
+    <string name="professions">Professions</string>
 
     <!--Fragment manage users -->
     <string name="users">Users</string>

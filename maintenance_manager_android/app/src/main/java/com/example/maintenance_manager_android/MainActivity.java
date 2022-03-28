@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         try {
-            String token = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE).getString("user_token", "token not found");
+            String token = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+                    .getString("user_token", "token not found"); //check login Token from sp
             Log.d("token", token);
             JWT jwt = new JWT(token);
             //TODO: add all roles when they are ready
@@ -116,12 +117,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction(); // set ready to change fragment
         if(role.equals("admin")) {
             switch (item.getItemId()) {
                 case R.id.nav_manage:
                     try {
-                        FragmentManager manager = getSupportFragmentManager();
-                        FragmentTransaction transaction = manager.beginTransaction();
                         transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                         transaction.addToBackStack(null);
                         transaction.commit();
@@ -130,10 +131,19 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     }
                     break;
                 case R.id.nav_manage_professions:
+                    transaction.replace(R.id.fragment_container, new addProfessionFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
+                case  R.id.nav_logout:
+                    SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name),
+                            Context.MODE_PRIVATE);
+                    prefs.edit().putBoolean("isLogged",false).apply();
+                    prefs.edit().putString("user_token",null).apply();
+                    Intent i = new Intent(context,loginActivity.class);
+                    startActivity(i);
+                    finish();
                 default:
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                     transaction.addToBackStack(null);
                     transaction.commit();

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 public class SessionManager {
     public static final String USER_TOKEN = "user_token";
+    public static final String ISLOGGED = "isLogged";
     private Context context;
     private SharedPreferences prefs;
 
@@ -25,5 +26,7 @@ public class SessionManager {
     public String fetchAuthToken(){
         return prefs.getString(USER_TOKEN, null);
     }
+
+    public boolean getLogged(){return prefs.getBoolean(ISLOGGED,false);}
 
 }

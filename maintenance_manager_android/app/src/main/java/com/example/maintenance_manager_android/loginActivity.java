@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +44,14 @@ public class loginActivity extends AppCompatActivity {
         usernameEt = findViewById(R.id.usernameEt);
         passwordEt = findViewById(R.id.passwordEt);
         sendBtn = findViewById(R.id.sendBtn);
+
+        boolean isLogged = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+                .getBoolean("isLogged", false); //check login Token from sp
+        if (isLogged){
+            Intent i = new Intent(context,MainActivity.class); //login automatically
+            startActivity(i);
+            finish();
+        }
 
         try {
 

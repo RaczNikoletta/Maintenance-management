@@ -27,5 +27,7 @@
     <!--Fragment manage users -->
     <string name="users">Felhasználók</string>
     <string name="manage_users">Felhasználók kezelése</string>
+    <string name="addProfession">Végzettség hozzáadása</string>
+    <string name="professions">Végzettségek</string>
 
 </resources>
