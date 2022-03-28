@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,11 +21,15 @@ public interface JsonPlaceHolderApi {
     @POST("auth/login")
     Call<LoginResponse>loginuser(@Body JsonObject jsonObject);
 
-    //@POST("auth/")
-
     @POST("auth/create")
     Call<String> createUser(@Query("fnev")String username,
                                     @Query("nev") String name,
                                     @Query("password") String password,
                                     @Query("szerep")String role);
+
+    @GET("qualification")
+    Call<ArrayList<QualificationModel>>getQuals();
+
+    @POST("qualification")
+    Call<String>addQual(@Body JsonObject jsonObject);
 }
