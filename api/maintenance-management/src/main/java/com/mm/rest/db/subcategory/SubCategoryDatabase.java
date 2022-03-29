@@ -31,12 +31,12 @@ public class SubCategoryDatabase {
         Connection con = DbConnection.getConnection();
         if(con==null) return -1;
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `alkategoria` (`kategoria_id`, `alkatnev`, `norma_ido`, `utasitas`) VALUES (?,?,?,?)");
-            ps.setInt(1, subCategory.getSubCategoryId());
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `alkategoria` (`kategoria_id`, `alkatnev`, `kepesites_id`, `norma_ido`, `utasitas`) VALUES (?,?,?,?,?)");
+            ps.setInt(1, subCategory.getCategoryId());
             ps.setString(2, subCategory.getSubCategoryName());
-            //ps.setInt(3, subCategory.getQualificationId());
-            ps.setInt(3, subCategory.getStandardTime());
-            ps.setString(4, subCategory.getOrder());
+            ps.setInt(3, subCategory.getQualificationId());
+            ps.setInt(4, subCategory.getStandardTime());
+            ps.setString(5, subCategory.getOrder());
             int temp = ps.executeUpdate();
             con.close();
             return temp;

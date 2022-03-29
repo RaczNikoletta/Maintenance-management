@@ -17,9 +17,18 @@ public class CategoryModel {
     public CategoryModel() {
     }
 
-    public CategoryModel(String categoryName, int repairInterval) {
+    public CategoryModel(int categoryID, String categoryName, int repairInterval) {
+        this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.repairInterval = repairInterval;
+    }
+    
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getCategoryName() {

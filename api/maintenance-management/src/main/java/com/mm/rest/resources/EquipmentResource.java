@@ -69,6 +69,19 @@ public class EquipmentResource {
     // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    /*
+        Post Body JSON:
+        {
+            "equipmentId":Integer(This value just has to be present, make it 0 or something)
+            "subCategoryId":Integer(Has to be a valid subcategory id)
+            "equipmentName":String
+            "site":String
+            "description":String
+            "error":Boolean
+            "order":String
+            "nextRepair":String(This value just has to be present, make it an empty string or something)
+        }
+    */
     public Response addEquipment(EquipmentModel equipment) {
         try{
             return es.addEquipment(equipment);

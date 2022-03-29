@@ -64,9 +64,16 @@ public class CategoryResource {
     //private static final Connection con = DbConnection.getConnection();
     private static final CategoryService cs = new CategoryService();
     
-    // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    /*
+        Post Body JSON:
+        {
+            "categoryID":Integer(This value just has to be present, make it 0 or something)
+            "categoryName":String
+            "repairInterval":Integer(Days)
+        }
+    */
     public Response addCategory(CategoryModel category) {
         try{
             return cs.addCategory(category);

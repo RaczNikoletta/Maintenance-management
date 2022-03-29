@@ -34,13 +34,15 @@ public class EquipmentDatabase {
         Connection con = DbConnection.getConnection();
         if(con==null) return -1;
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `eszkozok`(`eszkoznev`, `helyszin`, `leiras`, `hibas`, `utasitas`, `kov_javitas`) VALUES (?,?,?,?,?,?)");
-            ps.setString(1, equipment.getEquipmentName());
-            ps.setString(2, equipment.getSite());
-            ps.setString(3, equipment.getDescription());
-            ps.setBoolean(4, equipment.isError());
-            ps.setString(5, equipment.getOrder());
-            ps.setTimestamp(6, timeStamp);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `eszkozok`(`alkategoria_id`, `eszkoznev`, `helyszin`, `leiras`, `hibas`, `utasitas`, `kov_javitas`) VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1, equipment.getSubCategoryId());
+            ps.setString(2, equipment.getEquipmentName());
+            ps.setString(3, equipment.getSite());
+            ps.setString(4, equipment.getDescription());
+            ps.setBoolean(5, equipment.isError());
+            ps.setString(6, equipment.getOrder());
+            //Need to add the subcategory's category's repair interval
+            ps.setTimestamp(7, timeStamp);
             int temp = ps.executeUpdate();
             con.close();
             return temp;

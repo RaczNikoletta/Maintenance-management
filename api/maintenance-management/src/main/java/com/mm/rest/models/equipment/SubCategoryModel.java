@@ -20,10 +20,11 @@ public class SubCategoryModel {
     public SubCategoryModel() {
     }
 
-    public SubCategoryModel(int subCategoryId, String subCategoryName, int qualificationId, int standardTime, String order) {
+    public SubCategoryModel(int subCategoryId, String subCategoryName,int categoryId, int qualificationId, int standardTime, String order) {
         this.subCategoryId = subCategoryId;
         this.subCategoryName = subCategoryName;
-        //this.qualificationId = qualificationId;
+        this.categoryId = subCategoryId;
+        this.qualificationId = qualificationId;
         this.standardTime = standardTime;
         this.order = order;
     }
@@ -43,14 +44,22 @@ public class SubCategoryModel {
     public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
     }
+    
+    
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public int getQualificationId() {
-        return 0;
-        //return qualificationId;
+        return qualificationId;
     }
 
     public void setQualificationId(int qualificationId) {
-        //this.qualificationId = qualificationId;
+        this.qualificationId = qualificationId;
     }
 
     public int getStandardTime() {

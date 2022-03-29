@@ -57,7 +57,7 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
  *
  * @author burkus
  */
-// http://localhost:8080/api/subequipment
+// http://localhost:8080/api/subcategory
 @Path("/subcategory")
 public class SubCategoryResource {
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -66,6 +66,17 @@ public class SubCategoryResource {
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    /*
+        Post Body JSON:
+        {
+            "subCategoryId":Integer(This value just has to be present, make it 0 or something)
+            "categoryId":Integer(Has to be a valid category id)
+            "subCategoryName":String
+            "qualificationId":Integer(Has to be a valid qualification id)
+            "standardTime":Integer(Hours)
+            "order":String
+        }
+    */
     public Response addSubCategory(SubCategoryModel subCategory) {
         try{
             return scs.addSubCategory(subCategory);

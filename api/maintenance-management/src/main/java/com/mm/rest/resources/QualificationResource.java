@@ -65,9 +65,15 @@ public class QualificationResource {
     //private static final Connection con = DbConnection.getConnection();
     private static final QualificationService qs = new QualificationService();
     
-    // http://localhost:8080/api/equipment
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    /*
+        Post Body JSON:
+        {
+            "qualificationID":Integer(This value just has to be present, make it 0 or something)
+            "qualificationName":String
+        }
+    */
     public Response addQualification(QualificationModel qualification) {
         try{
             return qs.addQualification(qualification);

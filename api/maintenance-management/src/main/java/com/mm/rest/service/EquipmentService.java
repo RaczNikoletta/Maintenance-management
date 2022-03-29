@@ -23,6 +23,9 @@ public class EquipmentService {
     
     public Response addEquipment(EquipmentModel equipment) {
         
+        //Need to add the subcategory's category's repair interval
+        //Maybe with doing a join select to get the interval, and add it to the timestamp
+        //created in addEquipmentToDB
         int temp = EDB.addEquipmentToDB(equipment);
         
         if(temp!=-1){
