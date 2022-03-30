@@ -91,7 +91,7 @@ public class addProfessionFragment extends Fragment {
                     for (int i = 0; i < profs.size(); i++) {
                         professionList.add(profs.get(i).getqName());
                         if(i==profs.size()-1){
-                            lastProfId = profs.get(i).getqId(); //for id numbering
+                            lastProfId = profs.get(i).getqId(); //for id counter
                         }
                     }
                 }

@@ -6,7 +6,7 @@
     android:id="@+id/admin_menu"
     >
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_manage"
+        <item android:id="@+id/nav_addsubcat"
             android:icon="@drawable/ic_baseline_manage_accounts_24"
             android:title="@string/Manage_accounts" />
         <item

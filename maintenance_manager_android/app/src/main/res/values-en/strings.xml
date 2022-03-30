@@ -32,8 +32,6 @@
     <string name="users">Users</string>
     <string name="manage_users">Manage users</string>
     <string name="New_employee">New employee</string>
-    <string name="Manage_accounts">Manage accounts</string>
-    <string name="Manage_professions">Manage professions</string>
     <string name="Profile">Profile</string>
     <string name="AddCategory">Add categories</string>
     <string name="AddSubcategory">Add subcategories</string>
@@ -51,4 +49,5 @@
     <string name="Instructions">Instructions:</string>
     <string name="Description">Description:</string>
     <string name="Location">Location:</string>
+    <string name="toolManager">tool manager</string>
 </resources>

@@ -31,8 +31,6 @@
     <string name="addProfession">Végzettség hozzáadása</string>
     <string name="professions">Végzettségek</string>
     <string name="New_employee">Új munkavállaló</string>
-    <string name="Manage_accounts">Felhasználók kezelése</string>
-    <string name="Manage_professions">Képzettségek kezelése</string>
     <string name="Profile">Profil</string>
     <string name="AddCategory">Kategória hozzáadása</string>
     <string name="AddSubcategory">Alkategória hozzáadása</string>
@@ -50,5 +48,6 @@
     <string name="Instructions">Utasítás:</string>
     <string name="Description">Leírás:</string>
     <string name="Location">Elhelyezkedés:</string>
+    <string name="toolManager">eszkozfelelos</string>
 
 </resources>

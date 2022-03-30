@@ -9,29 +9,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.auth0.android.jwt.JWT;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -69,19 +56,32 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             JWT jwt = new JWT(token);
             //TODO: add all roles when they are ready
             role = jwt.getClaim("role").asString();
-            switch (role) {
-                case "admin":
-                    Log.d("role", jwt.getClaim("role").asString());
-                    //MenuInflater inflater = getMenuInflater();
-                    //inflater.inflate(R.menu.drawer_admin, menu);
-                    navigationView.getMenu().clear();
-                    navigationView.inflateMenu(R.menu.drawer_admin);
-                    SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("isLogged", true); // save logged state
-                    editor.apply();
-                    break;
-                default:
+           if(role.equals("admin")) {
+               Log.d("role", jwt.getClaim("role").asString());
+               //MenuInflater inflater = getMenuInflater();
+               //inflater.inflate(R.menu.drawer_admin, menu);
+               navigationView.getMenu().clear();
+               navigationView.inflateMenu(R.menu.drawer_admin);
+               SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+               SharedPreferences.Editor editor = prefs.edit();
+               editor.putBoolean("isLogged", true); // save logged state
+               editor.apply();
+               FragmentManager manager = getSupportFragmentManager();
+               FragmentTransaction transaction = manager.beginTransaction();
+               transaction.replace(R.id.fragment_container, new manageEmployees(), "");
+               transaction.addToBackStack(null);
+               transaction.commit();
+           }
+           else if(role.equals(getString(R.string.toolManager))) {
+               navigationView.getMenu().clear();
+               navigationView.inflateMenu(R.menu.drawer_tool_manager);
+               SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+               SharedPreferences.Editor editor = prefs.edit();
+               editor.putBoolean("isLogged", true); // save logged state
+               editor.apply();
+
+           }
+                else{
                     Log.d("role", jwt.getClaim("role").asString());
                     navigationView.getMenu().clear();
                     navigationView.inflateMenu(R.menu.drawer_admin);
@@ -90,12 +90,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    break;
+                }
 
-
-            }
-
-            return true;
         } catch (Throwable e) {
             Log.d("exception_jwt", e.toString());
         }
@@ -119,9 +115,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction(); // set ready to change fragment
+        SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name),
+                Context.MODE_PRIVATE);
         if(role.equals("admin")) {
             switch (item.getItemId()) {
-                case R.id.nav_manage:
+                case R.id.nav_addsubcat:
                     try {
                         transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                         transaction.addToBackStack(null);
@@ -136,8 +134,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.commit();
                     break;
                 case  R.id.nav_logout:
-                    SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name),
-                            Context.MODE_PRIVATE);
                     prefs.edit().putBoolean("isLogged",false).apply();
                     prefs.edit().putString("user_token",null).apply();
                     Intent i = new Intent(context,loginActivity.class);
@@ -149,6 +145,27 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.commit();
                     break;
             }
+        }else if(role.equals(getString(R.string.toolManager))){
+            switch (item.getItemId()){
+                case  R.id.nav_addcat:
+                    transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
+                case R.id.nav_logout_toolman:
+                    prefs.edit().putBoolean("isLogged",false).apply();
+                    prefs.edit().putString("user_token",null).apply();
+                    Intent i = new Intent(context,loginActivity.class);
+                    startActivity(i);
+                    finish();
+                default:
+                    transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
+
+            }
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

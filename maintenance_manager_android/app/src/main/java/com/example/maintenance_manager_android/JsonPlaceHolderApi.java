@@ -32,4 +32,7 @@ public interface JsonPlaceHolderApi {
 
     @POST("qualification")
     Call<String>addQual(@Body JsonObject jsonObject);
+
+    @POST("category")
+    Call<String>addCategory(@Body JsonObject jsonObject);
 }
