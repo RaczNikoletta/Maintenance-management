@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
     android:orientation="vertical"
     tools:context=".loginActivity">
 
@@ -13,40 +14,54 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/LoginTv"
-        android:textSize="25dp" />
+        android:textColor="@color/white"
+        android:textSize="44dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/UsernameTv" />
+        android:paddingTop="50dp"
+        android:text="@string/UsernameTv"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/usernameEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/PasswordTv" />
+        android:text="@string/PasswordTv"
+        android:textColor="@color/white"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/passwordEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textSize="24dp" />
 
     <Button
         android:id="@+id/sendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/SendBtn" />
+        android:background="@color/purple_700"
+        android:text="@string/SendBtn"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textViewResult"
