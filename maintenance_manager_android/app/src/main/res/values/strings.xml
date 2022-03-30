@@ -15,6 +15,7 @@
     <string name="Communicate">Kommunikáció</string>
     <string name="Position">Pozíció</string>
     <string name="Date_of_birth">Születési idő</string>
+
     <string name="Add_user">Felhasználó hozzáadása</string>
     <string name="Manage_accounts">Felhasználók</string>
     <string name="Manage_professions">Képzettségek</string>
@@ -29,5 +30,25 @@
     <string name="manage_users">Felhasználók kezelése</string>
     <string name="addProfession">Végzettség hozzáadása</string>
     <string name="professions">Végzettségek</string>
+    <string name="New_employee">Új munkavállaló</string>
+    <string name="Manage_accounts">Felhasználók kezelése</string>
+    <string name="Manage_professions">Képzettségek kezelése</string>
+    <string name="Profile">Profil</string>
+    <string name="AddCategory">Kategória hozzáadása</string>
+    <string name="AddSubcategory">Alkategória hozzáadása</string>
+    <string name="Open">Megnyit</string>
+    <string name="Close">Bezár</string>
+    <string name="Tool_name">Eszköz neve:</string>
+    <string name="Category_name">Kategória neve:</string>
+    <string name="Subcategory_name">Alkategória neve:</string>
+    <string name="Tool_id">Eszköz id:</string>
+    <string name="Category_id">Kategória id:</string>
+    <string name="Subcategory_id">Alkategória id:</string>
+    <string name="Tool_category">Eszköz kategória:</string>
+    <string name="Profession">Képesítés:</string>
+    <string name="Repair_time">Norma idő:</string>
+    <string name="Instructions">Utasítás:</string>
+    <string name="Description">Leírás:</string>
+    <string name="Location">Elhelyezkedés:</string>
 
 </resources>

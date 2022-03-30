@@ -31,4 +31,24 @@
     <!--Fragment manage users -->
     <string name="users">Users</string>
     <string name="manage_users">Manage users</string>
+    <string name="New_employee">New employee</string>
+    <string name="Manage_accounts">Manage accounts</string>
+    <string name="Manage_professions">Manage professions</string>
+    <string name="Profile">Profile</string>
+    <string name="AddCategory">Add categories</string>
+    <string name="AddSubcategory">Add subcategories</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+    <string name="Tool_name">Tool name:</string>
+    <string name="Category_name">Category name:</string>
+    <string name="Subcategory_name">Subcategory name:</string>
+    <string name="Tool_id">Tool id:</string>
+    <string name="Category_id">Category id:</string>
+    <string name="Subcategory_id">Subcategory id:</string>
+    <string name="Tool_category">Tool category:</string>
+    <string name="Profession">Profession:</string>
+    <string name="Repair_time">Repair time:</string>
+    <string name="Instructions">Instructions:</string>
+    <string name="Description">Description:</string>
+    <string name="Location">Location:</string>
 </resources>

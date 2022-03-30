@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tool"
+        android:title="@string/AddTools"
+        android:icon="@drawable/ic_baseline_handyman_24">
+    </item>
+    <item
+        android:id="@+id/category"
+        android:title="@string/AddCategory"
+        android:icon="@drawable/ic_baseline_add_24">
+    </item><item
+    android:id="@+id/subcategory"
+    android:title="@string/AddSubcategory"
+    android:icon="@drawable/ic_baseline_view_module_24">
+</item>
+</menu>
