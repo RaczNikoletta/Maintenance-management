@@ -1,63 +1,135 @@
 package com.example.maintenance_manager_android;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link addSubcategoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 public class addSubcategoryFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    EditText subcategory;
+    EditText toolCategory;
+    EditText professionEt;
+    EditText repairInstruction;
+    EditText repairTime;
+    Button addSubcategory;
+    JsonPlaceHolderApi jsonPlaceHolderApi;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public addSubcategoryFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment addToolFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static addSubcategoryFragment newInstance(String param1, String param2) {
-        addSubcategoryFragment fragment = new addSubcategoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_subcategory, container, false);
+
+        subcategory = view.findViewById(R.id.subCategory);
+        toolCategory = view.findViewById(R.id.toolCategory);
+        professionEt  = view.findViewById(R.id.profession);
+        repairInstruction = view.findViewById(R.id.repairInstruction);
+        repairTime = view.findViewById(R.id.repairTime);
+        addSubcategory = view.findViewById(R.id.addSubcategory);
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8080/api/")
+                .addConverterFactory(ScalarsConverterFactory.create()) //without this line "JSON is not fully consumed"
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+
+
+        addSubcategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //subcategoryID == categoryID
+                if(!TextUtils.isEmpty(subcategory.getText())&&!TextUtils.isEmpty(toolCategory.getText())&&!TextUtils.isEmpty(professionEt.getText())
+                                &&!TextUtils.isEmpty(repairInstruction.getText())&&!TextUtils.isEmpty(repairTime.getText()))
+                {
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("subCategoryId",Integer.parseInt(toolCategory.getText().toString()));
+                    jsonObject.addProperty("subCategoryName",subcategory.getText().toString());
+                    jsonObject.addProperty("qualificationId",Integer.parseInt(professionEt.getText().toString()));
+                    jsonObject.addProperty("standardTime",Integer.parseInt(repairTime.getText().toString()));
+                    jsonObject.addProperty("order",repairInstruction.getText().toString());
+                    Call<String> subCat = jsonPlaceHolderApi.addSubCategory(jsonObject);
+
+                    subCat.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("subcat: ", "subcat add failed: " +response.code());
+                        }else{
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle(R.string.databaseUpdated)
+                                        .setMessage(R.string.databaseUpdated2)
+                                        .setIcon(getResources().getDrawable(R.drawable.ic_baseline_check_24))
+                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                FragmentManager manager = getFragmentManager();
+                                                FragmentTransaction transaction = manager.beginTransaction();
+                                                transaction.replace(R.id.fragment_container, new addSubcategoryFragment(), "");
+                                                transaction.addToBackStack(null);
+                                                transaction.commit();
+
+                                            }
+                                        })
+                                        .show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Log.d("addsubcatfailure", "Failure: "+ t.toString());
+
+                        }
+                    });
+
+                }
+
+            }
+        });
+
+
+
+
+
+        return view;
     }
 }

@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             JWT jwt = new JWT(token);
             //TODO: add all roles when they are ready
             role = jwt.getClaim("role").asString();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
            if(role.equals("admin")) {
                Log.d("role", jwt.getClaim("role").asString());
                //MenuInflater inflater = getMenuInflater();
@@ -66,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                SharedPreferences.Editor editor = prefs.edit();
                editor.putBoolean("isLogged", true); // save logged state
                editor.apply();
-               FragmentManager manager = getSupportFragmentManager();
-               FragmentTransaction transaction = manager.beginTransaction();
                transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                transaction.addToBackStack(null);
                transaction.commit();
@@ -79,14 +79,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                SharedPreferences.Editor editor = prefs.edit();
                editor.putBoolean("isLogged", true); // save logged state
                editor.apply();
+               transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
+               transaction.addToBackStack(null);
+               transaction.commit();
 
            }
                 else{
                     Log.d("role", jwt.getClaim("role").asString());
                     navigationView.getMenu().clear();
                     navigationView.inflateMenu(R.menu.drawer_admin);
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                     transaction.addToBackStack(null);
                     transaction.commit();
@@ -152,12 +153,18 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.addToBackStack(null);
                     transaction.commit();
                     break;
+                case R.id.nav_addsubcat:
+                    transaction.replace(R.id.fragment_container, new addSubcategoryFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
                 case R.id.nav_logout_toolman:
                     prefs.edit().putBoolean("isLogged",false).apply();
                     prefs.edit().putString("user_token",null).apply();
                     Intent i = new Intent(context,loginActivity.class);
                     startActivity(i);
                     finish();
+                    break;
                 default:
                     transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
                     transaction.addToBackStack(null);

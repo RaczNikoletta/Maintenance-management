@@ -49,5 +49,6 @@
     <string name="Description">Leírás:</string>
     <string name="Location">Elhelyezkedés:</string>
     <string name="toolManager">eszkozfelelos</string>
+    <string name="maintenanceInterval">Javítás intervalluma</string>
 
 </resources>

@@ -50,4 +50,5 @@
     <string name="Description">Description:</string>
     <string name="Location">Location:</string>
     <string name="toolManager">tool manager</string>
+    <string name="maintenanceInterval">Maintenance interval</string>
 </resources>

@@ -23,7 +23,7 @@
         android:text="@string/Tool_name" />
 
     <EditText
-        android:id="@+id/categoryName"
+        android:id="@+id/subCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

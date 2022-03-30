@@ -51,7 +51,7 @@ public class addCategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
         repairTime = view.findViewById(R.id.repairTime);
-        categoryName = view.findViewById(R.id.categoryName);
+        categoryName = view.findViewById(R.id.subCategory);
         addCategory = view.findViewById(R.id.addCategory);
 
         Gson gson = new GsonBuilder()

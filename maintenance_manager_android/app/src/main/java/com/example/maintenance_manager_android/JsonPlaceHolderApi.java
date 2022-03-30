@@ -35,4 +35,7 @@ public interface JsonPlaceHolderApi {
 
     @POST("category")
     Call<String>addCategory(@Body JsonObject jsonObject);
+
+    @POST("subcategory")
+    Call<String>addSubCategory(@Body JsonObject jsonObject);
 }

@@ -24,7 +24,7 @@
         android:text="@string/Subcategory_name" />
 
     <EditText
-        android:id="@+id/categoryName"
+        android:id="@+id/subCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -34,7 +34,7 @@
         android:id="@+id/tvCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Category_name" />
+        android:text="@string/Category_id" />
 
     <EditText
         android:id="@+id/toolCategory"
@@ -92,17 +92,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="150dp" />
-
-    <Button
-        android:id="@+id/addTool3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/AddTools" />
-
-    <Button
-        android:id="@+id/addCategory3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/AddCategory" />
 
 </LinearLayout>
