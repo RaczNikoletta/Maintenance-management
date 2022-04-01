@@ -30,7 +30,7 @@
 
     <!--Fragment manage users -->
     <string name="users">Users</string>
-    <string name="manage_users">Manage users</string>
+    <string name="manage_users">Manage maintainers</string>
     <string name="New_employee">New employee</string>
     <string name="Profile">Profile</string>
     <string name="AddCategory">Add categories</string>
@@ -51,4 +51,6 @@
     <string name="Location">Location:</string>
     <string name="toolManager">tool manager</string>
     <string name="maintenanceInterval">Maintenance interval</string>
+    <string name="tasks">Tasks</string>
+    <string name="role">Role</string>
 </resources>

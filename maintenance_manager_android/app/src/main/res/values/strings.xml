@@ -27,7 +27,7 @@
     <string name="databaseError">Hiba!</string>
     <!--Fragment manage users -->
     <string name="users">Felhasználók</string>
-    <string name="manage_users">Felhasználók kezelése</string>
+    <string name="manage_users">Karbantartók kezelése</string>
     <string name="addProfession">Végzettség hozzáadása</string>
     <string name="professions">Végzettségek</string>
     <string name="New_employee">Új munkavállaló</string>
@@ -50,5 +50,7 @@
     <string name="Location">Elhelyezkedés:</string>
     <string name="toolManager">eszkozfelelos</string>
     <string name="maintenanceInterval">Javítás intervalluma</string>
+    <string name="tasks">Feladatok</string>
+    <string name="role">Szerep</string>
 
 </resources>

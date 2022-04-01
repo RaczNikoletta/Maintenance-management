@@ -1,26 +1,42 @@
 package com.example.maintenance_manager_android;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.NoCopySpan;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -32,13 +48,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class addUsersFragment extends Fragment {
-    private EditText positionEt;
+    private Spinner roleSpinner;
     private Button sendWorkerBtn;
     private EditText newWorkerPassword;
     private EditText lastnameEt;
     private EditText firstNameEt;
     private EditText addNewWorkerusername;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
+    private ArrayList<QualificationModel> profs;
+    private EditText positionEt2;
+    private ArrayList<String> professionNames;
+    private  ArrayAdapter<String> Customadapter;
+    private ListView profList;
+    private String clickedProf;
+    private TextView kepesitesTv;
 
 
     public addUsersFragment() {
@@ -50,55 +73,58 @@ public class addUsersFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_worker, container,false);
-        positionEt = view.findViewById(R.id.positionEt);
+
         addNewWorkerusername = view.findViewById(R.id.addNewWorkerusernameEt);
         firstNameEt = view.findViewById(R.id.firstNameEt);
         lastnameEt = view.findViewById(R.id.lastnameEt);
         newWorkerPassword = view.findViewById(R.id.newWorkerPasswordEt);
-        positionEt = view.findViewById(R.id.positionEt);
         sendWorkerBtn = view.findViewById(R.id.sendWorkerBtn);
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build();
+        positionEt2 = view.findViewById(R.id.positionEt2);
+        profs = new ArrayList<>();
+        roleSpinner = view.findViewById(R.id.spinner2);
+        kepesitesTv = view.findViewById(R.id.kepesitesTv);
+
+        professionNames = new ArrayList<>();
 
         setRetainInstance(true); // to enable changing orientation of the mobile
+        getProfessions();
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("admin");
+        roles.add("karbantarto");
+        roles.add("eszkozfelelos");
+        roles.add("operator");
+        Customadapter = new ArrayAdapter<String>(getContext(), R.layout.prof_spinner_item,roles);
+        roleSpinner.setAdapter(Customadapter);
+
+        //arrayAdapter.notifyDataSetChanged();
+
+
 
         sendWorkerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
-                if(!TextUtils.isEmpty(positionEt.getText())
-                        && !TextUtils.isEmpty(addNewWorkerusername.getText())
+                if(!TextUtils.isEmpty(addNewWorkerusername.getText())
                 && !TextUtils.isEmpty(firstNameEt.getText())
                         && !TextUtils.isEmpty(lastnameEt.getText())
                         && !TextUtils.isEmpty(newWorkerPassword.getText())
-                        &&(!TextUtils.isEmpty(positionEt.getText()))) {
-                    Gson gson = new GsonBuilder()
-                            .setLenient()
-                            .create();
+                        && roleSpinner.getSelectedItem() != null) {
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://10.0.2.2:8080/api/")
-                            .addConverterFactory(ScalarsConverterFactory.create())
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .build();
 
-                    jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
                     String namestring = firstNameEt.getText().toString() + " " + lastnameEt.getText().toString().toUpperCase();
                     String username = addNewWorkerusername.getText().toString();
                     String pass = newWorkerPassword.getText().toString();
-                    String pos = positionEt.getText().toString();
-                    Call<String> call = jsonPlaceHolderApi.createUser(username,namestring,pass,pos);
+                    String pos = roleSpinner.getSelectedItem().toString();
+                    Call<String> call2 = jsonPlaceHolderApi.createUser(username,namestring,pass,pos);
 
                     try {
-                        call.enqueue(new Callback<String>() {
+                        call2.enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
 
@@ -146,9 +172,94 @@ public class addUsersFragment extends Fragment {
             }
         });
 
+        roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if ((roleSpinner.getSelectedItem().toString().equals("karbantarto"))) {
+                    positionEt2.setVisibility(View.VISIBLE);
+                    kepesitesTv.setVisibility(View.VISIBLE);
+                    positionEt2.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            final Dialog dialog = new Dialog(getContext());
+                            dialog.setContentView(R.layout.prof_dialog);
+                            //dialog.setCancelable(true);
+                            profList = (ListView) dialog.findViewById(R.id.List);
+                            profList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    clickedProf = profList.getItemAtPosition(position).toString();
+                                    positionEt2.setText(clickedProf);
+                                    dialog.dismiss();
+
+                                }
+                            });
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, professionNames);
+                            profList.setAdapter(adapter);
+                            dialog.show();
+
+                            return false;
+                        }
+                    });
+
+                }else{
+                    positionEt2.setVisibility(View.INVISIBLE);
+                    kepesitesTv.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                positionEt2.setVisibility(View.INVISIBLE);
+                kepesitesTv.setVisibility(View.INVISIBLE);
+            }
+        });
+
 
 
 
         return view;
     }
+
+    public void getProfessions(){
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8080/api/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
+        //get professions
+        Call<ArrayList<QualificationModel>> call = jsonPlaceHolderApi.getQuals();
+
+
+        call.enqueue(new Callback<ArrayList<QualificationModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<QualificationModel>> call, Response<ArrayList<QualificationModel>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Get request failed: "," "+response.code());
+                } else {
+                    profs = response.body();
+                    Log.d("prof", profs.get(0).getqName());
+                    for (int i = 0; i < profs.size(); i++) {
+                        professionNames.add(profs.get(i).getqName());
+                    }
+                }
+
+            }
+            @Override
+            public void onFailure(Call<ArrayList<QualificationModel>> call, Throwable t) {
+                Log.d("professionFailure", t.toString());
+            }
+        });
+
+
+    }
+
 }

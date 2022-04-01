@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.commit();
                     break;
             }
-        }else if(role.equals(getString(R.string.toolManager))){
+        }else if(role.equals("eszkozfelelos")){
             switch (item.getItemId()){
                 case  R.id.nav_addcat:
                     transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
