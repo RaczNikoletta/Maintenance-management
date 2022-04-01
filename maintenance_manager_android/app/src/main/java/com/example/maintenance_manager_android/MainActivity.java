@@ -158,6 +158,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.addToBackStack(null);
                     transaction.commit();
                     break;
+                case R.id.nav_addtools:
+                    transaction.replace(R.id.fragment_container, new addToolFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
                 case R.id.nav_logout_toolman:
                     prefs.edit().putBoolean("isLogged",false).apply();
                     prefs.edit().putString("user_token",null).apply();

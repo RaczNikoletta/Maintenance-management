@@ -1,72 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:background="@color/adminbackground"
     android:orientation="vertical"
     tools:context=".addCategoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView5"
+        style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="@string/AddCategory"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:text="@string/AddCategory" />
 
     <TextView
         android:id="@+id/tvName"
+        style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Category_name"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:text="@string/Category_name" />
 
     <EditText
         android:id="@+id/subCategory"
+        style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/tvTime"
+        style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/maintenanceInterval"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:text="@string/maintenanceInterval" />
 
     <EditText
         android:id="@+id/repairTime"
+        style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/addCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/adminbackgrounddark"
+        style="@style/Button"
         android:text="@string/AddCategory" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="150dp" />
 
 </LinearLayout>
