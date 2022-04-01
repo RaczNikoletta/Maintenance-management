@@ -1,96 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical"
-    tools:context=".addSubcategoryFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/textView5"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/Background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/AddSubcategory"
-        android:textSize="25dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".addSubcategoryFragment">
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Subcategory_name" />
+        <!-- TODO: Update blank fragment layout -->
 
-    <EditText
-        android:id="@+id/subCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/AddSubcategory" />
 
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Category_id" />
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Subcategory_name" />
 
-    <EditText
-        android:id="@+id/toolCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/subCategory"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/tvProfession"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Profession" />
+        <TextView
+            android:id="@+id/tvCategory"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Category_id" />
 
-    <EditText
-        android:id="@+id/profession"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/toolCategory"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/tvInstruction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Instructions" />
+        <TextView
+            android:id="@+id/tvProfession"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Profession" />
 
-    <EditText
-        android:id="@+id/repairInstruction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/profession"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Repair_time" />
+        <TextView
+            android:id="@+id/tvInstruction"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Instructions" />
 
-    <EditText
-        android:id="@+id/repairTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/repairInstruction"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/addSubcategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/AddSubcategory" />
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Repair_time" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="150dp" />
+        <EditText
+            android:id="@+id/repairTime"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/addSubcategory"
+            style="@style/Button"
+            android:text="@string/AddSubcategory" />
+
+    </LinearLayout>
+</ScrollView>

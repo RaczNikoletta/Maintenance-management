@@ -71,8 +71,6 @@ public class addSubcategoryFragment extends Fragment {
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-
-
         addSubcategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +79,7 @@ public class addSubcategoryFragment extends Fragment {
                                 &&!TextUtils.isEmpty(repairInstruction.getText())&&!TextUtils.isEmpty(repairTime.getText()))
                 {
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("subCategoryId",Integer.parseInt(toolCategory.getText().toString()));
+                    jsonObject.addProperty("categoryId",Integer.parseInt(toolCategory.getText().toString()));
                     jsonObject.addProperty("subCategoryName",subcategory.getText().toString());
                     jsonObject.addProperty("qualificationId",Integer.parseInt(professionEt.getText().toString()));
                     jsonObject.addProperty("standardTime",Integer.parseInt(repairTime.getText().toString()));
