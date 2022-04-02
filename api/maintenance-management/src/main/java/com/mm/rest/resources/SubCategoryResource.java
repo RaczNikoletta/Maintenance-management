@@ -79,7 +79,9 @@ public class SubCategoryResource {
     */
     public Response addSubCategory(SubCategoryModel subCategory) {
         try{
+            System.out.println(subCategory.getQualificationId());
             return scs.addSubCategory(subCategory);
+
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();

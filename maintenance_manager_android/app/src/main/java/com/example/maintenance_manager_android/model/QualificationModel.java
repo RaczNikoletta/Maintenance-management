@@ -1,4 +1,4 @@
-package com.example.maintenance_manager_android;
+package com.example.maintenance_manager_android.model;
 
 import com.google.gson.annotations.SerializedName;
 

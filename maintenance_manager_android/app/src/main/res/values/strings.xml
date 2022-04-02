@@ -40,7 +40,7 @@
     <string name="Category_name">Kategória neve:</string>
     <string name="Subcategory_name">Alkategória neve:</string>
     <string name="Tool_id">Eszköz id:</string>
-    <string name="Category_id">Kategória id:</string>
+    <string name="Category_id">Kategória:</string>
     <string name="Subcategory_id">Alkategória id:</string>
     <string name="Tool_category">Eszköz kategória:</string>
     <string name="Profession">Képesítés:</string>
@@ -52,5 +52,7 @@
     <string name="maintenanceInterval">Javítás intervalluma</string>
     <string name="tasks">Feladatok</string>
     <string name="role">Szerep</string>
+    <string name="maintainer">karbantarto</string>
+
 
 </resources>

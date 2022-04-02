@@ -1,18 +1,15 @@
 package com.example.maintenance_manager_android;
 
-import android.util.Log;
-
+import com.example.maintenance_manager_android.model.CategoryModel;
+import com.example.maintenance_manager_android.model.QualificationModel;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JsonPlaceHolderApi {
@@ -33,12 +30,17 @@ public interface JsonPlaceHolderApi {
     @POST("qualification")
     Call<String>addQual(@Body JsonObject jsonObject);
 
+
     @POST("category")
     Call<String>addCategory(@Body JsonObject jsonObject);
+
+    @GET("category")
+    Call<ArrayList<CategoryModel>>getCategories();
 
     @POST("subcategory")
     Call<String>addSubCategory(@Body JsonObject jsonObject);
 
     @POST("equipment")
     Call<String>addEquipment(@Body JsonObject jsonObject);
+
 }

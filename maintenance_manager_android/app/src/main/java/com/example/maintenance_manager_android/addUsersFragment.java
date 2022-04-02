@@ -1,45 +1,34 @@
 package com.example.maintenance_manager_android;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.NoCopySpan;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.maintenance_manager_android.model.QualificationModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -96,8 +85,8 @@ public class addUsersFragment extends Fragment {
         getProfessions();
         ArrayList<String> roles = new ArrayList<>();
         roles.add("admin");
-        roles.add("karbantarto");
-        roles.add("eszkozfelelos");
+        roles.add(getString(R.string.maintainer));
+        roles.add(getString(R.string.toolManager));
         roles.add("operator");
         Customadapter = new ArrayAdapter<String>(getContext(), R.layout.prof_spinner_item,roles);
         roleSpinner.setAdapter(Customadapter);

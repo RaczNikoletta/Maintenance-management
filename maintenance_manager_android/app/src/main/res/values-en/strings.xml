@@ -42,7 +42,7 @@
     <string name="Subcategory_name">Subcategory name:</string>
     <string name="Tool_id">Tool id:</string>
     <string name="Category_id">Category id:</string>
-    <string name="Subcategory_id">Subcategory id:</string>
+    <string name="Subcategory_id">Subcategory:</string>
     <string name="Tool_category">Tool category:</string>
     <string name="Profession">Profession:</string>
     <string name="Repair_time">Repair time:</string>
@@ -53,4 +53,5 @@
     <string name="maintenanceInterval">Maintenance interval</string>
     <string name="tasks">Tasks</string>
     <string name="role">Role</string>
+    <string name="maintainer">maintainer</string>
 </resources>

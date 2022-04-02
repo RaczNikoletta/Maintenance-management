@@ -54,20 +54,19 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     .getString("user_token", "token not found"); //check login Token from sp
             Log.d("token", token);
             JWT jwt = new JWT(token);
-            //TODO: add all roles when they are ready
             role = jwt.getClaim("role").asString();
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
+            SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("isLogged", true); // save logged state
+            editor.apply();
            if(role.equals("admin")) {
                Log.d("role", jwt.getClaim("role").asString());
                //MenuInflater inflater = getMenuInflater();
                //inflater.inflate(R.menu.drawer_admin, menu);
                navigationView.getMenu().clear();
                navigationView.inflateMenu(R.menu.drawer_admin);
-               SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
-               SharedPreferences.Editor editor = prefs.edit();
-               editor.putBoolean("isLogged", true); // save logged state
-               editor.apply();
                transaction.replace(R.id.fragment_container, new manageEmployees(), "");
                transaction.addToBackStack(null);
                transaction.commit();
@@ -75,10 +74,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
            else if(role.equals(getString(R.string.toolManager))) {
                navigationView.getMenu().clear();
                navigationView.inflateMenu(R.menu.drawer_tool_manager);
-               SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
-               SharedPreferences.Editor editor = prefs.edit();
-               editor.putBoolean("isLogged", true); // save logged state
-               editor.apply();
+               transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
+               transaction.addToBackStack(null);
+               transaction.commit();
+
+           }
+           else if(role.equals(getString(R.string.maintainer))){
+               navigationView.inflateMenu(R.menu.drawer_maintenance);
                transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
                transaction.addToBackStack(null);
                transaction.commit();
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.commit();
                     break;
             }
-        }else if(role.equals("eszkozfelelos")){
+        }else if(role.equals(getString(R.string.toolManager))){
             switch (item.getItemId()){
                 case  R.id.nav_addcat:
                     transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
@@ -177,6 +179,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     break;
 
             }
+
+        }
+        else if(role.equals(getString(R.string.maintainer))){
 
         }
         drawer.closeDrawer(GravityCompat.START);
