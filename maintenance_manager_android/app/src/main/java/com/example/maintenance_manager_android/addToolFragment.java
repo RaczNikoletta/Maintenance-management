@@ -1,5 +1,6 @@
 package com.example.maintenance_manager_android;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -11,14 +12,23 @@ import androidx.fragment.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import com.example.maintenance_manager_android.model.CategoryModel;
+import com.example.maintenance_manager_android.model.SubCategoryModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +45,9 @@ public class addToolFragment extends Fragment {
     EditText placement;
     Button addTool;
     JsonPlaceHolderApi jsonPlaceHolderApi;
+    HashMap<String,Integer> subCatHash;
+    ListView subCatList;
+    ArrayList<String> subCategoryNames;
 
     public addToolFragment() {
         // Required empty public constructor
@@ -54,6 +67,8 @@ public class addToolFragment extends Fragment {
         description = view.findViewById(R.id.description);
         placement = view.findViewById(R.id.placement);
         addTool = view.findViewById(R.id.addTool);
+        subCatHash = new HashMap<>();
+        subCategoryNames = new ArrayList<>();
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -67,6 +82,55 @@ public class addToolFragment extends Fragment {
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
+
+        Call <ArrayList<SubCategoryModel>> subcategories = jsonPlaceHolderApi.getSubCategories();
+        subcategories.enqueue(new Callback<ArrayList<SubCategoryModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<SubCategoryModel>> call, Response<ArrayList<SubCategoryModel>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("subcategories: ", "subcategory query failed: " +response.code());
+
+
+                }else{
+                    ArrayList<SubCategoryModel> temp = response.body();
+                    for(int i=0;i<temp.size();i++){
+                        subCatHash.put(temp.get(i).getSubCategoryName(),temp.get(i).getSubCategoryId());
+                        subCategoryNames.add(temp.get(i).getSubCategoryName());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<SubCategoryModel>> call, Throwable t) {
+                Log.d("subcategories: ", t.toString());
+
+            }
+        });
+
+        toolSubcategory.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.prof_dialog);
+                //dialog.setCancelable(true);
+                subCatList = (ListView) dialog.findViewById(R.id.List);
+                subCatList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        String clickedsubcat = subCatList.getItemAtPosition(position).toString();
+                        toolSubcategory.setText(clickedsubcat);
+                        dialog.dismiss();
+
+                    }
+                });
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, subCategoryNames);
+                subCatList.setAdapter(adapter);
+                dialog.show();
+                return false;
+            }
+        });
+
         addTool.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -76,7 +140,7 @@ public class addToolFragment extends Fragment {
                         &&!TextUtils.isEmpty(description.getText()))
                 {
                     JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("subCategoryId",Integer.parseInt(toolSubcategory.getText().toString()));
+                    jsonObject.addProperty("subCategoryId",subCatHash.get((toolSubcategory.getText().toString())));
                     jsonObject.addProperty("equipmentName",tool.getText().toString());
                     jsonObject.addProperty("site",placement.getText().toString());
                     jsonObject.addProperty("description",description.getText().toString());

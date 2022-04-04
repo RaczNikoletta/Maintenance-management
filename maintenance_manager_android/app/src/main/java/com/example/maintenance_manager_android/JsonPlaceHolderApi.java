@@ -2,6 +2,7 @@ package com.example.maintenance_manager_android;
 
 import com.example.maintenance_manager_android.model.CategoryModel;
 import com.example.maintenance_manager_android.model.QualificationModel;
+import com.example.maintenance_manager_android.model.SubCategoryModel;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -39,6 +40,9 @@ public interface JsonPlaceHolderApi {
 
     @POST("subcategory")
     Call<String>addSubCategory(@Body JsonObject jsonObject);
+
+    @GET("subcategory")
+    Call<ArrayList<SubCategoryModel>>getSubCategories();
 
     @POST("equipment")
     Call<String>addEquipment(@Body JsonObject jsonObject);

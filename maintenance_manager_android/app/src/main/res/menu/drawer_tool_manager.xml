@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_addcat"
-            android:icon="@drawable/ic_message"
+            android:icon="@drawable/ic_baseline_add_24"
             android:title="@string/AddCategory" />
         <item
             android:id="@+id/nav_addsubcat"
@@ -13,7 +13,7 @@
             android:title="@string/AddSubcategory" />
         <item
             android:id="@+id/nav_addtools"
-            android:icon="@drawable/ic_search_tools"
+            android:icon="@drawable/ic_baseline_handyman_24"
             android:title="@string/AddTools" />
     </group>
     <item android:title="@string/Profile">
