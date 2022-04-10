@@ -5,27 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".addToolFragment">
+    tools:context=".addTaskFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView6"
         style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/AddTools"
+        android:text="@string/AddTask"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvTool"
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Tool_name" />
+        android:text="@string/Tool_id" />
 
     <EditText
-        android:id="@+id/tool"
+        android:id="@+id/toolName"
         style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,14 +31,14 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/tvSubcategory"
+        android:id="@+id/tvCause"
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Subcategory_id" />
+        android:text="@string/Cause" />
 
     <EditText
-        android:id="@+id/toolSubcategory"
+        android:id="@+id/cause"
         style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,40 +46,26 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvDate"
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Description" />
+        android:text="@string/Date" />
 
-    <EditText
-        android:id="@+id/description"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:maxLines="10"
-        android:minLines="4" />
-
-    <TextView
-        android:id="@+id/tvTime"
+    <DatePicker
+        android:id="@+id/datePicker"
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Location" />
-
-    <EditText
-        android:id="@+id/placement"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:calendarTextColor="@color/white"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
 
     <Button
-        android:id="@+id/addTool"
+        android:id="@+id/addTask"
         style="@style/Button"
-        android:text="@string/AddTools" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/AddTask" />
 
 </LinearLayout>
