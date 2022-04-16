@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `eszkozok` (
     `helyszin` VARCHAR(255),
     `leiras` VARCHAR(255),
     `hibas` BOOLEAN,
-    `utasitas` VARCHAR(9048),
     `kov_javitas` DATETIME,
     FOREIGN KEY (alkategoria_id) REFERENCES alkategoria(alkategoria_id)
 );
@@ -47,8 +46,10 @@ CREATE TABLE IF NOT EXISTS `feladatok` (
     `feladat_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `eszkoz_id` INT,
     `szakember_id` INT,
-    `allapot` ENUM('kiosztva', 'elfogadott', 'elutasitott', 'elkezdve', 'befejezve'),
-    `indok` VARCHAR(255),
+    `allapot` ENUM('felveve','kiosztva', 'elfogadott', 'elutasitott', 'elkezdve', 'befejezve'),
+	`sulyossag` ENUM('alacsony', 'közepes', 'magas', 'kritikus'),
+    `hiba_leiras` VARCHAR(255),
+    `elutasitas_indok` VARCHAR(255),
     `elkezdve` DATETIME,
     `befejezve` DATETIME,
     FOREIGN KEY (eszkoz_id) REFERENCES eszkozok(eszkoz_id),

@@ -85,16 +85,16 @@ public class AuthResource {
         }
     }
     
-    //Átmenetileg még jó, teszt adatok feltöltéséhez
+    //Paraméterek: fnev, nev, password, szerep, kepesitesid
     // http://localhost:8080/api/auth/create
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUser(@QueryParam("fnev") String fnev,@QueryParam("nev") String nev,
-@QueryParam("password") String password,@QueryParam("szerep") String szerep) {
+@QueryParam("password") String password,@QueryParam("szerep") String szerep,@QueryParam("kepesitesid") int kepId) {
         //ObjectNode resp = mapper.createObjectNode();
         try{
-            Response success = as.createUser(fnev, nev, password, szerep);
+            Response success = as.createUser(fnev, nev, password, szerep, kepId);
 
             return success;
         }catch(ServiceException ex){
