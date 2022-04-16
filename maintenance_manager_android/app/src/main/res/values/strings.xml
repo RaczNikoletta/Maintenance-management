@@ -59,6 +59,7 @@
     <string name="role">Szerep</string>
     <string name="maintainer">karbantarto</string>
     <string name="manageTask">Feladat kiosztása</string>
+    <string name="overview">Áttekintés</string>
 
 
 </resources>

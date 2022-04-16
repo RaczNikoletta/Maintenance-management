@@ -108,7 +108,7 @@ public class addUsersFragment extends Fragment {
                         && !TextUtils.isEmpty(newWorkerPassword.getText())
                         && roleSpinner.getSelectedItem() != null)
                 {
-                    
+
 
 
                     String namestring = firstNameEt.getText().toString() + " " + lastnameEt.getText().toString().toUpperCase();

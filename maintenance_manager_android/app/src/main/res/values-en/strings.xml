@@ -60,5 +60,6 @@
     <string name="role">Role</string>
     <string name="maintainer">maintainer</string>
     <string name="manageTask">Manage task</string>
+    <string name="overview">Overview</string>
 
 </resources>
