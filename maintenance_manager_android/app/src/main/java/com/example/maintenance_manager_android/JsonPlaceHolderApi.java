@@ -23,7 +23,8 @@ public interface JsonPlaceHolderApi {
     Call<String> createUser(@Query("fnev")String username,
                                     @Query("nev") String name,
                                     @Query("password") String password,
-                                    @Query("szerep")String role);
+                                    @Query("szerep")String role,
+                                    @Query("kepesitesid") int kepid );
 
     @GET("qualification")
     Call<ArrayList<QualificationModel>>getQuals();

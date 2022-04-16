@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +47,7 @@ public class addUsersFragment extends Fragment {
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private ArrayList<QualificationModel> profs;
     private EditText positionEt2;
+    private HashMap<String,Integer> professions;
     private ArrayList<String> professionNames;
     private  ArrayAdapter<String> Customadapter;
     private ListView profList;
@@ -79,6 +81,7 @@ public class addUsersFragment extends Fragment {
         roleSpinner = view.findViewById(R.id.spinner2);
         kepesitesTv = view.findViewById(R.id.kepesitesTv);
 
+        professions = new HashMap<String,Integer>();
         professionNames = new ArrayList<>();
 
         setRetainInstance(true); // to enable changing orientation of the mobile
@@ -103,14 +106,26 @@ public class addUsersFragment extends Fragment {
                 && !TextUtils.isEmpty(firstNameEt.getText())
                         && !TextUtils.isEmpty(lastnameEt.getText())
                         && !TextUtils.isEmpty(newWorkerPassword.getText())
-                        && roleSpinner.getSelectedItem() != null) {
+                        && roleSpinner.getSelectedItem() != null)
+                {
+                    
 
 
                     String namestring = firstNameEt.getText().toString() + " " + lastnameEt.getText().toString().toUpperCase();
                     String username = addNewWorkerusername.getText().toString();
                     String pass = newWorkerPassword.getText().toString();
                     String pos = roleSpinner.getSelectedItem().toString();
-                    Call<String> call2 = jsonPlaceHolderApi.createUser(username,namestring,pass,pos);
+                    int profid;
+                        if(roleSpinner.getSelectedItem().equals("karbantarto"))
+                        {
+                            if(!TextUtils.isEmpty(positionEt2.getText())) {
+                                profid = professions.get((positionEt2.getText().toString()));
+                            }else
+                                profid = 1;
+                        }else{
+                            profid = 1;
+                        }
+                        Call<String> call2 = jsonPlaceHolderApi.createUser(username,namestring,pass,pos,profid);
 
                     try {
                         call2.enqueue(new Callback<String>() {
@@ -238,6 +253,7 @@ public class addUsersFragment extends Fragment {
                     Log.d("prof", profs.get(0).getqName());
                     for (int i = 0; i < profs.size(); i++) {
                         professionNames.add(profs.get(i).getqName());
+                        professions.put(profs.get(i).getqName(),profs.get(i).getqId());
                     }
                 }
 
