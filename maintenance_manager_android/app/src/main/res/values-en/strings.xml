@@ -27,20 +27,23 @@
     <string name="databaseError">Error!</string>
     <string name="addProfession">Add profession</string>
     <string name="professions">Professions</string>
+    <string name="requiredProfession">Required profession:</string>
 
     <!--Fragment manage users -->
     <string name="users">Users</string>
     <string name="manage_users">Manage maintainers</string>
     <string name="New_employee">New employee</string>
+    <string name="Employee_id">Employee:</string>
     <string name="Profile">Profile</string>
     <string name="AddCategory">Add categories</string>
     <string name="AddSubcategory">Add subcategories</string>
+    <string name="AddTask">Add tasks</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
     <string name="Tool_name">Tool name:</string>
     <string name="Category_name">Category name:</string>
     <string name="Subcategory_name">Subcategory name:</string>
-    <string name="Tool_id">Tool id:</string>
+    <string name="Tool_id">Tool:</string>
     <string name="Category_id">Category:</string>
     <string name="Subcategory_id">Subcategory:</string>
     <string name="Tool_category">Tool category:</string>
@@ -49,9 +52,13 @@
     <string name="Instructions">Instructions:</string>
     <string name="Description">Description:</string>
     <string name="Location">Location:</string>
+    <string name="Cause">Cause of error:</string>
+    <string name="Date">Date:</string>
     <string name="toolManager">tool manager</string>
     <string name="maintenanceInterval">Maintenance interval</string>
     <string name="tasks">Tasks</string>
     <string name="role">Role</string>
     <string name="maintainer">maintainer</string>
+    <string name="manageTask">Manage task</string>
+
 </resources>

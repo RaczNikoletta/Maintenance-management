@@ -23,15 +23,21 @@ public class EquipmentService {
     
     public Response addEquipment(EquipmentModel equipment) {
         
-        //Need to add the subcategory's category's repair interval
-        //Maybe with doing a join select to get the interval, and add it to the timestamp
-        //created in addEquipmentToDB
-        int temp = EDB.addEquipmentToDB(equipment);
-        
-        if(temp!=-1){
-            return Response.status(Response.Status.OK).entity("Equipment added!").build();
-        } else {
-            return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+        try {
+            //Need to add the subcategory's category's repair interval
+            //Maybe with doing a join select to get the interval, and add it to the timestamp
+            //created in addEquipmentToDB
+            int interval = EDB.getSubCategoryInterval(equipment.getSubCategoryId());
+            int temp = EDB.addEquipmentToDB(equipment, interval);
+            
+            if(temp!=-1){
+                return Response.status(Response.Status.OK).entity("Equipment added!").build();
+            } else {
+                return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+            }
+        } catch (DatabaseException ex) {
+            Logger.getLogger(EquipmentService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
     

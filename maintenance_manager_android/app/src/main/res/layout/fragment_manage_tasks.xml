@@ -5,83 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".addToolFragment">
+    tools:context=".manageTasksFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView6"
         style="@style/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/AddTools"
+        android:text="@string/manageTask"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/toolTv"
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Tool_name" />
+        android:text="@string/Tool_id" />
 
     <EditText
-        android:id="@+id/tool"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/tvSubcategory"
-        style="@style/TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Subcategory_id" />
-
-    <EditText
-        android:id="@+id/toolSubcategory"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        style="@style/TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Description" />
-
-    <EditText
-        android:id="@+id/description"
+        android:id="@+id/toolID"
         style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:maxLines="10"
-        android:minLines="4" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/tvTime"
+        android:id="@+id/profTv"
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Location" />
+        android:text="@string/requiredProfession" />
 
     <EditText
-        android:id="@+id/placement"
+        android:id="@+id/reqProf"
         style="@style/EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tvEmployee"
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Employee_id" />
+
+    <EditText
+        android:id="@+id/employeeId"
+        style="@style/EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/addTool"
+        android:id="@+id/manageTask"
         style="@style/Button"
-        android:text="@string/AddTools" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manageTask" />
 
 </LinearLayout>

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  *
  * @author burkus
  */
-public class EquipmentModel {
+public class IntervalRepairsModel {
     private int equipmentId;
     private int subCategoryId;
     private String equipmentName;
@@ -20,10 +20,10 @@ public class EquipmentModel {
     private boolean error;
     private String nextRepair;
     
-    public EquipmentModel() {
+    public IntervalRepairsModel() {
     }
 
-    public EquipmentModel(int equipmentId, int subCategoryId, String equipmentName,
+    public IntervalRepairsModel(int equipmentId, int subCategoryId, String equipmentName,
             String site, String description, boolean error, String nextRepair) {
         this.equipmentId = equipmentId;
         this.subCategoryId = subCategoryId;

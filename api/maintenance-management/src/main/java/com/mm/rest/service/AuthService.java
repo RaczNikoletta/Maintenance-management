@@ -73,12 +73,12 @@ public class AuthService {
         }
     }
     
-    public Response createUser(String fnev, String nev, String password, String szerep) throws ServiceException{
+    public Response createUser(String fnev, String nev, String password, String szerep, int kepId) throws ServiceException{
         try {    
             if(ADB.checkIfUserExistsInDB(fnev)) throw new ServiceException("User already exists: " + fnev, "database");
             
             String hashedPw = BCrypt.hashpw(password, BCrypt.gensalt());
-            if(ADB.addUserToDB(fnev, nev, hashedPw, szerep)){
+            if(ADB.addUserToDB(fnev, nev, hashedPw, szerep, kepId)){
                 return Response.status(Response.Status.OK).entity("Successfully created user").build();
             }
             

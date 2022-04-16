@@ -63,7 +63,7 @@ public class AuthDatabase {
         }
     }
     
-    public boolean addUserToDB(String fnev, String nev, String hashedPw, String szerep) throws DatabaseException {        
+    public boolean addUserToDB(String fnev, String nev, String hashedPw, String szerep, int kepID) throws DatabaseException {        
         Connection con = DbConnection.getConnection();
         if(con == null) throw new DatabaseException("Database connection failed in AuthDatabase.addUserToDB");
         
@@ -74,7 +74,7 @@ public class AuthDatabase {
             ps.setString(3, hashedPw);
             ps.setString(4, szerep);
             ps.setInt(5, 8);
-            ps.setInt(6, 1);
+            ps.setInt(6, kepID);
             
             int temp = ps.executeUpdate();
             

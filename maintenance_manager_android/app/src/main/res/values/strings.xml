@@ -29,17 +29,20 @@
     <string name="users">Felhasználók</string>
     <string name="manage_users">Karbantartók kezelése</string>
     <string name="addProfession">Végzettség hozzáadása</string>
+    <string name="requiredProfession">Szükséges végzettség:</string>
     <string name="professions">Végzettségek</string>
     <string name="New_employee">Új munkavállaló</string>
+    <string name="Employee_id">Munkavállaló:</string>
     <string name="Profile">Profil</string>
     <string name="AddCategory">Kategória hozzáadása</string>
     <string name="AddSubcategory">Alkategória hozzáadása</string>
+    <string name="AddTask">Feladat hozzáadása</string>
     <string name="Open">Megnyit</string>
     <string name="Close">Bezár</string>
     <string name="Tool_name">Eszköz neve:</string>
     <string name="Category_name">Kategória neve:</string>
     <string name="Subcategory_name">Alkategória neve:</string>
-    <string name="Tool_id">Eszköz id:</string>
+    <string name="Tool_id">Eszköz:</string>
     <string name="Category_id">Kategória:</string>
     <string name="Subcategory_id">Alkategória:</string>
     <string name="Tool_category">Eszköz kategória:</string>
@@ -48,11 +51,14 @@
     <string name="Instructions">Utasítás:</string>
     <string name="Description">Leírás:</string>
     <string name="Location">Elhelyezkedés:</string>
+    <string name="Cause">Hiba oka:</string>
+    <string name="Date">Időpont:</string>
     <string name="toolManager">eszkozfelelos</string>
     <string name="maintenanceInterval">Javítás intervalluma (nap)</string>
     <string name="tasks">Feladatok</string>
     <string name="role">Szerep</string>
     <string name="maintainer">karbantarto</string>
+    <string name="manageTask">Feladat kiosztása</string>
 
 
 </resources>

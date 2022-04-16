@@ -21,11 +21,13 @@ import com.mm.rest.helper.JwtProperties;
 import com.mm.rest.service.TestService;
 import com.mm.rest.models.TestModel;
 import com.mm.rest.models.authentication.LoginModel;
+import com.mm.rest.models.equipment.AddTaskModel;
 import com.mm.rest.models.equipment.CategoryModel;
 import com.mm.rest.models.equipment.EquipmentModel;
 import com.mm.rest.service.AuthService;
 import com.mm.rest.service.CategoryService;
 import com.mm.rest.service.EquipmentService;
+import com.mm.rest.service.TaskService;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,31 +61,27 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
  *
  * @author burkus
  */
-// http://localhost:8080/api/equipment
-@Path("/equipment")
-public class EquipmentResource {
+// http://localhost:8080/api/task
+@Path("/task")
+public class TaskResource {
     private static final ObjectMapper mapper = new ObjectMapper();
     //private static final Connection con = DbConnection.getConnection();
-    private static final EquipmentService es = new EquipmentService();
+    private static final TaskService ts = new TaskService();
     
-    // http://localhost:8080/api/equipment
+    // http://localhost:8080/api/task
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     /*
         Post Body JSON:
         {
-            "equipmentId":Integer(This value just has to be present, make it 0 or something)
-            "subCategoryId":Integer(Has to be a valid subcategory id)
-            "equipmentName":String
-            "site":String
-            "description":String
-            "error":Boolean
-            "nextRepair":String(This value just has to be present, make it an empty string or something)
+            "equipmentId":Integer
+            "taskSeverity":'alacsony', 'közepes', 'magas', 'kritikus'
+            "errorDescription":String
         }
     */
-    public Response addEquipment(EquipmentModel equipment) {
+    public Response addTask(AddTaskModel task) {
         try{
-            return es.addEquipment(equipment);
+            return ts.addTask(task);
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();
@@ -92,6 +90,17 @@ public class EquipmentResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    public Response addTasks() {
+        try{
+            return ts.automaticTaskAddition();
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
+    
+    /*@GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getEquipments() {
         try{
             return es.getEquipments();
@@ -99,5 +108,5 @@ public class EquipmentResource {
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();
         }
-    }
+    }*/
 }
