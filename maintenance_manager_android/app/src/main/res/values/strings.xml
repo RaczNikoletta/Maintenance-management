@@ -60,6 +60,11 @@
     <string name="maintainer">karbantarto</string>
     <string name="manageTask">Feladat kiosztása</string>
     <string name="overview">Áttekintés</string>
+    <string name="addtask">Feladat hozzáadása</string>
+    <string name="handlingTask">Feladatok kezelése</string>
+    <string name="unallocatedTasks">Kiosztatlan feladatok</string>
+    <string name="severity">Súlyosság:</string>
+
 
 
 </resources>

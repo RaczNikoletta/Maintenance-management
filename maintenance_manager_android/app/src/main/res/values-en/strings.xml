@@ -61,5 +61,9 @@
     <string name="maintainer">maintainer</string>
     <string name="manageTask">Manage task</string>
     <string name="overview">Overview</string>
+    <string name="addtask">Add task</string>
+    <string name="handlingTask">Manage tasks</string>
+    <string name="unallocatedTasks">Unallocated tasks</string>
+    <string name="severity">Severity</string>
 
 </resources>

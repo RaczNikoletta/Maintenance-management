@@ -46,6 +46,19 @@
         android:inputType="textPersonName" />
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/severity"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/severitySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
         android:id="@+id/tvDate"
         style="@style/TextView"
         android:layout_width="match_parent"

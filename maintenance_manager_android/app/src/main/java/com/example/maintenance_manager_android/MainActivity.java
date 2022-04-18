@@ -199,8 +199,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.commit();
                     break;
                 case R.id.nav_manage_tasks:
-                    //transaction.replace(R.id.fragment_container, new , "");
-                    //TODO manage tasks fragment
+                    transaction.replace(R.id.fragment_container,new manageAndAddTasksFragment());
                     transaction.addToBackStack(null);
                     transaction.commit();
                     break;
