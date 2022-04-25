@@ -10,7 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.example.maintenance_manager_android.model.ListTasksModel;
+import com.example.maintenance_manager_android.model.ManageTaskModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class listTasksFragment extends Fragment {
 
@@ -32,17 +39,20 @@ public class listTasksFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list_tasks, container, false);
 
         tasksList = (ListView)view.findViewById(R.id.tasksList);
-        ArrayAdapter<String> array = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.activity_list_item);
-        // for (String str : array)
-        //    array.add(str);
-        tasksList.setAdapter(array);
+
+
+        List<ListTasksModel> list = new ArrayList<>();
+        list.add(new ListTasksModel(1,2,3,"felvéve","alacsony"));
+        list.add(new ListTasksModel(1,2,3,"felvéve","kritikus"));
+        list.add(new ListTasksModel(1,2,3,"visszautasítva","kritikus"));
+        listTasksAdapter adapter = new listTasksAdapter(list, tasksList.getContext());
+        tasksList.setAdapter(adapter);
 
         tasksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), manageTasksFragment.class);
-                startActivity(intent);
+                // Intent intent = new Intent(getActivity(), manageTasksFragment.class);
+                // startActivity(intent);
             }
         });
 
