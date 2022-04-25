@@ -39,7 +39,12 @@ public class TaskService {
         try {
             List<AddTaskModel> repairs = TDB.getIntervalRepairs();
             System.out.println(repairs.size());
-            int result = TDB.addTasksToDatabase(repairs);
+            int result;
+            if(repairs.isEmpty()){
+                result = 0;
+            }else{
+                result = TDB.addTasksToDatabase(repairs);
+            }
             
             return Response.status(Response.Status.OK).entity(result).build();
         } catch (DatabaseException ex) {

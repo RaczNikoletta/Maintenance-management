@@ -87,32 +87,25 @@ public class TaskDatabase {
         Connection con = DbConnection.getConnection();
         if(con==null) throw new DatabaseException("Not connected to db");
         try {
-            PreparedStatement pstmt = con.prepareStatement("SELECT e.*,k.*,ak.utasitas FROM `eszkozok` e "
-                                                         + "JOIN `alkategoria` ak ON e.alkategoria_id = ak.alkategoria_id "
-                                                         + "JOIN `kategoria` k ON ak.kategoria_id = k.kategoria_id "
-                                                         + "WHERE e.kov_javitas <= current_timestamp() "
-                                                         + "ORDER BY e.kov_javitas ASC "
+            PreparedStatement pstmt = con.prepareStatement("SELECT e.*,k.*,ak.utasitas, f.* FROM `eszkozok` e "+
+                                                            "JOIN `alkategoria` ak ON e.alkategoria_id = ak.alkategoria_id "+
+                                                            "JOIN `kategoria` k ON ak.kategoria_id = k.kategoria_id "+
+                                                            "LEFT JOIN (SELECT fs.feladat_id,fs.eszkoz_id FROM `feladatok` fs WHERE fs.allapot != 'elutasitott' AND fs.allapot != 'befejezve') as f ON f.eszkoz_id = e.eszkoz_id "+
+                                                            "WHERE e.kov_javitas <= current_timestamp() "+
+                                                            "ORDER BY e.kov_javitas ASC "
                                                         );
+            
+            
+            
             ResultSet rs = pstmt.executeQuery();
 
             //ArrayNode arrayNode = mapper.createArrayNode();
             List<AddTaskModel> atl = new ArrayList<AddTaskModel>();
             while (rs.next()) {
-                AddTaskModel atm = new AddTaskModel(rs.getInt(1),"alacsony",rs.getString(11));
-                atl.add(atm);
-                /*ObjectNode row = mapper.createObjectNode();
-                row.put("equipmentId", rs.getInt(1));
-                row.put("subCategoryId", rs.getInt(2));
-                row.put("categoryId", rs.getInt(8));
-                row.put("equipmentName", rs.getString(3));
-                row.put("site", rs.getString(4));
-                row.put("description", rs.getString(5));
-                row.put("error", rs.getBoolean(6));
-                row.put("order", rs.getString(7));
-                row.put("nextRepair", rs.getTimestamp(8).toString());
-                arrayNode.add(row);*/
-                
-                
+                if(rs.getInt(12) == 0){
+                    AddTaskModel atm = new AddTaskModel(rs.getInt(1),"alacsony",rs.getString(11));
+                    atl.add(atm);
+                }
             }
             con.close();
             return atl;
