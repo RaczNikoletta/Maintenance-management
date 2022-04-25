@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/Background">
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -46,6 +50,20 @@
         android:inputType="textPersonName" />
 
     <TextView
+        style="@style/TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/severity"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/severitySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
+
+    <TextView
         android:id="@+id/tvDate"
         style="@style/TextView"
         android:layout_width="match_parent"
@@ -68,4 +86,5 @@
         android:layout_height="wrap_content"
         android:text="@string/AddTask" />
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

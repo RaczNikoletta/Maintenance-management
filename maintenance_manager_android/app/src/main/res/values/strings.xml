@@ -47,18 +47,24 @@
     <string name="Subcategory_id">Alkategória:</string>
     <string name="Tool_category">Eszköz kategória:</string>
     <string name="Profession">Képesítés:</string>
-    <string name="Repair_time">Norma idő:</string>
+    <string name="Repair_time">Norma idő (óra):</string>
     <string name="Instructions">Utasítás:</string>
     <string name="Description">Leírás:</string>
     <string name="Location">Elhelyezkedés:</string>
     <string name="Cause">Hiba oka:</string>
     <string name="Date">Időpont:</string>
     <string name="toolManager">eszkozfelelos</string>
-    <string name="maintenanceInterval">Javítás intervalluma</string>
+    <string name="maintenanceInterval">Javítás intervalluma (nap)</string>
     <string name="tasks">Feladatok</string>
     <string name="role">Szerep</string>
     <string name="maintainer">karbantarto</string>
     <string name="manageTask">Feladat kiosztása</string>
+    <string name="overview">Áttekintés</string>
+    <string name="addtask">Feladat hozzáadása</string>
+    <string name="handlingTask">Feladatok kezelése</string>
+    <string name="unallocatedTasks">Kiosztatlan feladatok</string>
+    <string name="severity">Súlyosság:</string>
+
 
 
 </resources>

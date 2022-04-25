@@ -86,6 +86,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                transaction.commit();
 
            }
+           else if(role.equals("operator")){
+               navigationView.inflateMenu(R.menu.drawer_operator);
+               transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
+               transaction.addToBackStack(null);
+               transaction.commit();
+
+           }
                 else{
                     Log.d("role", jwt.getClaim("role").asString());
                     navigationView.getMenu().clear();
@@ -183,6 +190,30 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
         else if(role.equals(getString(R.string.maintainer))){
 
+        }
+        else if(role.equals("operator")) {
+            switch (item.getItemId()) {
+                case R.id.nav_overview:
+                    transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
+                case R.id.nav_manage_tasks:
+                    transaction.replace(R.id.fragment_container,new manageAndAddTasksFragment());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
+
+                case R.id.nav_logout_operator:
+                    prefs.edit().putBoolean("isLogged", false).apply();
+                    prefs.edit().putString("user_token", null).apply();
+                    Intent i = new Intent(context, loginActivity.class);
+                    startActivity(i);
+                    finish();
+                    break;
+
+
+            }
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
