@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="5"
         android:textAppearance="?android:attr/textAppearanceButton"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/white" />
 
 
     <LinearLayout
@@ -20,22 +20,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/equipmentId"
+            android:id="@+id/equipment"
             style="@style/TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Poroltó "
             android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/professionId"
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="szerelő"
-            android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@android:color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,7 +46,8 @@
             android:gravity="center"
             android:text="felvéve"
             android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/taskSeverity"
@@ -65,7 +59,8 @@
             android:gravity="right"
             android:text="kritikus"
             android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white"
+            android:textSize="18dp" />
     </LinearLayout>
 
 

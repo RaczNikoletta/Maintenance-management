@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -26,8 +25,7 @@ public class listTasksAdapter extends ArrayAdapter<ListTasksModel>{
 
     private static class ViewHolder {
         TextView taskID;
-        TextView equipmentId;
-        TextView professionId;
+        TextView equipment;
         TextView taskState;
         TextView taskSeverity;
     }
@@ -46,8 +44,7 @@ public class listTasksAdapter extends ArrayAdapter<ListTasksModel>{
             convertView = inflater.inflate(R.layout.list_tasks_listview, parent, false);
 
             viewHolder.taskID = (TextView) convertView.findViewById(R.id.taskID);
-            viewHolder.equipmentId = (TextView) convertView.findViewById(R.id.equipmentId);
-            viewHolder.professionId = (TextView) convertView.findViewById(R.id.professionId);
+            viewHolder.equipment = (TextView) convertView.findViewById(R.id.equipment);
             viewHolder.taskState = (TextView) convertView.findViewById(R.id.taskState);
             viewHolder.taskSeverity = (TextView) convertView.findViewById(R.id.taskSeverity);
 
@@ -57,10 +54,21 @@ public class listTasksAdapter extends ArrayAdapter<ListTasksModel>{
         }
 
         viewHolder.taskID.setText(Integer.toString(dataModel.getTaskId()));
-        viewHolder.equipmentId.setText(Integer.toString(dataModel.getEquipmentId()));
-        viewHolder.professionId.setText(Integer.toString(dataModel.getQualificationID()));
+        viewHolder.equipment.setText(dataModel.getEquipment());
         viewHolder.taskState.setText(dataModel.getTaskState());
         viewHolder.taskSeverity.setText(dataModel.getTaskSeverity());
+
+        if(viewHolder.taskSeverity.getText().toString().equalsIgnoreCase("alacsony"))
+        {
+            viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.green));
+        }if(viewHolder.taskSeverity.getText().toString().equalsIgnoreCase("közepes")){
+            viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.yellow));
+        }if(viewHolder.taskSeverity.getText().toString().equalsIgnoreCase("magas")){
+            viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.orange));
+        }if(viewHolder.taskSeverity.getText().toString().equalsIgnoreCase("kritikus")){
+            viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.red));
+        }
+
 
         return convertView;
     }

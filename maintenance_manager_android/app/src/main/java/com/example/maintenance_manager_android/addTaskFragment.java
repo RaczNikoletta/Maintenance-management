@@ -173,7 +173,7 @@ public class addTaskFragment extends Fragment {
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 FragmentManager manager = getFragmentManager();
                                                 FragmentTransaction transaction = manager.beginTransaction();
-                                                transaction.replace(R.id.fragment_container, new manageAndAddTasksFragment(), "");
+                                                transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
                                                 transaction.addToBackStack(null);
                                                 transaction.commit();
 

@@ -7,10 +7,6 @@
             android:id="@+id/nav_overview"
             android:icon="@drawable/ic_baseline_preview_24"
             android:title="@string/overview" />
-        <item
-            android:id="@+id/nav_manage_tasks"
-            android:icon="@drawable/ic_baseline_handyman_24"
-            android:title="@string/handlingTask" />
 
     </group>
     <item android:title="@string/Profile">

@@ -198,11 +198,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     transaction.addToBackStack(null);
                     transaction.commit();
                     break;
-                case R.id.nav_manage_tasks:
-                    transaction.replace(R.id.fragment_container,new manageAndAddTasksFragment());
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                    break;
 
                 case R.id.nav_logout_operator:
                     prefs.edit().putBoolean("isLogged", false).apply();

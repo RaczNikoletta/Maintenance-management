@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="adminbackground">#03c6fc</color>
     <color name="adminbackgrounddark">#0377fc</color>
+    <color name ="green">#0f6e17</color>
+    <color name="yellow">#d1e02d</color>
+    <color name="orange">#e0722d</color>
+    <color name="red">#e03f2d</color>
+
 </resources>

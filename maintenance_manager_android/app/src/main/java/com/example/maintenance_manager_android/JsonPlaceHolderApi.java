@@ -55,5 +55,8 @@ public interface JsonPlaceHolderApi {
     @GET("equipment")
     Call<ArrayList<EquipmentModel>>getEquipments();
 
+    @GET("task/automatic")
+    Call<String>getAutoTasks();
+
 
 }

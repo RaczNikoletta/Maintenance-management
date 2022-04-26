@@ -89,6 +89,7 @@ public class TaskResource {
     }
     
     @GET
+    @Path("/automatic")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTasks() {
         try{
