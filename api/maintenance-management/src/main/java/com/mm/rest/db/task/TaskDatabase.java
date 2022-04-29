@@ -133,8 +133,16 @@ public class TaskDatabase {
                 row.put("sulyossag", rs.getString(5));
                 row.put("hiba_leiras", rs.getString(6));
                 row.put("elutasitas_indok", rs.getString(7));
-                row.put("elkezdve", rs.getTimestamp(8).toString());
-                row.put("befejezve", rs.getTimestamp(9).toString());
+                if(rs.getTimestamp(8) == null){
+                    row.put("elkezdve", "");
+                } else {
+                    row.put("elkezdve", rs.getTimestamp(8).toString());
+                }
+                if(rs.getTimestamp(8) == null){
+                    row.put("befejezve", "");
+                } else {
+                    row.put("befejezve", rs.getTimestamp(9).toString());
+                }
                 arrayNode.add(row);               
             }
             con.close();
