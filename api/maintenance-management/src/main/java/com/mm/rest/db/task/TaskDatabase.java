@@ -114,4 +114,34 @@ public class TaskDatabase {
             throw new DatabaseException("Not connected to db");
         }
     }
+    
+        public ArrayNode getTasks() throws DatabaseException {
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM feladatok");
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayNode arrayNode = mapper.createArrayNode();
+
+            while (rs.next()) {
+                ObjectNode row = mapper.createObjectNode();
+                row.put("feladat_id", rs.getInt(1));
+                row.put("eszoz_id", rs.getInt(2));
+                row.put("szakember_id", rs.getInt(3));
+                row.put("allapot", rs.getString(4));
+                row.put("sulyossag", rs.getString(5));
+                row.put("hiba_leiras", rs.getString(6));
+                row.put("elutasitas_indok", rs.getString(7));
+                row.put("elkezdve", rs.getTimestamp(8).toString());
+                row.put("befejezve", rs.getTimestamp(9).toString());
+                arrayNode.add(row);               
+            }
+            con.close();
+            return arrayNode;
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException("Not connected to db");
+        }
+    }
 }

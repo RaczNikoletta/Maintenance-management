@@ -100,14 +100,15 @@ public class TaskResource {
         }
     }
     
-    /*@GET
+    @GET
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEquipments() {
+    public Response getTasks() {
         try{
-            return es.getEquipments();
+            return ts.getTasks();
         }catch(Exception ex){
             System.out.println(ex);
             return Response.status(Response.Status.OK).entity("Error").build();
         }
-    }*/
+    }
 }

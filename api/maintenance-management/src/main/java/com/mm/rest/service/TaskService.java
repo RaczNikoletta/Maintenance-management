@@ -52,4 +52,14 @@ public class TaskService {
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
     }
+    
+        public Response getTasks() {
+        try {
+            ArrayNode tasks = TDB.getTasks();
+            return Response.status(Response.Status.OK).entity(tasks.toString()).build();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+        }
+    }
 }
