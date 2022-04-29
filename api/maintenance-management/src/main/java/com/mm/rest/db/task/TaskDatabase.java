@@ -134,12 +134,12 @@ public class TaskDatabase {
                 row.put("hiba_leiras", rs.getString(6));
                 row.put("elutasitas_indok", rs.getString(7));
                 if(rs.getTimestamp(8) == null){
-                    row.put("elkezdve", "");
+                    row.put("elkezdve", "1970-01-01 01:00:00");
                 } else {
                     row.put("elkezdve", rs.getTimestamp(8).toString());
                 }
                 if(rs.getTimestamp(8) == null){
-                    row.put("befejezve", "");
+                    row.put("befejezve", "1970-01-01 01:00:00");
                 } else {
                     row.put("befejezve", rs.getTimestamp(9).toString());
                 }

@@ -1,6 +1,7 @@
 package com.example.maintenance_manager_android;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -53,6 +54,7 @@ public class addTaskFragment extends Fragment {
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private ListView eqList;
     private String clickedEq;
+    private Context context;
 
 
 
@@ -82,6 +84,7 @@ public class addTaskFragment extends Fragment {
         severitySpinner.setAdapter(customAdapter);
         equipHash = new HashMap<>();
         equipmentNames = new ArrayList<>();
+        context = getContext();
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -167,7 +170,7 @@ public class addTaskFragment extends Fragment {
                                 new AlertDialog.Builder(getContext())
                                         .setTitle(R.string.databaseUpdated)
                                         .setMessage(R.string.databaseUpdated2)
-                                        .setIcon(getResources().getDrawable(R.drawable.ic_baseline_check_24))
+                                        .setIcon(context.getDrawable(R.drawable.ic_baseline_check_24))
                                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {

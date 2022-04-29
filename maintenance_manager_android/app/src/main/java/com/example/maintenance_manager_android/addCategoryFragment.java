@@ -1,5 +1,6 @@
 package com.example.maintenance_manager_android;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,6 +34,7 @@ public class addCategoryFragment extends Fragment {
     EditText repairTime;
     Button addCategory;
     JsonPlaceHolderApi jsonPlaceHolderApi;
+    Context context;
 
 
     public addCategoryFragment() {
@@ -53,6 +55,7 @@ public class addCategoryFragment extends Fragment {
         repairTime = view.findViewById(R.id.repairTime);
         categoryName = view.findViewById(R.id.subCategory);
         addCategory = view.findViewById(R.id.addCategory);
+        context = getContext();
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -85,7 +88,7 @@ public class addCategoryFragment extends Fragment {
                                 new AlertDialog.Builder(getContext())
                                         .setTitle(R.string.databaseUpdated)
                                         .setMessage(R.string.databaseUpdated2)
-                                        .setIcon(getResources().getDrawable(R.drawable.ic_baseline_check_24))
+                                        .setIcon(context.getDrawable(R.drawable.ic_baseline_check_24))
                                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {

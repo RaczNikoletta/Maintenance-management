@@ -4,6 +4,7 @@ import com.example.maintenance_manager_android.model.CategoryModel;
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.QualificationModel;
 import com.example.maintenance_manager_android.model.SubCategoryModel;
+import com.example.maintenance_manager_android.model.TaskModel;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -57,6 +58,9 @@ public interface JsonPlaceHolderApi {
 
     @GET("task/automatic")
     Call<String>getAutoTasks();
+
+    @GET("task/all")
+    Call<ArrayList<TaskModel>>getTasks();
 
 
 }
