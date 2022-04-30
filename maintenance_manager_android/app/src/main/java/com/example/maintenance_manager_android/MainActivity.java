@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.auth0.android.jwt.JWT;
 import com.google.android.material.navigation.NavigationView;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private String role;
     private Context context;
     private NavigationView navigationView;
+    private  TextView workerName;
+    private TextView posName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        View header = navigationView.getHeaderView(0);
+        workerName =header.findViewById(R.id.WorkerName);
+        posName = header.findViewById(R.id.PosName);
 
         setSupportActionBar(toolbar);
 
@@ -53,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             String token = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
                     .getString("user_token", "token not found"); //check login Token from sp
             Log.d("token", token);
+            String username = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+                    .getString("username","username not found");
             JWT jwt = new JWT(token);
             role = jwt.getClaim("role").asString();
             FragmentManager manager = getSupportFragmentManager();
@@ -61,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isLogged", true); // save logged state
             editor.apply();
+            posName.setText(role);
+            workerName.setText(username);
            if(role.equals("admin")) {
                Log.d("role", jwt.getClaim("role").asString());
                //MenuInflater inflater = getMenuInflater();

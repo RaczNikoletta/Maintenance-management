@@ -13,15 +13,22 @@
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
+        android:id="@+id/WorkerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
+        android:paddingTop="20dp"
         android:text="@string/workerName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/PosName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Position" />
+        android:paddingTop="10dp"
+        android:text="@string/Position"
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
 </LinearLayout>

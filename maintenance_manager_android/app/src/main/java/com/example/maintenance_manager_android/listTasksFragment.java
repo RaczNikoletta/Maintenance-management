@@ -1,5 +1,6 @@
 package com.example.maintenance_manager_android;
 
+import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +43,8 @@ public class listTasksFragment extends Fragment {
     private ArrayList<String> status;
     private ArrayList <Integer> toolId;
     private ArrayList <String> severities;
-    private ArrayList<EquipmentModel> equipmentModels;
+    private HashMap<Integer,String> equipmentHash;
+    private ArrayList<EquipmentModel> toolList;
     private  List<ListTasksModel> list;
 
     public listTasksFragment() {
@@ -64,8 +68,9 @@ public class listTasksFragment extends Fragment {
         taskId = new ArrayList<>();
         status = new ArrayList<>();
         toolId = new ArrayList<>();
+        toolList = new ArrayList<>();
         severities = new ArrayList<>();
-        equipmentModels = new ArrayList<>();
+        equipmentHash = new HashMap<>();
 
 
         Gson gson = new GsonBuilder()
@@ -86,6 +91,8 @@ public class listTasksFragment extends Fragment {
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         Call<ArrayList<TaskModel>> tasks = jsonPlaceHolderApi.getTasks();
         Call<String> autoTask = jsonPlaceHolderApi.getAutoTasks();
+        Call<ArrayList<EquipmentModel>> tools = jsonPlaceHolderApi.getEquipments();
+
 
         autoTask.enqueue(new Callback<String>() {
             @Override
@@ -131,6 +138,28 @@ public class listTasksFragment extends Fragment {
             }
         });
 
+        tools.enqueue(new Callback<ArrayList<EquipmentModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<EquipmentModel>> call, Response<ArrayList<EquipmentModel>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Get tools req failed: ", " " + response.code());
+                } else {
+                    toolList = response.body();
+                    for(int i = 0; i< Objects.requireNonNull(toolList).size(); i++){
+                        equipmentHash.put(toolList.get(i).getEquipmentId(),toolList.get(i).getEquipmentName());
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<EquipmentModel>> call, Throwable t) {
+                Log.d("onfailure", "toolList failure: " + t.toString());
+
+            }
+        });
+
 
         tasksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -164,7 +193,7 @@ public class listTasksFragment extends Fragment {
 
     public void createList(){
         for(int i=0;i<taskId.size();i++) {
-            list.add(new ListTasksModel(taskId.get(i),toolId.get(i).toString(),status.get(i),severities.get(i)));
+            list.add(new ListTasksModel(taskId.get(i),equipmentHash.get(toolId.get(i)),status.get(i),severities.get(i)));
             Log.d("toolid:", " " +toolId.get(i));
         }
         listTasksAdapter adapter = new listTasksAdapter(list, tasksList.getContext());

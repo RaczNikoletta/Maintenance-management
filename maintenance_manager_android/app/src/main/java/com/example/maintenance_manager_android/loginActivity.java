@@ -99,7 +99,7 @@ public class loginActivity extends AppCompatActivity {
                 loginResponse = response.body();
                 String jsonString = response.message();
                 if(jsonString.equals("OK")){
-                    sessionManager.saveAuthToken(loginResponse.aut_token);
+                    sessionManager.saveAuthToken(username,loginResponse.aut_token);
                     Intent i = new Intent(context,MainActivity.class);
                     startActivity(i);
                 }
