@@ -71,8 +71,7 @@ public class EquipmentDatabase {
                 row.put("site", rs.getString(4));
                 row.put("description", rs.getString(5));
                 row.put("error", rs.getBoolean(6));
-                row.put("order", rs.getString(7));
-                row.put("nextRepair", rs.getTimestamp(8).toString());
+                row.put("nextRepair", rs.getTimestamp(7).toString());
                 arrayNode.add(row);
                 
             }
