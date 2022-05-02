@@ -141,19 +141,19 @@ public class TaskDatabase {
                 }
                 
                 if(rs.getTimestamp(9) == null){
-                    row.put("kiosztva", "");
+                    row.put("kiosztva", "0000-00-00 00:00:00");
                 } else {
                     row.put("kiosztva", rs.getTimestamp(9).toString());
                 }
                 
                 if(rs.getTimestamp(10) == null){
-                    row.put("elkezdve", "");
+                    row.put("elkezdve", "0000-00-00 00:00:00");
                 } else {
                     row.put("elkezdve", rs.getTimestamp(10).toString());
                 }
                 
                 if(rs.getTimestamp(11) == null){
-                    row.put("befejezve", "");
+                    row.put("befejezve", "0000-00-00 00:00:00");
                 } else {
                     row.put("befejezve", rs.getTimestamp(11).toString());
                 }

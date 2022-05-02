@@ -23,9 +23,30 @@ public class TaskModel {
     String elutasitas_indok;
     @SerializedName("elkezdve")
     Date elkezdve;
+    @SerializedName("felveve")
+    Date felveve;
+
+    public Date getFelveve() {
+        return felveve;
+    }
+
+    public void setFelveve(Date felveve) {
+        this.felveve = felveve;
+    }
+
+    public Date getKiosztva() {
+        return kiosztva;
+    }
+
+    public void setKiosztva(Date kiosztva) {
+        this.kiosztva = kiosztva;
+    }
+
+    @SerializedName("kiosztva")
+    Date kiosztva;
 
     public TaskModel(int feladat_id,int eszoz_id,int szakember_id, String allapot,String sulyossag,
-                     String hiba_leiras, String elutasitas_indok, Date elkezdve, Date befejezve){
+                     String hiba_leiras, String elutasitas_indok,Date felveve,Date kiosztva, Date elkezdve, Date befejezve){
         this.feladat_id = feladat_id;
         this.eszoz_id = eszoz_id;
         this.szakember_id = szakember_id;
@@ -33,6 +54,8 @@ public class TaskModel {
         this.sulyossag = sulyossag;
         this.hiba_leiras = hiba_leiras;
         this.elutasitas_indok = elutasitas_indok;
+        this.felveve = felveve;
+        this.kiosztva = kiosztva;
         this.elkezdve = elkezdve;
         this.befejezve = befejezve;
     }

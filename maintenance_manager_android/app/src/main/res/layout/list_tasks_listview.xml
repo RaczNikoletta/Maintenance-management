@@ -27,7 +27,7 @@
             android:text="Poroltó "
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
     </LinearLayout>
 
@@ -47,7 +47,7 @@
             android:text="felvéve"
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/taskSeverity"
@@ -60,7 +60,7 @@
             android:text="kritikus"
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
     </LinearLayout>
 
 
