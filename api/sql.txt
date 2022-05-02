@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `feladatok` (
 	`sulyossag` ENUM('alacsony', 'közepes', 'magas', 'kritikus'),
     `hiba_leiras` VARCHAR(255),
     `elutasitas_indok` VARCHAR(255),
+    `felveve` DATETIME,
     `elkezdve` DATETIME,
     `befejezve` DATETIME,
     FOREIGN KEY (eszkoz_id) REFERENCES eszkozok(eszkoz_id),

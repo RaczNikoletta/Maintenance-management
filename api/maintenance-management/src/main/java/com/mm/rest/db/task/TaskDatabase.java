@@ -37,7 +37,7 @@ public class TaskDatabase {
         Connection con = DbConnection.getConnection();
         if(con==null) return -1;
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `feladatok`(`eszkoz_id`,`allapot`,`sulyossag`,`hiba_leiras`) VALUES (?,'felveve',?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `feladatok`(`eszkoz_id`,`allapot`,`sulyossag`,`hiba_leiras`,`felveve`) VALUES (?,'felveve',?,?,current_timestamp())");
             ps.setInt(1, task.getEquipmentId());
             ps.setString(2, task.getTaskSeverity());
             ps.setString(3, task.getErrorDescription());
@@ -55,10 +55,10 @@ public class TaskDatabase {
         Connection con = DbConnection.getConnection();
         if(con==null) return -1;
         try {
-            StringBuffer mySql = new StringBuffer("INSERT INTO `feladatok`(`eszkoz_id`,`allapot`,`sulyossag`,`hiba_leiras`) VALUES (?,'felveve',?,?)");
+            StringBuffer mySql = new StringBuffer("INSERT INTO `feladatok`(`eszkoz_id`,`allapot`,`sulyossag`,`hiba_leiras`,`felveve`) VALUES (?,'felveve',?,?,current_timestamp())");
 
             for (int i = 0; i < tasks.size() - 1; i++) {
-                mySql.append(", (?,'felveve',?,?)");
+                mySql.append(", (?,'felveve',?,?,current_timestamp())");
             }
             //myStatement = myConnection.prepareStatement(mySql.toString());
             
@@ -133,16 +133,32 @@ public class TaskDatabase {
                 row.put("sulyossag", rs.getString(5));
                 row.put("hiba_leiras", rs.getString(6));
                 row.put("elutasitas_indok", rs.getString(7));
+                
                 if(rs.getTimestamp(8) == null){
-                    row.put("elkezdve", "1970-01-01 01:00:00");
+                    row.put("felveve", "");
                 } else {
-                    row.put("elkezdve", rs.getTimestamp(8).toString());
+                    row.put("felveve", rs.getTimestamp(8).toString());
                 }
-                if(rs.getTimestamp(8) == null){
-                    row.put("befejezve", "1970-01-01 01:00:00");
+                
+                if(rs.getTimestamp(9) == null){
+                    row.put("kiosztva", "");
                 } else {
-                    row.put("befejezve", rs.getTimestamp(9).toString());
+                    row.put("kiosztva", rs.getTimestamp(9).toString());
                 }
+                
+                if(rs.getTimestamp(10) == null){
+                    row.put("elkezdve", "");
+                } else {
+                    row.put("elkezdve", rs.getTimestamp(10).toString());
+                }
+                
+                if(rs.getTimestamp(11) == null){
+                    row.put("befejezve", "");
+                } else {
+                    row.put("befejezve", rs.getTimestamp(11).toString());
+                }
+                
+                
                 arrayNode.add(row);               
             }
             con.close();
