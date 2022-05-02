@@ -63,23 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp" />
 
-    <TextView
-        android:id="@+id/tvDate"
-        style="@style/TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Date" />
-
-    <DatePicker
-        android:id="@+id/datePicker"
-        style="@style/TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:calendarTextColor="@color/white"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner" />
-
-    <Button
+        <Button
         android:id="@+id/addTask"
         style="@style/Button"
         android:layout_width="match_parent"

@@ -75,7 +75,7 @@ public class addTaskFragment extends Fragment {
 
         tool = view.findViewById(R.id.toolName);
         cause = view.findViewById(R.id.cause);
-        datePicker = view.findViewById(R.id.datePicker); //(datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+"/"+picker.getYear());
+        //datePicker = view.findViewById(R.id.datePicker); //(datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+"/"+picker.getYear());
         addTask = view.findViewById(R.id.addTask);
         severitySpinner = view.findViewById(R.id.severitySpinner);
         severities = new ArrayList<String>();
