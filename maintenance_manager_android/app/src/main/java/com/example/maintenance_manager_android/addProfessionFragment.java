@@ -89,7 +89,11 @@ public class addProfessionFragment extends Fragment {
                     profs = response.body();
                     Log.d("prof", profs.get(0).getqName());
                     for (int i = 0; i < profs.size(); i++) {
-                        professionList.add(profs.get(i).getqName());
+                        if(profs.get(i).getqName().equals("admin")){
+
+                        }else {
+                            professionList.add(profs.get(i).getqName());
+                        }
                         if(i==profs.size()-1){
                             lastProfId = profs.get(i).getqId(); //for id counter
                         }

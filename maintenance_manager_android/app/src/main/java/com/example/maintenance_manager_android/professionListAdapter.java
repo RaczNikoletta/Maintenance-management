@@ -40,6 +40,7 @@ public class professionListAdapter extends ArrayAdapter<String> {
         {
             text.setTextColor(Color.WHITE);
             text.setText(items.get(position));
+            text.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             text.setTypeface(Typeface.DEFAULT_BOLD);
 
         }

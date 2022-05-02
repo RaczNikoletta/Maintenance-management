@@ -252,8 +252,12 @@ public class addUsersFragment extends Fragment {
                     profs = response.body();
                     Log.d("prof", profs.get(0).getqName());
                     for (int i = 0; i < profs.size(); i++) {
-                        professionNames.add(profs.get(i).getqName());
-                        professions.put(profs.get(i).getqName(),profs.get(i).getqId());
+                        if(profs.get(i).getqName().equalsIgnoreCase("admin")){
+
+                        }else {
+                            professionNames.add(profs.get(i).getqName());
+                            professions.put(profs.get(i).getqName(), profs.get(i).getqId());
+                        }
                     }
                 }
 

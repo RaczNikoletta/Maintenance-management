@@ -22,10 +22,12 @@
             android:id="@+id/professionEt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="@string/addProfession"
             android:inputType="textPersonName"
             android:textColor="@color/white"
+            android:textColorHint="@color/material_on_primary_emphasis_high_type"
             android:textSize="24dp" />
 
         <ImageButton

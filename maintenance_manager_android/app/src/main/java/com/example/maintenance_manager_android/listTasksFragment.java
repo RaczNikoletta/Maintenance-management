@@ -121,6 +121,7 @@ public class listTasksFragment extends Fragment {
                     Log.d("Get request failed: ", " " + response.code());
                 } else {
                     taskList = response.body();
+                    try{
                     Log.d("resp"," "+response.code());
                     Log.d("prof", " "+taskList.get(0).getEszoz_id());
                     for (int i = 0; i < taskList.size(); i++) {
@@ -128,6 +129,8 @@ public class listTasksFragment extends Fragment {
                         toolId.add(taskList.get(i).getEszoz_id());
                         status.add(taskList.get(i).getAllapot());
                         severities.add(taskList.get(i).getSulyossag());
+                    }}catch (Throwable e){
+                        Log.d("task regen","task regen failed");
                     }
                     createList();
                 }
