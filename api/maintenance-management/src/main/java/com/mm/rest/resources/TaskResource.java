@@ -111,4 +111,16 @@ public class TaskResource {
             return Response.status(Response.Status.OK).entity("Error").build();
         }
     }
+    
+    @POST
+    @Path("/assign")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response assignTaskToUser(@QueryParam("userId") int userId, @QueryParam("taskId") int taskId) {
+        try{
+            return ts.assignTask(userId, taskId);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
 }

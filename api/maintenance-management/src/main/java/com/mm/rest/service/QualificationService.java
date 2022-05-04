@@ -40,4 +40,13 @@ public class QualificationService {
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
         }
     }
+    
+    public boolean checkIfQualified(int user_id, int qualificationId) throws DatabaseException {
+        try {            
+            return QDB.checkIfQualified(user_id, qualificationId);
+        } catch (DatabaseException ex) {
+            Logger.getLogger(QualificationService.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
 }

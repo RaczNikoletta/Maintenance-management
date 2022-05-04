@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mm.rest.db.DbConnection;
 import com.mm.rest.db.category.CategoryDatabase;
 import com.mm.rest.exceptions.DatabaseException;
+import com.mm.rest.models.database.Szakember;
 import com.mm.rest.models.equipment.QualificationModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,6 +60,46 @@ public class QualificationDatabase {
             }
             con.close();
             return arrayNode;
+        } catch (SQLException ex) {
+            Logger.getLogger(QualificationDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException("Not connected to db");
+        }
+    }
+    
+    public boolean checkIfQualified(int user_id, int qualificationId) throws DatabaseException {
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {            
+            PreparedStatement ps = con.prepareStatement("SELECT *,Count(*) FROM szakember WHERE id = ?");
+            ps.setInt(1, user_id);
+            ResultSet rs = ps.executeQuery();
+
+            int count = 0;
+            Szakember sz = new Szakember();
+            while (rs.next()) {
+                count = rs.getInt(8);
+                if(rs.getInt(8) == 1) {
+                    count = rs.getInt(8); 
+                    sz.setId(rs.getInt(1));
+                    sz.setFelhasznalonev(rs.getString(2));
+                    sz.setNev(rs.getString(3));
+                    sz.setSzerep(rs.getString(4));
+                    sz.setJelszo(rs.getString(5));
+                    sz.setMunkaido(rs.getInt(6));
+                    sz.setKepesitesId(rs.getInt(7));
+                }
+            }
+            con.close();
+            
+            if(count == 1){
+                if(qualificationId == sz.getKepesitesId()){
+                    return true;
+                }else{
+                    throw new DatabaseException("Invalid qualifications");
+                }
+            }else{
+                throw new DatabaseException("No such user");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(QualificationDatabase.class.getName()).log(Level.SEVERE, null, ex);
             throw new DatabaseException("Not connected to db");

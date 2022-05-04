@@ -6,6 +6,7 @@
 package com.mm.rest.service;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.mm.rest.db.qualification.QualificationDatabase;
 import com.mm.rest.db.task.TaskDatabase;
 import com.mm.rest.exceptions.DatabaseException;
 import com.mm.rest.models.equipment.AddTaskModel;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.Response;
 public class TaskService {
     
     private TaskDatabase TDB = new TaskDatabase();
+    private QualificationDatabase QDB = new QualificationDatabase();
     
     public Response addTask(AddTaskModel task) {
         
@@ -53,13 +55,35 @@ public class TaskService {
         }
     }
     
-        public Response getTasks() {
+    public Response getTasks() {
         try {
             ArrayNode tasks = TDB.getTasks();
             return Response.status(Response.Status.OK).entity(tasks.toString()).build();
         } catch (DatabaseException ex) {
             Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.NOT_MODIFIED).entity("ERROR!").build();
+        }
+    }
+    
+    public Response assignTask(int user_id, int taskId) {
+        try {
+            int qualificationId = TDB.getTaskQualification(taskId);
+            System.out.println(qualificationId);
+            
+            if(QDB.checkIfQualified(user_id, qualificationId)){
+                
+                if(TDB.assignTask(user_id, taskId)){
+                    return Response.status(Response.Status.OK).entity("Assigned Task").build();
+                }else{
+                    return Response.status(Response.Status.BAD_REQUEST).entity("assignTask failed, shouldnt get this error message").build();
+                }
+                
+            }else{
+                return Response.status(Response.Status.BAD_REQUEST).entity("assignTask failed, shouldnt get this error message").build();
+            }
+        } catch (DatabaseException ex) {
+            Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
 }

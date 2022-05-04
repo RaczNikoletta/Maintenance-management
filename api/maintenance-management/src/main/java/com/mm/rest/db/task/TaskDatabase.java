@@ -119,7 +119,11 @@ public class TaskDatabase {
         Connection con = DbConnection.getConnection();
         if(con==null) throw new DatabaseException("Not connected to db");
         try {
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM feladatok");
+           // PreparedStatement pstmt = con.prepareStatement("SELECT * FROM feladatok");
+            
+             PreparedStatement pstmt = con.prepareStatement ("SELECT f.*, ak.utasitas FROM feladatok f "
+                                                           + "JOIN eszkozok e ON f.eszkoz_id = e.eszkoz_id "
+                                                           + "JOIN alkategoria ak ON ak.alkategoria_id = e.alkategoria_id ");
             ResultSet rs = pstmt.executeQuery();
 
             ArrayNode arrayNode = mapper.createArrayNode();
@@ -158,6 +162,7 @@ public class TaskDatabase {
                     row.put("befejezve", rs.getTimestamp(11).toString());
                 }
                 
+                row.put("utasitas", rs.getString(12));
                 
                 arrayNode.add(row);               
             }
@@ -166,6 +171,61 @@ public class TaskDatabase {
         } catch (SQLException ex) {
             Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
             throw new DatabaseException("Not connected to db");
+        }
+    }
+        
+    public boolean assignTask(int user_id, int taskId) throws DatabaseException{
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE `feladatok` SET `szakember_id` = ? , `allapot` = 'kiosztva' , `kiosztva` = current_timestamp() WHERE `feladat_id` = ? ");
+            ps.setInt(1, user_id);
+            ps.setInt(2, taskId);
+            int temp = ps.executeUpdate();
+            
+            con.close();
+            
+            if(temp == 1){
+                return true;
+            }else{
+                throw new DatabaseException("Couldnt assign user: " + String.valueOf(user_id) +" to task: " + String.valueOf(taskId));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public int getTaskQualification(int taskId) throws DatabaseException{
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT ak.kepesites_id,Count(*) FROM feladatok f "
+                                                      + "JOIN eszkozok e ON f.eszkoz_id = e.eszkoz_id "
+                                                      + "JOIN alkategoria ak ON ak.alkategoria_id = e.alkategoria_id "
+                                                      + "WHERE f.feladat_id = ? ");
+            ps.setInt(1, taskId);
+            ResultSet rs = ps.executeQuery();         
+
+            int count = 0;
+            int qualificationId = 0;
+            while (rs.next()) {
+                count = rs.getInt(2);
+                if(rs.getInt(2) == 1) {
+                    count = rs.getInt(2); 
+                    qualificationId = rs.getInt(1);
+                }
+            }
+            con.close();
+            
+            if(count == 1){
+                return qualificationId;
+            }else{
+                throw new DatabaseException("No such task");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
         }
     }
 }
