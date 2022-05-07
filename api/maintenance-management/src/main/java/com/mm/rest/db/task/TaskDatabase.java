@@ -115,7 +115,7 @@ public class TaskDatabase {
         }
     }
     
-        public ArrayNode getTasks() throws DatabaseException {
+    public ArrayNode getTasks() throws DatabaseException {
         Connection con = DbConnection.getConnection();
         if(con==null) throw new DatabaseException("Not connected to db");
         try {
@@ -222,6 +222,212 @@ public class TaskDatabase {
                 return qualificationId;
             }else{
                 throw new DatabaseException("No such task");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public ArrayNode getUserAllTasks(int userId) throws DatabaseException {
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {            
+             PreparedStatement pstmt = con.prepareStatement ("SELECT f.*, ak.utasitas FROM feladatok f "
+                                                           + "JOIN eszkozok e ON f.eszkoz_id = e.eszkoz_id "
+                                                           + "JOIN alkategoria ak ON ak.alkategoria_id = e.alkategoria_id "
+                                                           + "WHERE f.szakember_id = ? ");
+             
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayNode arrayNode = mapper.createArrayNode();
+
+            while (rs.next()) {
+                ObjectNode row = mapper.createObjectNode();
+                row.put("feladat_id", rs.getInt(1));
+                row.put("eszoz_id", rs.getInt(2));
+                row.put("szakember_id", rs.getInt(3));
+                row.put("allapot", rs.getString(4));
+                row.put("sulyossag", rs.getString(5));
+                row.put("hiba_leiras", rs.getString(6));
+                row.put("elutasitas_indok", rs.getString(7));
+                
+                if(rs.getTimestamp(8) == null){
+                    row.put("felveve", "");
+                } else {
+                    row.put("felveve", rs.getTimestamp(8).toString());
+                }
+                
+                if(rs.getTimestamp(9) == null){
+                    row.put("kiosztva", "0000-00-00 00:00:00");
+                } else {
+                    row.put("kiosztva", rs.getTimestamp(9).toString());
+                }
+                
+                if(rs.getTimestamp(10) == null){
+                    row.put("elkezdve", "0000-00-00 00:00:00");
+                } else {
+                    row.put("elkezdve", rs.getTimestamp(10).toString());
+                }
+                
+                if(rs.getTimestamp(11) == null){
+                    row.put("befejezve", "0000-00-00 00:00:00");
+                } else {
+                    row.put("befejezve", rs.getTimestamp(11).toString());
+                }
+                
+                row.put("utasitas", rs.getString(12));
+                
+                arrayNode.add(row);               
+            }
+            con.close();
+            return arrayNode;
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public ArrayNode getUserTasks(int userId, String status) throws DatabaseException {
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {            
+             PreparedStatement pstmt = con.prepareStatement ("SELECT f.*, ak.utasitas FROM feladatok f "
+                                                           + "JOIN eszkozok e ON f.eszkoz_id = e.eszkoz_id "
+                                                           + "JOIN alkategoria ak ON ak.alkategoria_id = e.alkategoria_id "
+                                                           + "WHERE f.szakember_id = ? AND f.allapot LIKE ? ");
+             
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, status);
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayNode arrayNode = mapper.createArrayNode();
+
+            while (rs.next()) {
+                ObjectNode row = mapper.createObjectNode();
+                row.put("feladat_id", rs.getInt(1));
+                row.put("eszoz_id", rs.getInt(2));
+                row.put("szakember_id", rs.getInt(3));
+                row.put("allapot", rs.getString(4));
+                row.put("sulyossag", rs.getString(5));
+                row.put("hiba_leiras", rs.getString(6));
+                row.put("elutasitas_indok", rs.getString(7));
+                
+                if(rs.getTimestamp(8) == null){
+                    row.put("felveve", "");
+                } else {
+                    row.put("felveve", rs.getTimestamp(8).toString());
+                }
+                
+                if(rs.getTimestamp(9) == null){
+                    row.put("kiosztva", "0000-00-00 00:00:00");
+                } else {
+                    row.put("kiosztva", rs.getTimestamp(9).toString());
+                }
+                
+                if(rs.getTimestamp(10) == null){
+                    row.put("elkezdve", "0000-00-00 00:00:00");
+                } else {
+                    row.put("elkezdve", rs.getTimestamp(10).toString());
+                }
+                
+                if(rs.getTimestamp(11) == null){
+                    row.put("befejezve", "0000-00-00 00:00:00");
+                } else {
+                    row.put("befejezve", rs.getTimestamp(11).toString());
+                }
+                
+                row.put("utasitas", rs.getString(12));
+                
+                arrayNode.add(row);               
+            }
+            con.close();
+            return arrayNode;
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public boolean acceptTask(int taskId) throws DatabaseException{
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE `feladatok` SET `allapot` = 'elfogadott' WHERE `feladat_id` = ? ");
+            ps.setInt(1, taskId);
+            int temp = ps.executeUpdate();
+            
+            con.close();
+            
+            if(temp == 1){
+                return true;
+            }else{
+                throw new DatabaseException("Couldnt accept task at: " + String.valueOf(taskId));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public boolean refuseTask(int taskId, String reason) throws DatabaseException{
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE `feladatok` SET `allapot` = 'elutasitott' , `elutasitas_indok` = ? , `elkezdve` = current_timestamp() , `befejezve` = current_timestamp() WHERE `feladat_id` = ? ");
+            ps.setString(1, reason);
+            ps.setInt(2, taskId);
+            int temp = ps.executeUpdate();
+            
+            con.close();
+            
+            if(temp == 1){
+                return true;
+            }else{
+                throw new DatabaseException("Couldnt refuse task at: " + String.valueOf(taskId));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public boolean startTask(int taskId) throws DatabaseException{
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE `feladatok` SET `allapot` = 'elkezdve' , `elkezdve` = current_timestamp() WHERE `feladat_id` = ? ");
+            ps.setInt(1, taskId);
+            int temp = ps.executeUpdate();
+            
+            con.close();
+            
+            if(temp == 1){
+                return true;
+            }else{
+                throw new DatabaseException("Couldnt start task at: " + String.valueOf(taskId));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public boolean finishTask(int taskId) throws DatabaseException{
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement ps = con.prepareStatement("UPDATE `feladatok` SET `allapot` = 'befejezve' , `befejezve` = current_timestamp() WHERE `feladat_id` = ? ");
+            ps.setInt(1, taskId);
+            int temp = ps.executeUpdate();
+            
+            con.close();
+            
+            if(temp == 1){
+                return true;
+            }else{
+                throw new DatabaseException("Couldnt finish task at: " + String.valueOf(taskId));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);

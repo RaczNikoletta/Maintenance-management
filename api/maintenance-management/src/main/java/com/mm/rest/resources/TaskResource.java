@@ -123,4 +123,27 @@ public class TaskResource {
             return Response.status(Response.Status.OK).entity("Error").build();
         }
     }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserTasks(@QueryParam("userId") int userId, @QueryParam("status") String status) {
+        try{
+            return ts.getUserTasks(userId, status);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
+    
+    @POST
+    @Path("/change")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response changeTaskStatus(@QueryParam("taskId") int taskId, @QueryParam("status") String status, @QueryParam("reason") String reason) {
+        try{
+            return ts.changeTaskStatus(taskId, status, reason);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
 }

@@ -86,4 +86,60 @@ public class TaskService {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
+    
+    public Response getUserTasks(int userId, String status) {
+        try {
+            if(status.equals("all")){
+                ArrayNode tasks = TDB.getUserAllTasks(userId);
+                return Response.status(Response.Status.OK).entity(tasks.toString()).build();
+            }else{
+                ArrayNode tasks = TDB.getUserTasks(userId, status);
+                return Response.status(Response.Status.OK).entity(tasks.toString()).build();
+            }
+        } catch (DatabaseException ex) {
+            Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+    }
+    
+    public Response changeTaskStatus(int taskId, String status, String reason) {
+        try {
+            if(status.equals("elfogadott")){
+                if(TDB.acceptTask(taskId)){
+                    return Response.status(Response.Status.OK).entity("Accepted Task").build();
+                }else{
+                    return Response.status(Response.Status.BAD_REQUEST).entity("acceptTask failed, shouldnt get this error message").build();
+                }
+            }
+            
+            if(status.equals("elutasitott")){
+                if(TDB.refuseTask(taskId, reason)){
+                    return Response.status(Response.Status.OK).entity("Refused Task").build();
+                }else{
+                    return Response.status(Response.Status.BAD_REQUEST).entity("refusTask failed, shouldnt get this error message").build();
+                }
+            }
+            
+            if(status.equals("elkezdve")){
+                if(TDB.startTask(taskId)){
+                    return Response.status(Response.Status.OK).entity("Started Task").build();
+                }else{
+                    return Response.status(Response.Status.BAD_REQUEST).entity("startTask failed, shouldnt get this error message").build();
+                }
+            }
+            
+            if(status.equals("befejezve")){
+                if(TDB.finishTask(taskId)){
+                    return Response.status(Response.Status.OK).entity("Finished Task").build();
+                }else{
+                    return Response.status(Response.Status.BAD_REQUEST).entity("finishTask failed, shouldnt get this error message").build();
+                }
+            }
+            
+            return Response.status(Response.Status.BAD_REQUEST).entity("Cant recognize the given status").build();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+    }
 }
