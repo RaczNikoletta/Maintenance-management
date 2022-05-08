@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SessionManager {
+    public static final String USERID = "userId";
     public static final String USERNAME = "username";
     public static final String USER_TOKEN = "user_token";
     public static final String ISLOGGED = "isLogged";
@@ -18,8 +19,9 @@ public class SessionManager {
 
     }
 
-    public void saveAuthToken(String username,String token){
+    public void saveAuthToken(int userId,String username,String token){
         SharedPreferences.Editor ed = prefs.edit();
+        ed.putInt(USERID,userId);
         ed.putString(USERNAME,username);
         ed.putString(USER_TOKEN,token);
         ed.apply();

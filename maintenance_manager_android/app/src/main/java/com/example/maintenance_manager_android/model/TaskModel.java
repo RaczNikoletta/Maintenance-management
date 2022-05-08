@@ -26,6 +26,7 @@ public class TaskModel {
     @SerializedName("felveve")
     Date felveve;
 
+
     public Date getFelveve() {
         return felveve;
     }

@@ -64,7 +64,8 @@
     <string name="handlingTask">Feladatok kezelése</string>
     <string name="unallocatedTasks">Kiosztatlan feladatok</string>
     <string name="severity">Súlyosság:</string>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

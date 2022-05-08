@@ -25,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private Boolean isLogged;
+    private int id;
     private String role;
     private Context context;
     private NavigationView navigationView;
@@ -64,11 +65,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                     .getString("username","username not found");
             JWT jwt = new JWT(token);
             role = jwt.getClaim("role").asString();
+            id = jwt.getClaim("id").asInt();
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             SharedPreferences prefs = getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("isLogged", true); // save logged state
+            editor.putBoolean("isLogged", true);// save logged state
+            editor.putInt("userId",id);
             editor.apply();
             posName.setText(role);
             workerName.setText(username);
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
            }
            else if(role.equals(getString(R.string.maintainer))){
                navigationView.inflateMenu(R.menu.drawer_maintenance);
-               transaction.replace(R.id.fragment_container, new addCategoryFragment(), "");
+               transaction.replace(R.id.fragment_container, new assignedTasksFragment(), "");
                transaction.addToBackStack(null);
                transaction.commit();
 
@@ -200,6 +203,20 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         }
         else if(role.equals(getString(R.string.maintainer))){
+            switch(item.getItemId()){
+                case R.id.nav_tasks:
+                    transaction.replace(R.id.fragment_container, new assignedTasksFragment(), "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                    break;
+                case R.id.nav_logout:
+                    prefs.edit().putBoolean("isLogged",false).apply();
+                    prefs.edit().putString("user_token",null).apply();
+                    Intent i = new Intent(context,loginActivity.class);
+                    startActivity(i);
+                    finish();
+
+            }
 
         }
         else if(role.equals("operator")) {

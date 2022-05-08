@@ -18,6 +18,8 @@ import retrofit2.http.Query;
 public interface JsonPlaceHolderApi {
 
 
+
+
     @POST("auth/login")
     Call<LoginResponse>loginuser(@Body JsonObject jsonObject);
 
@@ -61,6 +63,14 @@ public interface JsonPlaceHolderApi {
 
     @GET("task/all")
     Call<ArrayList<TaskModel>>getTasks();
+
+    @POST("task/assign")
+    Call<String>assignTask(@Query("userId")int userId,
+                            @Query("taskId")int taskId);
+
+    @GET("task")
+    Call<ArrayList<TaskModel>>getTaskInProgress(@Query("userId")int userId,
+                                                @Query("status")String status);
 
 
 }

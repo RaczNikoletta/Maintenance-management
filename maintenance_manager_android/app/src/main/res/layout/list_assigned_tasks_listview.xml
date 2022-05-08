@@ -4,15 +4,6 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/taskID"
-        style="@style/TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="5"
-        android:textAppearance="?android:attr/textAppearanceButton"
-        android:textColor="@color/white" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,7 +15,8 @@
             style="@style/TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Poroltó "
+            android:text="5-ös sor"
+            android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
             android:textSize="16dp" />
@@ -44,7 +36,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="felvéve"
+            android:text="kritikus"
+            android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
             android:textSize="16dp" />
@@ -57,7 +50,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="kritikus"
+            android:text="1970.05.13"
+            android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
             android:textSize="16dp" />

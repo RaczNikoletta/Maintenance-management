@@ -44,9 +44,9 @@ public class listTasksAdapter extends ArrayAdapter<ListTasksModel>{
             convertView = inflater.inflate(R.layout.list_tasks_listview, parent, false);
 
             viewHolder.taskID = (TextView) convertView.findViewById(R.id.taskID);
-            viewHolder.equipment = (TextView) convertView.findViewById(R.id.equipment);
-            viewHolder.taskState = (TextView) convertView.findViewById(R.id.taskState);
-            viewHolder.taskSeverity = (TextView) convertView.findViewById(R.id.taskSeverity);
+            viewHolder.equipment = (TextView) convertView.findViewById(R.id.taskLocation);
+            viewHolder.taskState = (TextView) convertView.findViewById(R.id.taskSeverityAssigned);
+            viewHolder.taskSeverity = (TextView) convertView.findViewById(R.id.taskDate);
 
             convertView.setTag(viewHolder);
         } else {
