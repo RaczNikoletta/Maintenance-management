@@ -6,8 +6,11 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.ListAssignedTasksModel;
+import com.example.maintenance_manager_android.model.ListTasksModel;
 import com.example.maintenance_manager_android.model.TaskModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.internal.concurrent.Task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,6 +66,7 @@ public class assignedTasksFragment extends Fragment {
     private Date tempdate;
     private String dateStr = "0000-00-00' '00:00:00";
     private ArrayList<Date> startDate;
+    private Bundle bundle;
     private String reason;
     private ArrayList<Date> assignTime;
 
@@ -69,7 +75,6 @@ public class assignedTasksFragment extends Fragment {
     public assignedTasksFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -186,6 +191,18 @@ public class assignedTasksFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
                 clickedPos = position;
+
+                ListAssignedTasksModel taskModel = (ListAssignedTasksModel) (parent.getItemAtPosition(position));
+
+                bundle = new Bundle();
+                bundle.putString("equipmentName", equipmentNames.get(position));
+                Log.d("equipmentName", taskModel.getDate().toString());
+                bundle.putString("state", taskModel.getStatus());
+                Log.d("state", taskModel.getStatus());
+                bundle.putString("severity", taskModel.getSeverity());
+                bundle.putString("cause_error", taskModel.getErrorDesc());
+                //bundle.putString("get_time", taskModel.getStartTime().toString());
+                //Log.d("datum", DateFormat.format("yyyy-MM-dd' 'HH:mm:ss", taskModel.getStartTime()).toString());
                 return false;
             }
         });
@@ -231,6 +248,15 @@ public class assignedTasksFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.option_1:
                 Log.d("option 1", "option1 selected");
+
+                showTaskFragment fragment = new showTaskFragment();
+                fragment.setArguments(bundle);
+
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment, "");
+                transaction.addToBackStack(null);
+                transaction.commit();
                 break;
             case R.id.option_2:
                 Call<String>acceptTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"elfogadott","reason");
