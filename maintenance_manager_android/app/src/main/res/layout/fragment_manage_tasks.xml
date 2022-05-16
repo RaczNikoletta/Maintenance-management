@@ -16,37 +16,78 @@
         android:text="@string/manageTask"
         android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/toolTv"
-        style="@style/TextView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Tool_id" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/toolID"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/toolTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Tool_id" />
 
-    <TextView
-        android:id="@+id/profTv"
-        style="@style/TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/requiredProfession" />
+        <EditText
+            android:id="@+id/toolID"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/reqProf"
-        style="@style/EditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/severityTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/severity" />
+
+        <EditText
+            android:id="@+id/severity"
+            style="@style/EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/profTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/requiredProfession" />
+
+        <EditText
+            android:id="@+id/reqProf"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvEmployee"

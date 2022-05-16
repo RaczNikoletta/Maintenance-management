@@ -146,4 +146,17 @@ public class TaskResource {
             return Response.status(Response.Status.OK).entity("Error").build();
         }
     }
+    
+    //"role":'admin', 'karbantarto', 'eszkozfelelos', 'operator', 'all'
+    @GET
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsers(@QueryParam("role") String role) {
+        try{
+            return ts.getUsers(role);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.maintenance_manager_android;
 
 import com.example.maintenance_manager_android.model.CategoryModel;
+import com.example.maintenance_manager_android.model.EmployeeModel;
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.QualificationModel;
 import com.example.maintenance_manager_android.model.SubCategoryModel;
@@ -67,6 +68,9 @@ public interface JsonPlaceHolderApi {
     @POST("task/assign")
     Call<String>assignTask(@Query("userId")int userId,
                             @Query("taskId")int taskId);
+
+    @GET("task/users")
+    Call<ArrayList<EmployeeModel>>getUsers(@Query("role") String role);
 
     @GET("task")
     Call<ArrayList<TaskModel>>getTaskInProgress(@Query("userId")int userId,

@@ -1,11 +1,13 @@
 package com.example.maintenance_manager_android;
 
+import android.content.Intent;
 import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.ListTasksModel;
@@ -71,6 +74,7 @@ public class listTasksFragment extends Fragment {
         toolList = new ArrayList<>();
         severities = new ArrayList<>();
         equipmentHash = new HashMap<>();
+        list = new ArrayList<>();
 
 
         Gson gson = new GsonBuilder()
@@ -84,9 +88,6 @@ public class listTasksFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-
-
-        list = new ArrayList<>();
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         Call<ArrayList<TaskModel>> tasks = jsonPlaceHolderApi.getTasks();
@@ -167,8 +168,20 @@ public class listTasksFragment extends Fragment {
         tasksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // Intent intent = new Intent(getActivity(), manageTasksFragment.class);
-                // startActivity(intent);
+                Bundle bundle = new Bundle();
+                ListTasksModel listModel = (ListTasksModel) (adapterView.getItemAtPosition(i));
+                bundle.putString("equipment", listModel.getEquipment().toString());
+                bundle.putString("equipmentID", Integer.toString(toolId.get(i)));
+                bundle.putString("taskID", Integer.toString(toolList.get(i).getEquipmentId()));
+                bundle.putString("severity", listModel.getTaskSeverity().toString());
+                manageTasksFragment fragment = new manageTasksFragment();
+                fragment.setArguments(bundle);
+
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment, "");
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
