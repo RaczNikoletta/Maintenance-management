@@ -142,4 +142,19 @@ public class TaskService {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
+    
+    public Response getUsers(String role) {
+        try {
+            if(role.equals("all")){
+                ArrayNode users = TDB.getAllUsers();
+                return Response.status(Response.Status.OK).entity(users.toString()).build();
+            }else{
+                ArrayNode users = TDB.getSomeUsers(role);
+                return Response.status(Response.Status.OK).entity(users.toString()).build();
+            }
+        } catch (DatabaseException ex) {
+            Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+    }
 }

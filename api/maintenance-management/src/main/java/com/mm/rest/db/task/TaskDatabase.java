@@ -434,4 +434,59 @@ public class TaskDatabase {
             throw new DatabaseException(ex.getMessage());
         }
     }
+    
+    public ArrayNode getSomeUsers(String role) throws DatabaseException {
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement pstmt = con.prepareStatement ("SELECT id, felhasznalonev, nev, szerep, kepesites_id FROM szakember WHERE szerep LIKE ?");
+            pstmt.setString(1, role);
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayNode arrayNode = mapper.createArrayNode();
+
+            while (rs.next()) {
+                ObjectNode row = mapper.createObjectNode();
+                row.put("id", rs.getInt(1));
+                row.put("felhasznalonev", rs.getString(2));
+                row.put("nev", rs.getString(3));
+                row.put("szerep", rs.getString(4));
+                row.put("kepesites_id", rs.getInt(5));
+                
+                arrayNode.add(row);               
+            }
+            con.close();
+            return arrayNode;
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
+    
+    public ArrayNode getAllUsers() throws DatabaseException {
+        Connection con = DbConnection.getConnection();
+        if(con==null) throw new DatabaseException("Not connected to db");
+        try {
+            PreparedStatement pstmt = con.prepareStatement ("SELECT id, felhasznalonev, nev, szerep, kepesites_id FROM szakember ");
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayNode arrayNode = mapper.createArrayNode();
+
+            while (rs.next()) {
+                ObjectNode row = mapper.createObjectNode();
+                row.put("id", rs.getInt(1));
+                row.put("felhasznalonev", rs.getString(2));
+                row.put("nev", rs.getString(3));
+                row.put("szerep", rs.getString(4));
+                row.put("kepesites_id", rs.getInt(5));
+                
+                arrayNode.add(row);               
+            }
+            con.close();
+            return arrayNode;
+        } catch (SQLException ex) {
+            Logger.getLogger(TaskDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DatabaseException(ex.getMessage());
+        }
+    }
 }
