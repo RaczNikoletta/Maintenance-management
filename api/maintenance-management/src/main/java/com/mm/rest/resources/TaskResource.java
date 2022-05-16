@@ -159,4 +159,16 @@ public class TaskResource {
             return Response.status(Response.Status.OK).entity("Error").build();
         }
     }
+    
+    @GET
+    @Path("/qualifiedusers")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUsersByQualification(@QueryParam("qualificationid") int qualification_id) {
+        try{
+            return ts.getQualifiedUsers(qualification_id);
+        }catch(Exception ex){
+            System.out.println(ex);
+            return Response.status(Response.Status.OK).entity("Error").build();
+        }
+    }
 }
