@@ -65,10 +65,11 @@ public class assignedTasksFragment extends Fragment {
     private ArrayList<String> errors;
     private Date tempdate;
     private String dateStr = "0000-00-00' '00:00:00";
-    private ArrayList<Date> startDate;
+    private HashMap<Integer,Date> startDate;
     private Bundle bundle;
     private String reason;
     private ArrayList<Date> assignTime;
+    private ArrayList<String> orders;
 
 
 
@@ -93,13 +94,14 @@ public class assignedTasksFragment extends Fragment {
         taskids = new ArrayList<>();
         allStatus = new ArrayList<>();
         errors = new ArrayList<>();
+        orders = new ArrayList<>();
         SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
         try {
             tempdate = (Date) curFormater.parse(dateStr);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        startDate = new ArrayList<>();
+        startDate = new HashMap<>();
         assignTime = new ArrayList<>();
 
 
@@ -141,7 +143,8 @@ public class assignedTasksFragment extends Fragment {
                             allStatus.add(taskList.get(i).getAllapot());
                             if (!(taskList.get(i).getAllapot().equals("kiosztva") || taskList.get(i).getAllapot().equals("elfogadott")
                                     || taskList.get(i).getAllapot().equals("elutasitott"))) {
-                                startDate.set(i, taskList.get(i).getFelveve());
+                                startDate.put(i, taskList.get(i).getElkezdve());
+                                //Log.d("Start date", startDate.get(i).toString());
                             }
                             assignTime.add(taskList.get(i).getKiosztva());
 
@@ -157,8 +160,9 @@ public class assignedTasksFragment extends Fragment {
                             }else{
                                 equipmentModels = response.body();
                                 for(int i=0;i<equipmentModels.size();i++){
-                                    Log.d("i",Integer.toString(i));
+                                    //Log.d("i",Integer.toString(i));
                                     equipmentNames.add(equipmentModels.get(i).getEquipmentName());
+                                    orders.add(equipmentModels.get(i).getDescription());
                                     //Log.d("equipmentname:",equipmentNames.get(i));
                                     for(int j=0;j<severities.size();j++){
                                         Log.d("j",Integer.toString(j));
@@ -216,10 +220,10 @@ public class assignedTasksFragment extends Fragment {
         for(int i=0;i<toolIds.size();i++){
             if(!(allStatus.get(i).equals("kiosztva")  || allStatus.get(i).equals("elfogadott") || allStatus.get(i).equals("elutasitott"))) {
                 list.add(new ListAssignedTasksModel(allStatus.get(i), severities.get(i), dates.get(i)
-                        , locationList.get(i), errors.get(i),startDate.get(i)));
+                        , locationList.get(i), errors.get(i),startDate.get(i),orders.get(i)));
             }else{
                 list.add(new ListAssignedTasksModel(allStatus.get(i), severities.get(i), dates.get(i)
-                        , locationList.get(i), errors.get(i),tempdate));
+                        , locationList.get(i), errors.get(i),tempdate,orders.get(i)));
             }
         }
         listAssignedTasksAdapter adapter = new listAssignedTasksAdapter(list,listView.getContext());
@@ -229,10 +233,6 @@ public class assignedTasksFragment extends Fragment {
 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {
         super.onCreateContextMenu(menu,v,info);
-        //menu.setHeaderTitle("Lehetőségek");
-        //menu.add(Menu.NONE,0,menu.NONE,"Részletek");
-        //menu.add(Menu.NONE,1,menu.NONE,"Elfogad");
-        //menu.add(Menu.NONE,2,menu.NONE,"Elutasít");
         if(allStatus.get(clickedPos).equals("kiosztva")) {
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.assigned_task_menu, menu);
@@ -241,6 +241,13 @@ public class assignedTasksFragment extends Fragment {
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.accepted_task_menu, menu);
 
+        }else if(allStatus.get(clickedPos).equals("elkezdve"))
+        {
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.in_progress_task_menu, menu);
+        }else if ((allStatus.get(clickedPos).equals("befejezve"))){
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.ended_task_menu, menu);
         }
     }
 
@@ -258,7 +265,11 @@ public class assignedTasksFragment extends Fragment {
                         if (!response.isSuccessful()) {
                             Log.d("acceptation failed", Integer.toString(response.code()));
                         } else {
-
+                            FragmentManager manager = getFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.fragment_container, new assignedTasksFragment(), "");
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                             Toast.makeText(getActivity(), "Feladat sikeresen elfogadva", Toast.LENGTH_LONG).show();
 
                         }
@@ -278,9 +289,70 @@ public class assignedTasksFragment extends Fragment {
                 changeToShowFragment();
                 break;
             case R.id.accept_option_2:
-                break;
+
+                Call<String>startTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"elkezdve","reason");
+                startTask.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("Start task failed: ", " " + response.code());
+
+                        } else {
+
+                            FragmentManager manager = getFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.fragment_container, new assignedTasksFragment(), "");
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            Toast.makeText(getActivity(), "Feladat sikeresen elkezdve", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("acceptation failed",t.toString());
+
+                    }
+                });
+
+        break;
             case R.id.accept_option_3:
                declineTask();
+                break;
+            case R.id.in_progress_option_1:
+
+                break;
+            case R.id.in_progress_option_2:
+                Call<String>endTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"befejezve","reason");
+                endTask.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("end failed", Integer.toString(response.code()));
+                        } else {
+                            FragmentManager manager = getFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.fragment_container, new assignedTasksFragment(), "");
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            Toast.makeText(getActivity(), "Feladat sikeresen befejezve", Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }@Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("acceptation failed",t.toString());
+
+                    }
+                });
+
+                break;
+            case R.id.in_progress_option_3:
+                declineTask();
+                break;
+            case R.id.end_option_1:
+                changeToShowFragment();
                 break;
         }
 
@@ -290,16 +362,16 @@ public class assignedTasksFragment extends Fragment {
     public void declineTask(){
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
-        final EditText edittext = new EditText(getActivity());
+        final EditText editt = new EditText(getContext());
         alert.setMessage("Indok");
         alert.setTitle("Elutasítás indoka");
 
-        alert.setView(edittext);
+        alert.setView(editt);
 
         alert.setPositiveButton("Küldés", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //What ever you want to do with the value
-                reason = edittext.getText().toString();
+                reason = editt.getText().toString();
             }
         });
 

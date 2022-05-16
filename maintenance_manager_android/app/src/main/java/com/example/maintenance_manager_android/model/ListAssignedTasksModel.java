@@ -35,6 +35,16 @@ public class ListAssignedTasksModel {
     private String status;
     private String severity;
 
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    private String order;
+
     public String getLocation() {
         return location;
     }
@@ -68,7 +78,7 @@ public class ListAssignedTasksModel {
     public ListAssignedTasksModel(){}
 
     public ListAssignedTasksModel(String location,
-                          String severity, Date date,String loc,String errorDesc,Date startTime) {
+                          String severity, Date date,String loc,String errorDesc,Date startTime,String order) {
 
         this.status = location;
         this.severity = severity;
@@ -76,6 +86,7 @@ public class ListAssignedTasksModel {
         this.location = loc;
         this.errorDesc = errorDesc;
         this.startTime = startTime;
+        this.order = order;
     }
 
 

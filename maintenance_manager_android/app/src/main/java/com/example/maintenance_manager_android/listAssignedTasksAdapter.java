@@ -1,5 +1,6 @@
 package com.example.maintenance_manager_android;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.maintenance_manager_android.model.ListAssignedTasksModel;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksModel> {
@@ -35,6 +37,7 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
             LinearLayout secondLin;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -66,7 +69,7 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
             viewHolder.status.setText(dataModel.getStatus());
             viewHolder.date.setText(dataModel.getDate().toString());
             viewHolder.taskSeverity.setText(dataModel.getSeverity());
-            if(dataModel.getStatus().equals("elfogadott")){
+            if(dataModel.getStatus().equals("elfogadott") || dataModel.getStatus().equals("elkezdve")){
                 viewHolder.secondLin.setVisibility(View.VISIBLE);
             }
 
@@ -88,8 +91,9 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
 
 
             }if(viewHolder.status.getText().equals("elkezdve")){
-                viewHolder.startTime.setVisibility(View.VISIBLE);
-                viewHolder.startTime.setText(dataModel.getStartTime().toString());
+                //viewHolder.date.setText(Long.toString((dataModel.getStartTime().getTime()- Calendar.getInstance().getTimeInMillis())/(1000*60))+" perce");
+                //viewHolder.date.setText(Long.toString((dataModel.getStartTime().getTime())));
+                viewHolder.errorDesc.setText(dataModel.getOrder());
             }
 
 

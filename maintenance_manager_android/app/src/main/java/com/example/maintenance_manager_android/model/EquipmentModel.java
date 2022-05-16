@@ -9,15 +9,9 @@ public class EquipmentModel {
     private boolean error;
     private String nextRepair;
 
-    public String getOrder() {
-        return order;
-    }
 
-    public void setOrder(String order) {
-        this.order = order;
-    }
 
-    private String order;
+
 
     public EquipmentModel() {
     }
@@ -31,7 +25,6 @@ public class EquipmentModel {
         this.description = description;
         this.error = error;
         this.nextRepair = nextRepair;
-        this.order = order;
     }
 
     public int getEquipmentId() {

@@ -3,10 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_accepted_tasks.xml" value="0.1" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_add_category.xml" value="0.25" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_add_profession.xml" value="0.25" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_add_subcategory.xml" value="0.18" />
@@ -14,12 +12,8 @@
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_add_tool.xml" value="0.18" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_add_worker.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_date_picker.xml" value="0.1" />
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_list_tasks.xml" value="0.12" />
+        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_list_tasks.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_manage_tasks.xml" value="0.1" />
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/fragment_show_task.xml" value="0.171875" />
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/list_tasks_listview.xml" value="0.22" />
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/layout/managetaskslistview.xml" value="0.1" />
-        <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/menu/drawer_operator.xml" value="0.5" />
         <entry key="..\:/Users/PC/Documents/GIT/maintenance_manager_android/app/src/main/res/menu/drawer_tool_manager.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/raczn/AndroidStudioProjects/maintenance_manager_android/app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="..\:/Users/raczn/AndroidStudioProjects/maintenance_manager_android/app/src/main/res/layout/fragment_add_toolsfragment.xml" value="0.25" />
@@ -63,6 +57,8 @@
         <entry key="..\:/Users/raczn/Documents/maintenanceManagement/maintenance_manager_android/app/src/main/res/menu/drawer_menu.xml" value="0.375" />
         <entry key="..\:/Users/raczn/Documents/maintenanceManagement/maintenance_manager_android/app/src/main/res/menu/drawer_operator.xml" value="0.45" />
         <entry key="..\:/Users/raczn/Documents/maintenanceManagement/maintenance_manager_android/app/src/main/res/menu/drawer_tool_manager.xml" value="0.5" />
+        <entry key="..\:/Users/raczn/Documents/maintenanceManagement/maintenance_manager_android/app/src/main/res/menu/ended_task_menu.xml" value="0.1" />
+        <entry key="..\:/Users/raczn/Documents/maintenanceManagement/maintenance_manager_android/app/src/main/res/menu/in_progress_task_menu.xml" value="0.1" />
         <entry key="..\:/Users/raczn/Documents/maintenanceManagement/maintenance_manager_android/app/src/main/res/menu/tool_manager_menu.xml" value="0.165" />
       </map>
     </option>
