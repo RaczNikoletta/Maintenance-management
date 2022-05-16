@@ -1,12 +1,15 @@
 package com.example.maintenance_manager_android;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,15 +22,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.maintenance_manager_android.model.CategoryModel;
+import com.example.maintenance_manager_android.model.EmployeeModel;
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.QualificationModel;
 import com.example.maintenance_manager_android.model.SubCategoryModel;
 import com.example.maintenance_manager_android.model.TaskModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +41,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import retrofit2.http.Query;
 
 public class manageTasksFragment extends Fragment {
 
@@ -54,7 +61,7 @@ public class manageTasksFragment extends Fragment {
     HashMap<Integer,String> qualHash;
     int subcatId;
     int qualificationId;
-    String qName;
+    int taskID;
 
     public manageTasksFragment() {
         // Required empty public constructor
@@ -143,6 +150,30 @@ public class manageTasksFragment extends Fragment {
                                                 qualHash.put(temp.get(i).getqId(),temp.get(i).getqName());
                                             }
                                             reqProf.setText(qualHash.get(qualificationId));
+                                            Log.d("reqProf",reqProf.getText().toString());
+
+                                            Call<ArrayList<EmployeeModel>> emps = jsonPlaceHolderApi.getUsers(reqProf.getText().toString());
+                                            emps.enqueue(new Callback<ArrayList<EmployeeModel>>() {
+                                                @Override
+                                                public void onResponse(Call<ArrayList<EmployeeModel>> call, Response<ArrayList<EmployeeModel>> response) {
+                                                    if (!response.isSuccessful()) {
+                                                        Log.d("employee: ", "employee query failed: " +response.code());
+                                                    }else{
+                                                        ArrayList<EmployeeModel> temp = response.body();
+                                                        for(int i=0;i<temp.size();i++){
+                                                            employeeNames.add(temp.get(i).getNev());
+                                                            empHash.put(temp.get(i).getNev(),temp.get(i).getId());
+                                                        }
+                                                        for(Map.Entry<String,Integer> entry: empHash.entrySet()){
+                                                            Log.d("empkey",entry.getKey()+ " " +entry.getValue());
+                                                        }
+                                                    }
+                                                }
+                                                @Override
+                                                public void onFailure(Call<ArrayList<EmployeeModel>> call, Throwable t) {
+                                                    Log.d("employees: ", t.toString());
+                                                }
+                                            });
                                         }
                                     }
 
@@ -168,13 +199,14 @@ public class manageTasksFragment extends Fragment {
             }
         });
 
-        Log.d("taskID", bundle.getString("equipmentID"));
+        Log.d("taskID", bundle.getString("taskID"));
+        taskID = Integer.parseInt(bundle.getString("taskID"));
         employees.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 final Dialog dialog = new Dialog(getContext());
                 dialog.setContentView(R.layout.prof_dialog);
-                //dialog.setCancelable(true);
+                dialog.setCancelable(true);
                 empList = (ListView) dialog.findViewById(R.id.List);
                 empList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -192,14 +224,50 @@ public class manageTasksFragment extends Fragment {
             }
         });
 
+
         manageTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if(!TextUtils.isEmpty(toolId.getText())&&!TextUtils.isEmpty(severity.getText())&&!TextUtils.isEmpty(reqProf.getText())
+                        &&!TextUtils.isEmpty(employees.getText())&&(taskID!=0))
+                {
+                    //String userID = employees.getText().toString();
+                    String userID = empHash.get(employees.getText().toString()).toString();
+                    Log.d("userID",userID);
+                    Call<String> assignTask  = jsonPlaceHolderApi.assignTask(Integer.parseInt(userID),taskID);
+                    assignTask.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(!response.isSuccessful()){
+                                Log.d("Assign task: ", ""+response.code());
+
+                            }else{
+                                new AlertDialog.Builder(getContext())
+                                        .setTitle(R.string.databaseUpdated)
+                                        .setMessage(R.string.databaseUpdated2)
+                                        .setIcon(getResources().getDrawable(R.drawable.ic_baseline_check_24))
+                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                FragmentManager manager = getFragmentManager();
+                                                FragmentTransaction transaction = manager.beginTransaction();
+                                                transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
+                                                transaction.addToBackStack(null);
+                                                transaction.commit();
+
+                                            }
+                                        })
+                                        .show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Log.d("assignTask", "Failure: "+ t.toString());
+
+                        }
+                    });
+                }
             }
         });
 
