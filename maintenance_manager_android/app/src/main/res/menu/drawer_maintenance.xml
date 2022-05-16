@@ -7,10 +7,6 @@
     >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_tasks_in_progress"
-            android:icon="@drawable/ic_baseline_timelapse_24"
-            android:title="Folyamatban lévő feladatok" />
-        <item
             android:id="@+id/nav_accepted_tasks"
             android:icon="@drawable/ic_baseline_task_24"
             android:title="Elfogadott feladatok" />

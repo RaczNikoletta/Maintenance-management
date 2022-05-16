@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.maintenance_manager_android.model.ListAssignedTasksModel;
@@ -25,9 +26,13 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
         }
 
         private static class ViewHolder {
-            TextView location;
+            TextView status;
             TextView taskSeverity;
             TextView date;
+            TextView locationTv;
+            TextView errorDesc;
+            TextView startTime;
+            LinearLayout secondLin;
         }
 
         @Override
@@ -43,18 +48,27 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
                 LayoutInflater inflater = LayoutInflater.from(context);
                 convertView = inflater.inflate(R.layout.list_assigned_tasks_listview, parent, false);
 
-                viewHolder.location = (TextView) convertView.findViewById(R.id.taskLocation);
+                viewHolder.status = (TextView) convertView.findViewById(R.id.taskLocation);
                 viewHolder.taskSeverity = (TextView) convertView.findViewById(R.id.taskSeverityAssigned);
                 viewHolder.date = (TextView) convertView.findViewById(R.id.taskDate);
+                viewHolder.locationTv = convertView.findViewById(R.id.locationTv);
+                viewHolder.errorDesc = convertView.findViewById(R.id.errorDesc);
+                viewHolder.secondLin = convertView.findViewById(R.id.secondLin);
+                viewHolder.startTime = convertView.findViewById(R.id.startTime);
+
+                viewHolder.secondLin.setVisibility(View.INVISIBLE);
 
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (com.example.maintenance_manager_android.listAssignedTasksAdapter.ViewHolder) convertView.getTag();
             }
 
-            viewHolder.location.setText(dataModel.getLocation());
+            viewHolder.status.setText(dataModel.getStatus());
             viewHolder.date.setText(dataModel.getDate().toString());
             viewHolder.taskSeverity.setText(dataModel.getSeverity());
+            if(dataModel.getStatus().equals("elfogadott")){
+                viewHolder.secondLin.setVisibility(View.VISIBLE);
+            }
 
             if(viewHolder.taskSeverity.getText().toString().equalsIgnoreCase("alacsony"))
             {
@@ -65,6 +79,13 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
                 viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.orange));
             }if(viewHolder.taskSeverity.getText().toString().equalsIgnoreCase("kritikus")){
                 viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.red));
+            }
+
+            if(viewHolder.status.getText().equals("elkezdve")){
+                viewHolder.locationTv.setText(dataModel.getLocation());
+                viewHolder.errorDesc.setText(dataModel.getErrorDesc());
+                //viewHolder.startTime.setText(dataModel.ge);
+
             }
 
 

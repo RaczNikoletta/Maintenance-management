@@ -25,7 +25,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +50,14 @@ public class assignedTasksFragment extends Fragment {
     private  JsonPlaceHolderApi jsonPlaceHolderApi;
     private ArrayList<EquipmentModel> equipmentModels;
     private ArrayList<Integer> taskids;
+    private String status = "kiosztva";
+    private ArrayList<String> allStatus;
+    private ArrayList<String> equipmentNames;
+    private ArrayList<String> errors;
+    private Date tempdate;
+    private String dateStr = "0000-00-00' '00:00:00";
+    private ArrayList<Date> startDate;
+
 
 
     public assignedTasksFragment() {
@@ -67,8 +78,17 @@ public class assignedTasksFragment extends Fragment {
         listView = view.findViewById(R.id.taskAssigned);
         registerForContextMenu(listView);
         toolIds = new ArrayList<>();
-        equipmentModels = new ArrayList<>();
+        equipmentNames = new ArrayList<>();
         taskids = new ArrayList<>();
+        allStatus = new ArrayList<>();
+        errors = new ArrayList<>();
+        SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+        try {
+            tempdate = (Date) curFormater.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        startDate = new ArrayList<>();
 
 
         Gson gson = new GsonBuilder()
@@ -87,7 +107,7 @@ public class assignedTasksFragment extends Fragment {
         int userID = this.getActivity().getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE)
                 .getInt("userId", -1);
         //Log.d("userid: ", Integer.toString(userID));
-        Call<ArrayList<TaskModel>> assignedTasks = jsonPlaceHolderApi.getTaskInProgress(userID,"kiosztva");
+        Call<ArrayList<TaskModel>> assignedTasks = jsonPlaceHolderApi.getTaskInProgress(userID,"all");
         Call<ArrayList<EquipmentModel>> locations = jsonPlaceHolderApi.getEquipments();
 
 
@@ -105,6 +125,11 @@ public class assignedTasksFragment extends Fragment {
                         dates.add(taskList.get(i).getKiosztva());
                         severities.add(taskList.get(i).getSulyossag());
                         taskids.add(taskList.get(i).getFeladat_id());
+                        allStatus.add(taskList.get(i).getAllapot());
+                        if(!(taskList.get(i).getAllapot().equals("kiosztva") || taskList.get(i).getAllapot().equals("elfogadott"))){
+                            startDate.set(i,taskList.get(i).getElkezdve());
+                        }
+                        errors.add(taskList.get(i).getHiba_leiras());
                     }
 
                     locations.enqueue(new Callback<ArrayList<EquipmentModel>>() {
@@ -116,6 +141,8 @@ public class assignedTasksFragment extends Fragment {
                                 equipmentModels = response.body();
                                 for(int i=0;i<equipmentModels.size();i++){
                                     Log.d("i",Integer.toString(i));
+                                    equipmentNames.add(equipmentModels.get(i).getEquipmentName());
+                                    //Log.d("equipmentname:",equipmentNames.get(i));
                                     for(int j=0;j<severities.size();j++){
                                         Log.d("j",Integer.toString(j));
                                         if(equipmentModels.get(i).getEquipmentId()==toolIds.get(j)){
@@ -158,8 +185,13 @@ public class assignedTasksFragment extends Fragment {
 
     public void createList(){
         for(int i=0;i<toolIds.size();i++){
-            list.add(new ListAssignedTasksModel(locationList.get(i),severities.get(i),dates.get(i)));
-            Log.d("severity",severities.get(i));
+            if(!(allStatus.get(i).equals("kiosztva")  || allStatus.get(i).equals("elfogadott") )) {
+                list.add(new ListAssignedTasksModel(allStatus.get(i), severities.get(i), dates.get(i)
+                        , locationList.get(i), errors.get(i),startDate.get(i)));
+            }else{
+                list.add(new ListAssignedTasksModel(allStatus.get(i), severities.get(i), dates.get(i)
+                        , locationList.get(i), errors.get(i),tempdate));
+            }
         }
         listAssignedTasksAdapter adapter = new listAssignedTasksAdapter(list,listView.getContext());
         listView.setAdapter(adapter);
@@ -172,8 +204,15 @@ public class assignedTasksFragment extends Fragment {
         //menu.add(Menu.NONE,0,menu.NONE,"Részletek");
         //menu.add(Menu.NONE,1,menu.NONE,"Elfogad");
         //menu.add(Menu.NONE,2,menu.NONE,"Elutasít");
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.assigned_task_menu, menu);
+        if(allStatus.get(clickedPos).equals("kiosztva")) {
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.assigned_task_menu, menu);
+
+        }else if(allStatus.get(clickedPos).equals("elfogadott")){
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.accepted_task_menu, menu);
+
+        }
     }
 
     public boolean onContextItemSelected(MenuItem item){
@@ -203,6 +242,12 @@ public class assignedTasksFragment extends Fragment {
                 });
                 break;
             case R.id.option_3:
+                break;
+            case R.id.accept_option_1:
+                break;
+            case R.id.accept_option_2:
+                break;
+            case R.id.accept_option_3:
                 break;
         }
 
