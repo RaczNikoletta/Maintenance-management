@@ -81,11 +81,15 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
                 viewHolder.taskSeverity.setTextColor(getContext().getResources().getColor(R.color.red));
             }
 
-            if(viewHolder.status.getText().equals("elkezdve")){
+            if(viewHolder.status.getText().equals("elfogadott")){
+                viewHolder.startTime.setVisibility(View.INVISIBLE);
                 viewHolder.locationTv.setText(dataModel.getLocation());
                 viewHolder.errorDesc.setText(dataModel.getErrorDesc());
-                //viewHolder.startTime.setText(dataModel.ge);
 
+
+            }if(viewHolder.status.getText().equals("elkezdve")){
+                viewHolder.startTime.setVisibility(View.VISIBLE);
+                viewHolder.startTime.setText(dataModel.getStartTime().toString());
             }
 
 

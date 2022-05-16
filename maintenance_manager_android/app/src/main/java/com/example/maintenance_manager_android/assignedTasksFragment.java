@@ -1,10 +1,13 @@
 package com.example.maintenance_manager_android;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -57,6 +61,8 @@ public class assignedTasksFragment extends Fragment {
     private Date tempdate;
     private String dateStr = "0000-00-00' '00:00:00";
     private ArrayList<Date> startDate;
+    private String reason;
+    private ArrayList<Date> assignTime;
 
 
 
@@ -89,6 +95,7 @@ public class assignedTasksFragment extends Fragment {
             e.printStackTrace();
         }
         startDate = new ArrayList<>();
+        assignTime = new ArrayList<>();
 
 
         Gson gson = new GsonBuilder()
@@ -121,15 +128,20 @@ public class assignedTasksFragment extends Fragment {
                     taskList = response.body();
                     //Log.d("else ag",Integer.toString(taskList.size()));
                     for(int i=0;i<taskList.size();i++){
-                        toolIds.add(taskList.get(i).getEszoz_id());
-                        dates.add(taskList.get(i).getKiosztva());
-                        severities.add(taskList.get(i).getSulyossag());
-                        taskids.add(taskList.get(i).getFeladat_id());
-                        allStatus.add(taskList.get(i).getAllapot());
-                        if(!(taskList.get(i).getAllapot().equals("kiosztva") || taskList.get(i).getAllapot().equals("elfogadott"))){
-                            startDate.set(i,taskList.get(i).getElkezdve());
+                        if(!taskList.get(i).getAllapot().equals("elutasitott")) {
+                            toolIds.add(taskList.get(i).getEszoz_id());
+                            dates.add(taskList.get(i).getKiosztva());
+                            severities.add(taskList.get(i).getSulyossag());
+                            taskids.add(taskList.get(i).getFeladat_id());
+                            allStatus.add(taskList.get(i).getAllapot());
+                            if (!(taskList.get(i).getAllapot().equals("kiosztva") || taskList.get(i).getAllapot().equals("elfogadott")
+                                    || taskList.get(i).getAllapot().equals("elutasitott"))) {
+                                startDate.set(i, taskList.get(i).getFelveve());
+                            }
+                            assignTime.add(taskList.get(i).getKiosztva());
+
+                            errors.add(taskList.get(i).getHiba_leiras());
                         }
-                        errors.add(taskList.get(i).getHiba_leiras());
                     }
 
                     locations.enqueue(new Callback<ArrayList<EquipmentModel>>() {
@@ -185,7 +197,7 @@ public class assignedTasksFragment extends Fragment {
 
     public void createList(){
         for(int i=0;i<toolIds.size();i++){
-            if(!(allStatus.get(i).equals("kiosztva")  || allStatus.get(i).equals("elfogadott") )) {
+            if(!(allStatus.get(i).equals("kiosztva")  || allStatus.get(i).equals("elfogadott") || allStatus.get(i).equals("elutasitott"))) {
                 list.add(new ListAssignedTasksModel(allStatus.get(i), severities.get(i), dates.get(i)
                         , locationList.get(i), errors.get(i),startDate.get(i)));
             }else{
@@ -242,16 +254,63 @@ public class assignedTasksFragment extends Fragment {
                 });
                 break;
             case R.id.option_3:
+                declineTask();
                 break;
             case R.id.accept_option_1:
                 break;
             case R.id.accept_option_2:
                 break;
             case R.id.accept_option_3:
+               declineTask();
                 break;
         }
 
         return true;
+    }
+
+    public void declineTask(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+        final EditText edittext = new EditText(getActivity());
+        alert.setMessage("Indok");
+        alert.setTitle("Elutasítás indoka");
+
+        alert.setView(edittext);
+
+        alert.setPositiveButton("Küldés", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //What ever you want to do with the value
+                reason = edittext.getText().toString();
+            }
+        });
+
+        alert.setNegativeButton("Mégse", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // what ever you want to do with No option.
+                alert.setCancelable(true);
+            }
+        });
+
+        alert.show();
+        Call<String>declineTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"elutasitott",reason);
+        declineTask.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!response.isSuccessful()) {
+
+                } else {
+
+                    //Toast.makeText(getActivity(), "Feladat sikeresen elfogadva", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("acceptation failed",t.toString());
+
+            }
+        });
     }
 
 
