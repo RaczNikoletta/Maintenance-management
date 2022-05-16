@@ -6,13 +6,18 @@
     android:id="@+id/admin_menu"
     >
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_baseline_task_24"
-            android:title="@string/tasks" />
         <item
-            android:id="@+id/nav_manage_professions"
-            android:icon="@drawable/ic_baseline_handyman_24"
-            android:title="@string/Manage_professions" />
+            android:id="@+id/nav_tasks_in_progress"
+            android:icon="@drawable/ic_baseline_timelapse_24"
+            android:title="Folyamatban lévő feladatok" />
+        <item
+            android:id="@+id/nav_accepted_tasks"
+            android:icon="@drawable/ic_baseline_task_24"
+            android:title="Elfogadott feladatok" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_baseline_question_mark_24"
+            android:title="Függő feladatok" />
     </group>
     <item android:title="Profile">
         <menu>

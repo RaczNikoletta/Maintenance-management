@@ -72,5 +72,10 @@ public interface JsonPlaceHolderApi {
     Call<ArrayList<TaskModel>>getTaskInProgress(@Query("userId")int userId,
                                                 @Query("status")String status);
 
+    @POST("task/change")
+    Call<String>changeTaskStatus(@Query("taskId")int taskId,
+                                 @Query("status")String status,
+                                 @Query("reason")String reason);
+
 
 }
