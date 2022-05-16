@@ -248,15 +248,7 @@ public class assignedTasksFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.option_1:
                 Log.d("option 1", "option1 selected");
-
-                showTaskFragment fragment = new showTaskFragment();
-                fragment.setArguments(bundle);
-
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment, "");
-                transaction.addToBackStack(null);
-                transaction.commit();
+                changeToShowFragment();
                 break;
             case R.id.option_2:
                 Call<String>acceptTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"elfogadott","reason");
@@ -283,6 +275,7 @@ public class assignedTasksFragment extends Fragment {
                 declineTask();
                 break;
             case R.id.accept_option_1:
+                changeToShowFragment();
                 break;
             case R.id.accept_option_2:
                 break;
@@ -339,5 +332,14 @@ public class assignedTasksFragment extends Fragment {
         });
     }
 
+    public void changeToShowFragment(){
+        showTaskFragment fragment = new showTaskFragment();
+        fragment.setArguments(bundle);
 
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment, "");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }
