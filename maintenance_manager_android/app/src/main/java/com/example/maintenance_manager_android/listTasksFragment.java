@@ -170,9 +170,9 @@ public class listTasksFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
                 ListTasksModel listModel = (ListTasksModel) (adapterView.getItemAtPosition(i));
-                bundle.putString("equipment", listModel.getEquipment().toString());
+                bundle.putString("equipment", listModel.getEquipment());
                 bundle.putString("equipmentID", Integer.toString(toolId.get(i)));
-                bundle.putString("taskID", Integer.toString(toolList.get(i).getEquipmentId()));
+                bundle.putString("taskID", Integer.toString(listModel.getTaskId()));
                 bundle.putString("severity", listModel.getTaskSeverity().toString());
                 manageTasksFragment fragment = new manageTasksFragment();
                 fragment.setArguments(bundle);

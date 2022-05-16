@@ -157,4 +157,14 @@ public class TaskService {
             return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
         }
     }
+    
+    public Response getQualifiedUsers(int qualification_id) {
+        try {
+            ArrayNode users = TDB.getQualifiedUsers(qualification_id);
+            return Response.status(Response.Status.OK).entity(users.toString()).build();
+        } catch (DatabaseException ex) {
+            Logger.getLogger(TaskService.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+    }
 }

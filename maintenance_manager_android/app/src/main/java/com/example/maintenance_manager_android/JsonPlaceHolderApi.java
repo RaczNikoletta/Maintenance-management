@@ -69,8 +69,8 @@ public interface JsonPlaceHolderApi {
     Call<String>assignTask(@Query("userId")int userId,
                             @Query("taskId")int taskId);
 
-    @GET("task/users")
-    Call<ArrayList<EmployeeModel>>getUsers(@Query("role") String role);
+    @GET("task/qualifiedusers")
+    Call<ArrayList<EmployeeModel>>getUsersByQualification(@Query("qualificationid") int qualification_id);
 
     @GET("task")
     Call<ArrayList<TaskModel>>getTaskInProgress(@Query("userId")int userId,

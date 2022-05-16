@@ -138,6 +138,7 @@ public class manageTasksFragment extends Fragment {
                                     subcHash.put(temp.get(i).getSubCategoryId(),temp.get(i).getQualificationId());
                                 }
                                 qualificationId = subcHash.get(subcatId);
+                                Log.d("qualificationId",Integer.toString(qualificationId));
                                 Call<ArrayList<QualificationModel>> quals = jsonPlaceHolderApi.getQuals();
                                 quals.enqueue(new Callback<ArrayList<QualificationModel>>() {
                                     @Override
@@ -152,11 +153,12 @@ public class manageTasksFragment extends Fragment {
                                             reqProf.setText(qualHash.get(qualificationId));
                                             Log.d("reqProf",reqProf.getText().toString());
 
-                                            Call<ArrayList<EmployeeModel>> emps = jsonPlaceHolderApi.getUsers(reqProf.getText().toString());
+                                            Call<ArrayList<EmployeeModel>> emps = jsonPlaceHolderApi.getUsersByQualification(qualificationId);
                                             emps.enqueue(new Callback<ArrayList<EmployeeModel>>() {
                                                 @Override
                                                 public void onResponse(Call<ArrayList<EmployeeModel>> call, Response<ArrayList<EmployeeModel>> response) {
                                                     if (!response.isSuccessful()) {
+                                                        Log.d("employee: ", Integer.toString(qualificationId));
                                                         Log.d("employee: ", "employee query failed: " +response.code());
                                                     }else{
                                                         ArrayList<EmployeeModel> temp = response.body();
