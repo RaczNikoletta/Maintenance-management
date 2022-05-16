@@ -1,9 +1,11 @@
 package com.example.maintenance_manager_android;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.ListTasksModel;
@@ -168,20 +171,41 @@ public class listTasksFragment extends Fragment {
         tasksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle = new Bundle();
                 ListTasksModel listModel = (ListTasksModel) (adapterView.getItemAtPosition(i));
-                bundle.putString("equipment", listModel.getEquipment());
-                bundle.putString("equipmentID", Integer.toString(toolId.get(i)));
-                bundle.putString("taskID", Integer.toString(listModel.getTaskId()));
-                bundle.putString("severity", listModel.getTaskSeverity().toString());
-                manageTasksFragment fragment = new manageTasksFragment();
-                fragment.setArguments(bundle);
+                if(listModel.getTaskState().equals("elfogadott") || listModel.getTaskState().equals("elkezdve")
+                        || listModel.getTaskState().equals("befejezve")) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.databaseError)
+                            .setMessage(R.string.errorTask + listModel.getTaskState())
+                            .setIcon(getResources().getDrawable(R.drawable.ic_baseline_cancel_24))
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    FragmentManager manager = getFragmentManager();
+                                    FragmentTransaction transaction = manager.beginTransaction();
+                                    transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
 
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment_container, fragment, "");
-                transaction.addToBackStack(null);
-                transaction.commit();
+                                }
+                            })
+                            .show();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("equipment", listModel.getEquipment());
+                    bundle.putString("equipmentID", Integer.toString(toolId.get(i)));
+                    bundle.putString("taskID", Integer.toString(listModel.getTaskId()));
+                    bundle.putString("severity", listModel.getTaskSeverity().toString());
+                    manageTasksFragment fragment = new manageTasksFragment();
+                    fragment.setArguments(bundle);
+
+                    FragmentManager manager = getFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragment_container, fragment, "");
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+
             }
         });
 

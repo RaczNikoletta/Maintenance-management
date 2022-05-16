@@ -25,6 +25,7 @@
     <string name="databaseUpdated">Database updated</string>
     <string name="databaseUpdated2">Database updated successfully!</string>
     <string name="databaseError">Error!</string>
+    <string name="errorTask">The task has been already: </string>
     <string name="addProfession">Add profession</string>
     <string name="professions">Professions</string>
     <string name="requiredProfession">Required profession:</string>
@@ -60,10 +61,13 @@
     <string name="role">Role</string>
     <string name="maintainer">maintainer</string>
     <string name="manageTask">Manage task</string>
+    <string name="showTask">Choosen task</string>
     <string name="overview">Overview</string>
     <string name="addtask">Add task</string>
     <string name="handlingTask">Manage tasks</string>
     <string name="unallocatedTasks">Unallocated tasks</string>
     <string name="severity">Severity</string>
+    <string name="state">State</string>
+    <string name="getTime">Allocation time</string>
 
 </resources>

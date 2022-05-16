@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.maintenance_manager_android.model.CategoryModel;
 import com.example.maintenance_manager_android.model.EmployeeModel;
 import com.example.maintenance_manager_android.model.EquipmentModel;
 import com.example.maintenance_manager_android.model.QualificationModel;
@@ -29,7 +28,6 @@ import com.example.maintenance_manager_android.model.SubCategoryModel;
 import com.example.maintenance_manager_android.model.TaskModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +39,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import retrofit2.http.Query;
 
 public class manageTasksFragment extends Fragment {
 
@@ -78,7 +75,7 @@ public class manageTasksFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_manage_tasks, container, false);
 
-        toolId = view.findViewById(R.id.toolID);
+        toolId = view.findViewById(R.id.toolEd);
         severity = view.findViewById(R.id.severity);
         reqProf = view.findViewById(R.id.reqProf);
         employees = view.findViewById(R.id.employeeId);

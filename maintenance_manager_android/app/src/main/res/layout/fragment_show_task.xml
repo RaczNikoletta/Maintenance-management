@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".manageTasksFragment">
+    tools:context=".showTaskFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/manageTask"
+        android:text="@string/showTask"
         android:textSize="25sp" />
 
     <LinearLayout
@@ -46,39 +46,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/severityTv"
+            android:id="@+id/stateTv"
             style="@style/TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/severity" />
+            android:text="@string/state" />
 
         <EditText
-            android:id="@+id/severity"
-            style="@style/EditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:editable="false"
-            android:ems="10"
-            android:inputType="none" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/profTv"
-            style="@style/TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/requiredProfession" />
-
-        <EditText
-            android:id="@+id/reqProf"
+            android:id="@+id/stateEd"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,29 +64,76 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvEmployee"
-        style="@style/TextView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Employee_id" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/employeeId"
-        style="@style/EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="none"
-        tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/severityTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/severity" />
 
-    <Button
-        android:id="@+id/manageTask"
-        style="@style/Button"
+        <EditText
+            android:id="@+id/severityEd"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/manageTask" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/causeTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Cause" />
+
+        <EditText
+            android:id="@+id/cause_error"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/gTimeTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/getTime" />
+
+        <EditText
+            android:id="@+id/allocationTime"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
 
 </LinearLayout>

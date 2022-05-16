@@ -25,6 +25,7 @@
     <string name="databaseUpdated">Adatbázis frissült</string>
     <string name="databaseUpdated2">Adatbázis sikeresen frissült!</string>
     <string name="databaseError">Hiba!</string>
+    <string name="errorTask">A feladat már: </string>
     <!--Fragment manage users -->
     <string name="users">Felhasználók</string>
     <string name="manage_users">Karbantartók kezelése</string>
@@ -59,13 +60,15 @@
     <string name="role">Szerep</string>
     <string name="maintainer">karbantarto</string>
     <string name="manageTask">Feladat kiosztása</string>
+    <string name="showTask">Kiválasztott feladat</string>
     <string name="overview">Áttekintés</string>
     <string name="addtask">Feladat hozzáadása</string>
     <string name="handlingTask">Feladatok kezelése</string>
     <string name="unallocatedTasks">Kiosztatlan feladatok</string>
     <string name="severity">Súlyosság:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="state">Állapot:</string>
+    <string name="getTime">Kiosztás ideje:</string>
+
 
 
 </resources>
