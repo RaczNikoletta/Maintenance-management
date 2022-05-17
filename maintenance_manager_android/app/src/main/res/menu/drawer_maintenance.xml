@@ -7,13 +7,9 @@
     >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_accepted_tasks"
-            android:icon="@drawable/ic_baseline_task_24"
-            android:title="Elfogadott feladatok" />
-        <item
             android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_baseline_question_mark_24"
-            android:title="Függő feladatok" />
+            android:icon="@drawable/ic_baseline_task_24"
+            android:title="Feladatok" />
     </group>
     <item android:title="Profile">
         <menu>

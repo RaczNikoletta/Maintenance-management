@@ -2,6 +2,7 @@ package com.example.maintenance_manager_android;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 
 import com.example.maintenance_manager_android.model.ListAssignedTasksModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksModel> {
 
@@ -91,7 +95,13 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
 
 
             }if(viewHolder.status.getText().equals("elkezdve")){
-                //viewHolder.date.setText(Long.toString((dataModel.getStartTime().getTime()- Calendar.getInstance().getTimeInMillis())/(1000*60))+" perce");
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+                Date end = new Date();//this will be the curent date;
+                //int minutes = (int)((dataModel.getStartTime().getTime()-end.getTime())/(1000*60));
+                //viewHolder.date.setText(Integer.toString(minutes)+" perce");
+                //Log.d("calendar", " "+Calendar.getInstance().getTimeInMillis());
+                //Log.d("Now"," "+ dataModel.getStartTime().getTime());
+
                 //viewHolder.date.setText(Long.toString((dataModel.getStartTime().getTime())));
                 viewHolder.errorDesc.setText(dataModel.getOrder());
             }
@@ -99,6 +109,13 @@ public class listAssignedTasksAdapter extends ArrayAdapter<ListAssignedTasksMode
 
             return convertView;
         }
+
+    public static String GetToday(){
+        Date presentTime_Date = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return dateFormat.format(presentTime_Date);
+    }
     }
 
 

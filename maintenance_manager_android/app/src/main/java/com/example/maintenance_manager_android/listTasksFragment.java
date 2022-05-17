@@ -126,13 +126,15 @@ public class listTasksFragment extends Fragment {
                 } else {
                     taskList = response.body();
                     try{
-                    Log.d("resp"," "+response.code());
-                    Log.d("prof", " "+taskList.get(0).getEszoz_id());
+                    //Log.d("resp"," "+response.code());
+                    //Log.d("prof", " "+taskList.get(0).getEszoz_id());
                     for (int i = 0; i < taskList.size(); i++) {
-                        taskId.add(taskList.get(i).getFeladat_id());
-                        toolId.add(taskList.get(i).getEszoz_id());
-                        status.add(taskList.get(i).getAllapot());
-                        severities.add(taskList.get(i).getSulyossag());
+                        if(!(taskList.get(i).getAllapot().equals("befejezve"))) {
+                            taskId.add(taskList.get(i).getFeladat_id());
+                            toolId.add(taskList.get(i).getEszoz_id());
+                            status.add(taskList.get(i).getAllapot());
+                            severities.add(taskList.get(i).getSulyossag());
+                        }
                     }}catch (Throwable e){
                         Log.d("task regen","task regen failed");
                     }

@@ -23,6 +23,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.maintenance_manager_android.model.EquipmentModel;
@@ -161,13 +162,13 @@ public class assignedTasksFragment extends Fragment {
                                 equipmentModels = response.body();
                                 for(int i=0;i<equipmentModels.size();i++){
                                     //Log.d("i",Integer.toString(i));
-                                    equipmentNames.add(equipmentModels.get(i).getEquipmentName());
-                                    orders.add(equipmentModels.get(i).getDescription());
-                                    //Log.d("equipmentname:",equipmentNames.get(i));
+                                    //Log.d("equipmentname:",orders.get(i));
                                     for(int j=0;j<severities.size();j++){
                                         Log.d("j",Integer.toString(j));
                                         if(equipmentModels.get(i).getEquipmentId()==toolIds.get(j)){
                                             locationList.add(equipmentModels.get(i).getSite());
+                                            orders.add(equipmentModels.get(i).getDescription());
+                                            equipmentNames.add(equipmentModels.get(i).getEquipmentName());
                                         }
                                     }
                                 }
@@ -205,7 +206,7 @@ public class assignedTasksFragment extends Fragment {
                 Log.d("state", taskModel.getStatus());
                 bundle.putString("severity", taskModel.getSeverity());
                 bundle.putString("cause_error", taskModel.getErrorDesc());
-                //bundle.putString("get_time", taskModel.getStartTime().toString());
+                bundle.putString("get_time", assignTime.get(position).toString());
                 //Log.d("datum", DateFormat.format("yyyy-MM-dd' 'HH:mm:ss", taskModel.getStartTime()).toString());
                 return false;
             }
@@ -321,6 +322,21 @@ public class assignedTasksFragment extends Fragment {
                declineTask();
                 break;
             case R.id.in_progress_option_1:
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setMessage("Utasítás");
+                alert.setTitle("Utasítások");
+                final TextView tv = new TextView(getContext());
+                tv.setText(orders.get(clickedPos));
+
+                alert.setView(tv);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+
+                alert.show();
+
 
                 break;
             case R.id.in_progress_option_2:
@@ -372,6 +388,30 @@ public class assignedTasksFragment extends Fragment {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //What ever you want to do with the value
                 reason = editt.getText().toString();
+                Call<String>declineTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"elutasitott",reason);
+                declineTask.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("acceptation failed", Integer.toString(response.code()));
+                        } else {
+                            FragmentManager manager = getFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.fragment_container, new assignedTasksFragment(), "");
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            Toast.makeText(getActivity(), "Feladat sikeresen visszautasítva", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("acceptation failed",t.toString());
+
+                    }
+                });
+
             }
         });
 
@@ -383,25 +423,7 @@ public class assignedTasksFragment extends Fragment {
         });
 
         alert.show();
-        Call<String>declineTask = jsonPlaceHolderApi.changeTaskStatus(taskids.get(clickedPos),"elutasitott",reason);
-        declineTask.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (!response.isSuccessful()) {
 
-                } else {
-
-                    //Toast.makeText(getActivity(), "Feladat sikeresen elfogadva", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("acceptation failed",t.toString());
-
-            }
-        });
     }
 
     public void changeToShowFragment(){
