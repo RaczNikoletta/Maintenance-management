@@ -207,9 +207,7 @@ public class assignedTasksFragment extends Fragment {
                 bundle.putString("severity", taskModel.getSeverity());
                 bundle.putString("cause_error", taskModel.getErrorDesc());
                 bundle.putString("get_time", assignTime.get(position).toString());
-                if(taskModel.getStatus().equals("elfogadott")) {
-                    bundle.putString("location", taskModel.getLocation());
-                }
+                bundle.putString("location", taskModel.getLocation());
                 //Log.d("datum", DateFormat.format("yyyy-MM-dd' 'HH:mm:ss", taskModel.getStartTime()).toString());
                 return false;
             }
