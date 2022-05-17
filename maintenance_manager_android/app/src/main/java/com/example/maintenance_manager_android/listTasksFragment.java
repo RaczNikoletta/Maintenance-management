@@ -48,6 +48,7 @@ public class listTasksFragment extends Fragment {
     private ArrayList<Integer> taskId;
     private ArrayList<String> status;
     private ArrayList <Integer> toolId;
+    private ArrayList <String> deny;
     private ArrayList <String> severities;
     private HashMap<Integer,String> equipmentHash;
     private ArrayList<EquipmentModel> toolList;
@@ -74,6 +75,7 @@ public class listTasksFragment extends Fragment {
         taskId = new ArrayList<>();
         status = new ArrayList<>();
         toolId = new ArrayList<>();
+        deny = new ArrayList<>();
         toolList = new ArrayList<>();
         severities = new ArrayList<>();
         equipmentHash = new HashMap<>();
@@ -132,6 +134,7 @@ public class listTasksFragment extends Fragment {
                         if(!(taskList.get(i).getAllapot().equals("befejezve"))) {
                             taskId.add(taskList.get(i).getFeladat_id());
                             toolId.add(taskList.get(i).getEszoz_id());
+                            deny.add(taskList.get(i).getElutasitas_indok());
                             status.add(taskList.get(i).getAllapot());
                             severities.add(taskList.get(i).getSulyossag());
                         }
@@ -176,10 +179,11 @@ public class listTasksFragment extends Fragment {
                 ListTasksModel listModel = (ListTasksModel) (adapterView.getItemAtPosition(i));
                 if(listModel.getTaskState().equals("elfogadott") || listModel.getTaskState().equals("elkezdve")
                         || listModel.getTaskState().equals("befejezve")) {
+                    String msg = "A feladat már: " + listModel.getTaskState();
                     new AlertDialog.Builder(getContext())
                             .setTitle(R.string.databaseError)
-                            .setMessage(R.string.errorTask + listModel.getTaskState())
-                            .setIcon(getResources().getDrawable(R.drawable.ic_baseline_cancel_24))
+                            .setMessage(msg)
+                            .setIcon(R.drawable.ic_baseline_cancel_24)
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -188,7 +192,6 @@ public class listTasksFragment extends Fragment {
                                     transaction.replace(R.id.fragment_container, new listTasksFragment(), "");
                                     transaction.addToBackStack(null);
                                     transaction.commit();
-
                                 }
                             })
                             .show();
@@ -197,7 +200,11 @@ public class listTasksFragment extends Fragment {
                     bundle.putString("equipment", listModel.getEquipment());
                     bundle.putString("equipmentID", Integer.toString(toolId.get(i)));
                     bundle.putString("taskID", Integer.toString(listModel.getTaskId()));
+                    bundle.putString("state", listModel.getTaskState());
                     bundle.putString("severity", listModel.getTaskSeverity().toString());
+                    if(listModel.getTaskState().equals("elutasitott")) {
+                        bundle.putString("deny", deny.get(i));
+                    }
                     manageTasksFragment fragment = new manageTasksFragment();
                     fragment.setArguments(bundle);
 

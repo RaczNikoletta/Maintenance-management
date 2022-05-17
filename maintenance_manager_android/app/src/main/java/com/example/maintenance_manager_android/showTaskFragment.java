@@ -16,6 +16,7 @@ public class showTaskFragment extends Fragment {
     EditText severity;
     EditText cause_error;
     EditText get_time;
+    EditText location;
 
     public showTaskFragment() {
         // Required empty public constructor
@@ -36,6 +37,7 @@ public class showTaskFragment extends Fragment {
         severity = view.findViewById(R.id.severityEd);
         cause_error = view.findViewById(R.id.cause_error);
         get_time = view.findViewById(R.id.allocationTime);
+        location = view.findViewById(R.id.EDlocation);
 
         Bundle bundle = this.getArguments();
         if(bundle != null){
@@ -44,6 +46,9 @@ public class showTaskFragment extends Fragment {
             severity.setText(bundle.getString("severity"));
             cause_error.setText(bundle.getString("cause_error"));
             get_time.setText(bundle.getString("get_time"));
+            if(bundle.getString("location") != null) {
+                location.setText(bundle.getString("location"));
+            }
         }
         else{
             equipmentName.setText("Task not detected.");

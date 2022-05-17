@@ -69,5 +69,8 @@
     <string name="severity">Severity</string>
     <string name="state">State</string>
     <string name="getTime">Allocation time</string>
+    <string name="deny_cause">Cause of deny</string>
+    <string name="no_deny">Not denied yet</string>
+    <string name="no_location">Not accepted task yet</string>
 
 </resources>

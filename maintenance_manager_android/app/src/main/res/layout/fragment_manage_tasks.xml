@@ -107,6 +107,32 @@
         android:inputType="none"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/denyTv"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/deny_cause" />
+
+        <EditText
+            android:id="@+id/deny"
+            style="@style/EditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/no_deny" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/manageTask"
         style="@style/Button"

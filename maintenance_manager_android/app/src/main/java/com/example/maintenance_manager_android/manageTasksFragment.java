@@ -46,6 +46,7 @@ public class manageTasksFragment extends Fragment {
     EditText severity;
     EditText reqProf;
     EditText employees;
+    EditText deny;
     Button manageTask;
 
     JsonPlaceHolderApi jsonPlaceHolderApi;
@@ -79,6 +80,7 @@ public class manageTasksFragment extends Fragment {
         severity = view.findViewById(R.id.severity);
         reqProf = view.findViewById(R.id.reqProf);
         employees = view.findViewById(R.id.employeeId);
+        deny = view.findViewById(R.id.deny);
         manageTask = view.findViewById(R.id.manageTask);
         employeeNames = new ArrayList<>();
         empHash = new HashMap<>();
@@ -91,6 +93,9 @@ public class manageTasksFragment extends Fragment {
         if(bundle != null){
             toolId.setText(bundle.getString("equipment"));
             severity.setText(bundle.getString("severity"));
+            if(bundle.getString("deny") != null) {
+                deny.setText(bundle.getString("deny"));
+            }
         }
         else{
             toolId.setText("ListItem not detected.");

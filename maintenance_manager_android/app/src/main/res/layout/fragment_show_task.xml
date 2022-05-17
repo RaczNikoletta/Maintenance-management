@@ -136,4 +136,29 @@
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Tvlocation"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Location" />
+
+        <EditText
+            android:id="@+id/EDlocation"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/no_location"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
 </LinearLayout>
